@@ -100,13 +100,11 @@ class UserController extends UtilController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)
     {
-        var_dump($user->email);
-        die();
         $this->levelCheck();
         $user->active = false;
         $user->save();

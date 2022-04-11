@@ -134,6 +134,12 @@ class ClientController extends UtilController
      */
     public function destroy(Client $client)
     {
-        //
+        $client->active = false;
+        if($client->save()){
+            return redirect()->route('clientes.index');
+        }else{
+            die('Erro ao excluir o Cliente');
+        }
+
     }
 }
