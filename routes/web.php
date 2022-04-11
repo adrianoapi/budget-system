@@ -26,7 +26,6 @@ Route::get('/login/recover', "LoginController@recover")->name('login.recover');
 Route::post('/login/recover/do', "LoginController@recoverDo")->name('login.recover.do');
 
 Route::prefix('dashboard')->group(function(){
-    $controller = 'App\Http\Controllers';
     Route::get('/', "DashboardController@index")->name('dashboard.index');
 });
 

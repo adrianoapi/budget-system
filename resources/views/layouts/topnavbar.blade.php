@@ -1,6 +1,6 @@
 <div id="navigation">
     <div class="container-fluid">
-    <a href="#home" id="brand">CRM System</a>
+    <a href="{{route('dashboard.index')}}" id="brand">DRY AIR TEC</a>
         <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation"><i class="icon-reorder"></i></a>
 
         <div class="user">
