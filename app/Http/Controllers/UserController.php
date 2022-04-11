@@ -4,28 +4,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+
+class UserController extends UtilController
 {
     private $title  = 'Usuário';
-    private $levels = [
-        1 => 'Representante',
-        2 => 'Gerente',
-        3 => 'Proprietário',
-    ];
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    public function levelCheck()
-    {
-        if(Auth::user()->level <= 1){
-            die('Você não tem permissão!');
-        }
-    }
 
     /**
      * Display a listing of the resource.

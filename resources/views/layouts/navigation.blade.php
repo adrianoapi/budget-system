@@ -7,7 +7,7 @@
 				</div>
 				<ul class="subnav-menu">
 					<li>
-						<a href="{{route('usuarios.index')}}">Usuarios</a>
+						<a href="{{route('usuarios.index')}}">USUÁRIOS</a>
 					</li>
 				</ul>
                 @endif
@@ -15,33 +15,12 @@
 
 			<div class="subnav">
 				<div class="subnav-title">
-					<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Cobrança</span></a>
+					<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Proposta</span></a>
 				</div>
 				<ul class="subnav-menu">
 					<li>
-						<a href="{{route('dashboard.index')}}">CONTRATO - EVOLUTIME</a>
-					</li>
+						<a href="{{route('clientes.index')}}">CLIENTES</a>
 					<li>
-					</li>
-					<li>
-						<a href="#">GRAFICA - ENNT</a>
-					</li>
-					<li>
-						<a href="#">RETORNO</a>
-					</li>
-				</ul>
-			</div>
-
-			<div class="subnav">
-				<div class="subnav-title">
-					<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Financeiro</span></a>
-				</div>
-				<ul class="subnav-menu">
-                    @if(Auth::user()->level > 1)
-                    <li>
-                        <a href="#">CAIXA</a>
-                    </li>
-                    @endif
 				</ul>
 			</div>
 

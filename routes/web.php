@@ -36,8 +36,16 @@ Route::prefix('usuarios')->group(function(){
     Route::post('store',      'UserController@store' )->name('usuarios.store');
     Route::get('edit/{user}', 'UserController@edit'  )->name('usuarios.edit');
     Route::put('edit/{user}', 'UserController@update')->name('usuarios.update');
-    #Route::get('{user}',      'UserController@show'  )->name('usuarios.show');
-    #Route::post('visualizar',     'UserController@show'  )->name('usuarios.show');
 
     Route::delete('destroy/{user}', 'UserController@destroy')->name('usuarios.destroy');
+});
+
+Route::prefix('clientes')->group(function(){
+    Route::get('/',           'ClientController@index' )->name('clientes.index');
+    Route::get('novo',        'ClientController@create')->name('clientes.create');
+    Route::post('store',      'ClientController@store' )->name('clientes.store');
+    Route::get('edit/{user}', 'ClientController@edit'  )->name('clientes.edit');
+    Route::put('edit/{user}', 'ClientController@update')->name('clientes.update');
+
+    Route::delete('destroy/{user}', 'ClientController@destroy')->name('clientes.destroy');
 });
