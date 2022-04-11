@@ -29,7 +29,8 @@
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
-                                        <th>E-mail</th>
+                                        <th>Responsável</th>
+                                        <th>Telefone</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -37,7 +38,18 @@
                                 @foreach ($users as $value)
                                     <tr>
                                         <td>{{$value->name}}</td>
-                                        <td>{{$value->email}}</td>
+                                        <td>{{$value->responsavel}}</td>
+                                        <td>
+                                            @if(!empty($value->telefone))
+                                                {{$value->telefone}} |
+                                            @endif
+                                            @if(!empty($value->telefone_com))
+                                                {{$value->telefone_com}} |
+                                            @endif
+                                            @if(!empty($value->celular))
+                                                {{$value->celular}}
+                                            @endif
+                                        </td>
                                         <td class='hidden-1024'>
                                             {{ Form::open(['route' => ['clientes.destroy', $value->id],  'method' => 'POST']) }}
                                                 @csrf
