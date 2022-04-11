@@ -44,8 +44,8 @@ Route::prefix('clientes')->group(function(){
     Route::get('/',           'ClientController@index' )->name('clientes.index');
     Route::get('novo',        'ClientController@create')->name('clientes.create');
     Route::post('store',      'ClientController@store' )->name('clientes.store');
-    Route::get('edit/{user}', 'ClientController@edit'  )->name('clientes.edit');
-    Route::put('edit/{user}', 'ClientController@update')->name('clientes.update');
+    Route::get('edit/{client}', 'ClientController@edit'  )->name('clientes.edit');
+    Route::put('edit/{client}', 'ClientController@update')->name('clientes.update');
 
-    Route::delete('destroy/{user}', 'ClientController@destroy')->name('clientes.destroy');
+    Route::delete('destroy/{client}', 'ClientController@destroy')->name('clientes.destroy');
 });

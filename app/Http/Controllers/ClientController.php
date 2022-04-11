@@ -67,7 +67,6 @@ class ClientController extends UtilController
         }else{
             echo 'Erro ao cadastrar o cliente!';
         }
-
     }
 
     /**
@@ -89,7 +88,8 @@ class ClientController extends UtilController
      */
     public function edit(Client $client)
     {
-        //
+        $title = $this->title. " alterar";
+        return view('clients.edit', ['title' => $title, 'client' => $client, 'estados' => $this->getEstados()]);
     }
 
     /**
@@ -101,7 +101,29 @@ class ClientController extends UtilController
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $client->user_id       = Auth::id();
+        $client->name          = $request->name;
+        $client->responsavel   = $request->responsavel;
+        $client->cpf_cnpj      = $request->cpf_cnpj;
+        $client->ie            = $request->ie;
+        $client->telefone      = $request->telefone;
+        $client->telefone_com  = $request->telefone_com;
+        $client->celular       = $request->celular;
+        $client->email         = $request->email;
+        $client->cep           = $request->cep;
+        $client->endereco      = $request->endereco;
+        $client->numero        = $request->numero;
+        $client->complemento   = $request->complemento;
+        $client->bairro        = $request->bairro;
+        $client->cidade        = $request->cidade;
+        $client->estado        = $request->estado;
+        $client->active        = true;
+        
+        if($client->save()){
+            return redirect()->route('clientes.index');
+        }else{
+            echo 'Erro ao atualizar o cliente!';
+        }
     }
 
     /**
