@@ -16,6 +16,8 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('updated_user_id')->default(0);
+            $table->unsignedBigInteger('deactivate_user_id')->default(0);
             $table->string('descricao');
             $table->string('codigo', 10)->nullable(true);
             $table->string('espessura', 10)->nullable(true);
@@ -25,8 +27,6 @@ class CreateProductsTable extends Migration
             $table->decimal('icms', 10, 2)->nullable(true);
             $table->decimal('ipi', 10, 2)->nullable(true);
             $table->boolean('active')->default(true);
-            $table->unsignedBigInteger('updated_user_id');
-            $table->unsignedBigInteger('deactivate_user_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');

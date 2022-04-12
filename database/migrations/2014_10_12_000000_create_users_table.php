@@ -15,6 +15,10 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('updated_user_id')->default(0);
+            $table->unsignedBigInteger('deactivate_user_id')->default(0);
+            $table->integer('level');
+            $table->boolean('active');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

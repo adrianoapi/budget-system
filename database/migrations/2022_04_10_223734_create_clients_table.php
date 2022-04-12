@@ -16,6 +16,8 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('updated_user_id')->default(0);
+            $table->unsignedBigInteger('deactivate_user_id')->default(0);
             $table->string('name', 100)->nullable(true);
             $table->string('responsavel', 100)->nullable(true);
             $table->string('cpf_cnpj', 30)->nullable(true);
@@ -32,8 +34,6 @@ class CreateClientsTable extends Migration
             $table->string('cidade')->nullable(true);
             $table->string('estado', 2)->nullable(true);
             $table->boolean('active')->default(true);
-            $table->unsignedBigInteger('updated_user_id');
-            $table->unsignedBigInteger('deactivate_user_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
