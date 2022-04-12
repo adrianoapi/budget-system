@@ -16,6 +16,8 @@ class AddColumnsToUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->integer('level');
             $table->boolean('active');
+            $table->unsignedBigInteger('updated_user_id');
+            $table->unsignedBigInteger('deactivate_user_id');
         });
     }
 
@@ -29,6 +31,8 @@ class AddColumnsToUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('level');
             $table->dropColumn('active');
+            $table->dropColumn('updated_user_id');
+            $table->dropColumn('deactivate_user_id');
         });
     }
 }

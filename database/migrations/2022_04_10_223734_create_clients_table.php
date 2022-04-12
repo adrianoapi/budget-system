@@ -32,6 +32,8 @@ class CreateClientsTable extends Migration
             $table->string('cidade')->nullable(true);
             $table->string('estado', 2)->nullable(true);
             $table->boolean('active')->default(true);
+            $table->unsignedBigInteger('updated_user_id');
+            $table->unsignedBigInteger('deactivate_user_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
