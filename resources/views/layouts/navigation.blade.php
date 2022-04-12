@@ -9,6 +9,9 @@
 					<li>
 						<a href="{{route('usuarios.index')}}">USUÁRIOS</a>
 					</li>
+					<li>
+						<a href="{{route('produtos.index')}}">PRODUTOS</a>
+					</li>
 				</ul>
                 @endif
 			</div>

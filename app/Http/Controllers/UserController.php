@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends UtilController
 {
@@ -91,7 +91,7 @@ class UserController extends UtilController
         if(!empty($request->password)){
             $user->password = Hash::make($request->password);
         }
-
+        $user->updated_user_id = Auth::id();
         $user->save();
 
         return redirect()->route('usuarios.index');
@@ -107,6 +107,7 @@ class UserController extends UtilController
     {
         $this->levelCheck();
         $user->active = false;
+        $user->deactivate_user_id = Auth::id();
         $user->save();
 
         return redirect()->route('usuarios.index');

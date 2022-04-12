@@ -40,11 +40,21 @@ Route::prefix('usuarios')->group(function(){
 });
 
 Route::prefix('clientes')->group(function(){
-    Route::get('/',           'ClientController@index' )->name('clientes.index');
-    Route::get('novo',        'ClientController@create')->name('clientes.create');
-    Route::post('store',      'ClientController@store' )->name('clientes.store');
+    Route::get('/',             'ClientController@index' )->name('clientes.index');
+    Route::get('novo',          'ClientController@create')->name('clientes.create');
+    Route::post('store',        'ClientController@store' )->name('clientes.store');
     Route::get('edit/{client}', 'ClientController@edit'  )->name('clientes.edit');
     Route::put('edit/{client}', 'ClientController@update')->name('clientes.update');
 
     Route::delete('destroy/{client}', 'ClientController@destroy')->name('clientes.destroy');
+});
+
+Route::prefix('produtos')->group(function(){
+    Route::get('/',              'ProductController@index' )->name('produtos.index');
+    Route::get('novo',           'ProductController@create')->name('produtos.create');
+    Route::post('store',         'ProductController@store' )->name('produtos.store');
+    Route::get('edit/{product}', 'ProductController@edit'  )->name('produtos.edit');
+    Route::put('edit/{product}', 'ProductController@update')->name('produtos.update');
+
+    Route::delete('destroy/{product}', 'ProductController@destroy')->name('produtos.destroy');
 });

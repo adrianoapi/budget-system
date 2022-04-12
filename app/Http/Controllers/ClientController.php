@@ -101,7 +101,8 @@ class ClientController extends UtilController
      */
     public function update(Request $request, Client $client)
     {
-        $client->user_id       = Auth::id();
+        $client->updated_user_id = Auth::id();
+
         $client->name          = $request->name;
         $client->responsavel   = $request->responsavel;
         $client->cpf_cnpj      = $request->cpf_cnpj;
@@ -135,11 +136,11 @@ class ClientController extends UtilController
     public function destroy(Client $client)
     {
         $client->active = false;
+        $client->deactivate_user_id = Auth::id();
         if($client->save()){
             return redirect()->route('clientes.index');
         }else{
             die('Erro ao excluir o Cliente');
         }
-
     }
 }
