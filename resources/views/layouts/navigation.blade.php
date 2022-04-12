@@ -18,11 +18,14 @@
 
 			<div class="subnav">
 				<div class="subnav-title">
-					<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Proposta</span></a>
+					<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Operacional</span></a>
 				</div>
 				<ul class="subnav-menu">
 					<li>
 						<a href="{{route('clientes.index')}}">CLIENTES</a>
+					<li>
+					<li>
+						<a href="{{route('cotacoes.index')}}">COTAÇÕES</a>
 					<li>
 				</ul>
 			</div>

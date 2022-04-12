@@ -23,6 +23,15 @@ class UtilController extends Controller
         }
     }
 
+    public function autoridadeCheck($user_id)
+    {
+        if(Auth::user()->level <= 1){
+            if(Auth::id() != $user_id){
+                die('Não encontrado! Error: auth');
+            }
+        }
+    }
+
     public function getEstados()
     {
         return [

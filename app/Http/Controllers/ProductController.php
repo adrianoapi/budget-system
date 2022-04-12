@@ -18,7 +18,7 @@ class ProductController extends UtilController
     public function index()
     {
         $title = $this->title. " listagem";
-        $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(100);
+        $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(10);
         return view('products.index', ['title' => $title, 'products' => $products]);
     }
 

@@ -58,3 +58,13 @@ Route::prefix('produtos')->group(function(){
 
     Route::delete('destroy/{product}', 'ProductController@destroy')->name('produtos.destroy');
 });
+
+Route::prefix('cotacoes')->group(function(){
+    Route::get('/',              'QuoteController@index' )->name('cotacoes.index');
+    Route::get('novo/{client}',  'QuoteController@create')->name('cotacoes.create');
+    Route::post('store',         'QuoteController@store' )->name('cotacoes.store');
+    Route::get('edit/{quote}',   'QuoteController@edit'  )->name('cotacoes.edit');
+    Route::put('edit/{quote}',   'QuoteController@update')->name('cotacoes.update');
+
+    Route::delete('destroy/{quote}', 'ProductController@destroy')->name('cotacoes.destroy');
+});
