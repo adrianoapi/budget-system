@@ -71,9 +71,7 @@ class ProductController extends UtilController
         $product = Product::where('active', true)->firstOrFail();
         if(!empty($product))
         {
-            return response()->json([
-                'product' => $product
-            ]);
+            return response()->json($product);
         }
     }
 

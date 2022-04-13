@@ -159,7 +159,7 @@
             <form action="#" class='new-task-form form-horizontal form-bordered'>
                 <div class="">
                     <div class="control-group">
-                        <label for="tasktitel" class="control-label">Icon</label>
+                        {{Form::label('codigo', 'Código*', array('class' => 'control-label'))}}
                         <div class="controls">
                             <div class="input-xlarge">
                                 <select name="select" id="select-product" onselect="showDynamic(this.id)" class='chosen-select'>
@@ -172,15 +172,39 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label for="task-name" class="control-label">Task</label>
+                        {{Form::label('espessura', 'Espessura', array('class' => 'control-label'))}}
                         <div class="controls">
-                            <input type="text" name="task-name">
+                            {{Form::text('espessura', '', ['id' => 'espessura','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
                         </div>
                     </div>
                     <div class="control-group">
-                        <label for="tasktitel" class="control-label"></label>
+                        {{Form::label('cobre', 'Cobre', array('class' => 'control-label'))}}
                         <div class="controls">
-                            <label class="checkbox"><input type="checkbox" name="task-bookmarked" value="yep"> Mark as important</label>
+                            {{Form::text('cobre', '', ['id' => 'cobre','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('arco', 'Arco', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('arco', '', ['id' => 'arco','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('valor', 'Valor', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('valor', '', ['id' => 'valor','placeholder' => '0.00', 'class' => 'money input-medium', 'required' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('icms', 'ICMS', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('icms', '', ['id' => 'icms','placeholder' => '0.00', 'class' => 'decimal input-medium', 'required' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('ipi', 'IPI', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('ipi', '', ['id' => 'ipi','placeholder' => '0.00', 'class' => 'decimal input-medium', 'required' => true])}}
                         </div>
                     </div>
                 </div>
@@ -199,9 +223,12 @@
 
 <script type="text/javascript">
 
+const attributes = ['espessura', 'cobre', 'arco', 'valor', 'icms', 'ipi'];
+
 $('#select-product').on('change', function () {
   //console.log('Changed option value ' + this.value);
   //console.log('Changed option text ' + $(this).find('option').filter(':selected').text());
+  clear();
 
   $.ajax({
     url: "{{route('produtos.show')}}",
@@ -211,11 +238,23 @@ $('#select-product').on('change', function () {
         "id": this.value
     },
     dataType: 'json',
-        success: function(data){
-            console.log(data);
+        success: function(data)
+        {
+            for(var i = 0; i < attributes.length; i++)
+            {
+                $("#"+attributes[i]).val(data[attributes[i]]);
+            }
         }
     });
 });
+
+function clear()
+{
+    for(var i = 0; i < attributes.length; i++)
+    {
+        $("#"+attributes[i]).val("");
+    }
+}
 
     
     </script>
