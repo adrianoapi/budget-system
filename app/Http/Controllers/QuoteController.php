@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Quote;
 use App\Models\Client;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class QuoteController extends UtilController
@@ -40,7 +41,8 @@ class QuoteController extends UtilController
 
             $this->autoridadeCheck($client->user_id);
 
-            return view('quotes.add', ['title' => $title, 'client' => $client]);
+            $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(1000);
+            return view('quotes.add', ['title' => $title, 'client' => $client, 'products' => $products]);
 
         }else{
             die('Cliente não encontrado!');

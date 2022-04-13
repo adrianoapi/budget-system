@@ -64,12 +64,17 @@ class ProductController extends UtilController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
      */
-    public function show(Product $product)
+    public function show(Request $request)
     {
-        //
+        $product = Product::where('active', true)->firstOrFail();
+        if(!empty($product))
+        {
+            return response()->json([
+                'product' => $product
+            ]);
+        }
     }
 
     /**

@@ -68,6 +68,15 @@
                                 </tbody></table>
                             </div>
                         </div>
+
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="basic-margin" style="float:right;">
+                                    <a href="#new-task" data-toggle="modal" class="btn btn-blue"><i class="icon-plus-sign"></i> Adicionar Produto</a>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <table class="table table-striped table-invoice">
                             <thead>
                                 <tr>
@@ -132,18 +141,7 @@
                         <div class="invoice-payment">
                             <span>Payment methods</span>
                             <ul>
-                                <li>
-                                    <img src="img/demo/paypal.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="img/demo/visa.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="img/demo/directd.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="img/demo/mastercard.png" alt="">
-                                </li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -151,10 +149,76 @@
             </div>
         </div>
 
+
+        <!--Modal-->
+        <div id="new-task" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Adicionando Produto</h3>
+            </div>
+            <form action="#" class='new-task-form form-horizontal form-bordered'>
+                <div class="">
+                    <div class="control-group">
+                        <label for="tasktitel" class="control-label">Icon</label>
+                        <div class="controls">
+                            <div class="input-xlarge">
+                                <select name="select" id="select-product" onselect="showDynamic(this.id)" class='chosen-select'>
+                                    <option value="">Selecione...</option>
+                                    @foreach($products as $value)
+                                    <option value="{{$value->id}}">{{$value->codigo}} - {{$value->descricao}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="task-name" class="control-label">Task</label>
+                        <div class="controls">
+                            <input type="text" name="task-name">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="tasktitel" class="control-label"></label>
+                        <div class="controls">
+                            <label class="checkbox"><input type="checkbox" name="task-bookmarked" value="yep"> Mark as important</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Adicionar">
+                </div>
+            </form>
+    
+        </div>
+                    
+
         </div>
     </div>
 
 </div>
+
+<script type="text/javascript">
+
+$('#select-product').on('change', function () {
+  //console.log('Changed option value ' + this.value);
+  //console.log('Changed option text ' + $(this).find('option').filter(':selected').text());
+
+  $.ajax({
+    url: "{{route('produtos.show')}}",
+    type: "GET",
+    data: {
+        "_token": "{{csrf_token()}}",
+        "id": this.value
+    },
+    dataType: 'json',
+        success: function(data){
+            console.log(data);
+        }
+    });
+});
+
+    
+    </script>
 
     
 @endsection

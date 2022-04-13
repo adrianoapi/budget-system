@@ -52,6 +52,7 @@ Route::prefix('clientes')->group(function(){
 Route::prefix('produtos')->group(function(){
     Route::get('/',              'ProductController@index' )->name('produtos.index');
     Route::get('novo',           'ProductController@create')->name('produtos.create');
+    Route::get('show',           'ProductController@show'  )->name('produtos.show');
     Route::post('store',         'ProductController@store' )->name('produtos.store');
     Route::get('edit/{product}', 'ProductController@edit'  )->name('produtos.edit');
     Route::put('edit/{product}', 'ProductController@update')->name('produtos.update');

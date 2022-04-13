@@ -9,10 +9,12 @@
         <link rel="stylesheet" href="{!! asset('flat-admin/css/bootstrap.min.css') !!}">
         <!-- Bootstrap responsive -->
         <link rel="stylesheet" href="{!! asset('flat-admin/css/bootstrap-responsive.min.css') !!}">
+        <!-- chosen -->
+	    <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/chosen/chosen.css') !!}">
         <!-- jQuery UI -->
         <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/jquery-ui/smoothness/jquery-ui.css') !!}">
         <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/jquery-ui/smoothness/jquery.ui.theme.css') !!}">
-        <!-- multi select -->
+        <!-- select2 -->
 	    <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/select2/select2.css') !!}">
         <!-- Theme CSS -->
         <link rel="stylesheet" href="{!! asset('flat-admin/css/style.css') !!}">
@@ -39,6 +41,8 @@
         <script src="{!! asset('flat-admin/js/bootstrap.min.js') !!}"></script>
         <!-- Form -->
         <script src="{!! asset('flat-admin/js/plugins/form/jquery.form.min.js') !!}"></script>
+        <!-- Chosen -->
+	    <script src="{!! asset('flat-admin/js/plugins/chosen/chosen.jquery.min.js') !!}"></script>
         <!-- select2 -->
 	    <script src="{!! asset('flat-admin/js/plugins/select2/select2.min.js') !!}"></script>
 
@@ -55,7 +59,7 @@
         <script src="{!! asset('librarys/jquery.mask.min.js') !!}"></script>
 
         <!--[if lte IE 9]>
-            <script src="js/plugins/placeholder/jquery.placeholder.min.js"></script>
+            <script src="{!! asset('flat-admin/js/plugins/placeholder/jquery.placeholder.min.js') !!}"></script>
             <script>
                 $(document).ready(function() {
                     $('input, textarea').placeholder();
