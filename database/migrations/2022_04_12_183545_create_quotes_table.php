@@ -20,10 +20,10 @@ class CreateQuotesTable extends Migration
             $table->unsignedBigInteger('deactivate_user_id')->default(0);
             $table->unsignedBigInteger('client_id');
             $table->decimal('valor', 10, 2)->nullable(true);
-            $table->string('pagamento');
-            $table->string('prazo');
-            $table->string('transportadora');
-            $table->text('observacoes');
+            $table->string('pagamento')->nullable(true);
+            $table->string('prazo')->nullable(true);
+            $table->string('transportadora')->nullable(true);
+            $table->text('observacoes')->nullable(true);
             /*$table->integer('quantidade', 5);
             $table->decimal('icms', 10, 2)->nullable(true);
             $table->decimal('ipi', 10, 2)->nullable(true);*/

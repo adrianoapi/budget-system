@@ -35,42 +35,24 @@ class QuoteController extends UtilController
         
         $id     = (int) $client;
         $client = Client::where('active', true)
-        ->where('id', $id)->firstOrFail();
+                    ->where('id', $id)
+                    ->firstOrFail();
 
         if(!empty($client)){
 
             $this->autoridadeCheck($client->user_id);
 
-            $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(1000);
-            return view('quotes.add', ['title' => $title, 'client' => $client, 'products' => $products]);
+            $model = new Quote();
+            $model->user_id     =  $client->id;
+            $model->client_id   =  $client->user_id;
+
+            if($model->save()){
+                return redirect()->route('cotacoes.edit', ['quote' => $model->id]);
+            }
 
         }else{
             die('Cliente não encontrado!');
         }
-
-        
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Quote  $quote
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Quote $quote)
-    {
-        //
     }
 
     /**
@@ -81,7 +63,14 @@ class QuoteController extends UtilController
      */
     public function edit(Quote $quote)
     {
-        //
+        $title = $this->title. " editar";
+
+        $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(1000);
+        return view('quotes.edit', [
+            'title' => $title,
+            'quote' => $quote,
+            'products' => $products
+        ]);
     }
 
     /**

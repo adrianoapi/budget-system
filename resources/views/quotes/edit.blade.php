@@ -10,160 +10,254 @@
     <div id="main">
         <div class="container-fluid">
 
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="box box-bordered box-color">
-                        <div class="box-title">
-                            <h3><i class="icon-th-list"></i> {{$title}}</h3>
+        <div class="row-fluid">
+
+            <div class="span12">
+                <div class="box box-bordered box-color">
+                    <div class="box-title">
+                        <h3>
+                            <i class="icon-money"></i>
+                            Cotação
+                        </h3>
+                    </div>
+                    <div class="box-content">
+                        <div class="invoice-info">
+                            <div class="invoice-from">
+                                <span>De</span>
+                                <strong>Company Name</strong>
+                                <address>
+                                    Street Address <br>
+                                    City, ST ZIP Code <br>
+                                    <abbr title="Phone">Phone:</abbr> (125) 358123-581 <br>
+                                    <abbr title="Fax">Fax:</abbr> (125) 251656-222 
+                                </address>
+                            </div>
+                            <div class="invoice-to">
+                                <span>Para</span>
+                                <strong>{{$quote->client->name}}</strong>
+                                <address>
+                                    {{$quote->client->endereco}}, {{$quote->client->numero}} <br>
+                                    {{$quote->client->bairro}}, {{$quote->client->cidade}}/{{$quote->client->estado}}, {{$quote->client->cep}} <br>
+                                    <abbr title="Telefone">Phone:</abbr>
+                                    @if(!empty($quote->client->telefone))
+                                    {{$quote->client->telefone}} |
+                                    @endif
+                                    @if(!empty($quote->client->telefone_com))
+                                        {{$quote->client->telefone_com}} |
+                                    @endif
+                                    @if(!empty($quote->client->celular))
+                                        {{$quote->client->celular}}
+                                    @endif<br>
+                                    <abbr title="E-mail">E-mail:</abbr> {{$quote->client->celular}}
+                                </address>
+                            </div>
+                            <div class="invoice-infos">
+                                <table>
+                                    <tbody><tr>
+                                        <th>Date:</th>
+                                        <td>Aug 06, 2012</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Invoice #:</th>
+                                        <td>0001752188s</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Product:</th>
+                                        <td>Service Hotline</td>
+                                    </tr>
+                                </tbody></table>
+                            </div>
                         </div>
-                        <div class="box-content">
-                            {{ Form::open(array('route' => ['clientes.update', $client->id],  'method' => 'put', 'class' => 'form-vertical')) }}
-                            @csrf
-                                <div class="row-fluid">
-                                    <div class="span3">
-                                        <div class="control-group">
-                                            {{Form::label('name', 'Nome/Razão Social*', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('name', $client->name, ['id' => 'name','placeholder' => 'Insira o nome', 'class' => 'input-block-level', 'required' => true])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span3">
-                                        <div class="control-group">
-                                            {{Form::label('responsavel', 'Responsável*', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('responsavel', $client->responsavel, ['id' => 'responsavel','placeholder' => 'Insira o responsável', 'class' => 'input-block-level', 'required' => true])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span3">
-                                        <div class="control-group">
-                                            {{Form::label('cpf_cnpj', 'CNPJ*', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('cpf_cnpj', $client->cpf_cnpj, ['id' => 'cpf_cnpj','placeholder' => '00.000.000/0000-00', 'class' => 'input-block-level', 'required' => true])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span3">
-                                        <div class="control-group">
-                                            {{Form::label('ie', 'I.E*', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('ie', $client->ie, ['id' => 'ie','placeholder' => '000.000.000.000', 'class' => 'input-block-level', 'required' => true])}}
-                                            </div>
-                                        </div>
-                                    </div>
+
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="basic-margin" style="float:right;">
+                                    <a href="#new-task" data-toggle="modal" class="btn btn-blue"><i class="icon-plus-sign"></i> Adicionar Produto</a>
                                 </div>
-                                <div class="row-fluid">
-                                    <div class="span3">
-                                        <div class="control-group">
-                                            {{Form::label('telefone', 'Telefone*', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('telefone', $client->telefone, ['id' => 'telefone','placeholder' => '(00) 0000-0000', 'class' => 'input-block-level', 'required' => true])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span3">
-                                        <div class="control-group">
-                                            {{Form::label('telefone_com', 'Telefone comercial', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('telefone_com', $client->telefone_com, ['id' => 'telefone_com','placeholder' => '(00) 0000-0000', 'class' => 'input-block-level'])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span3">
-                                        <div class="control-group">
-                                            {{Form::label('celular', 'Telefone celular', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('celular', $client->celular, ['id' => 'celular','placeholder' => '(00) 00000-0000', 'class' => 'input-block-level'])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span3">
-                                        <div class="control-group">
-                                            {{Form::label('email', 'E-mail', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('email', $client->email, ['id' => 'email','placeholder' => 'name@provider.domain', 'class' => 'input-block-level'])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row-fluid">
-                                    <div class="span2">
-                                        <div class="control-group">
-                                            {{Form::label('ecepmail', 'CEP*', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('cep', $client->cep, ['id' => 'cep','placeholder' => '00000000', 'class' => 'input-block-level', 'required' => true, 'max' => '9' ])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span8">
-                                        <div class="control-group">
-                                            <label for="endereco" class="control-label">Endereço* <samll><b><a href="javascript:void(0)" onClick="consultaCep()" id="a_cep">Auto completar</a></b></small></label>
-                                            <div class="controls controls-row">
-                                                {{Form::text('endereco', $client->endereco, ['id' => 'endereco','placeholder' => 'Insira o endereço', 'class' => 'input-block-level', 'required' => true])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span2">
-                                        <div class="control-group">
-                                            {{Form::label('numero', 'Número*', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('numero', $client->numero, ['id' => 'numero','placeholder' => '123', 'class' => 'input-block-level', 'required' => true])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row-fluid">
-                                    <div class="span2">
-                                        <div class="control-group">
-                                            {{Form::label('complemento', 'Complemento', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('complemento', $client->complemento, ['id' => 'complemento','placeholder' => '...', 'class' => 'input-block-level'])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span4">
-                                        <div class="control-group">
-                                            {{Form::label('bairro', 'Bairro*', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('bairro', $client->bairro, ['id' => 'bairro','placeholder' => 'Insira o bairro', 'class' => 'input-block-level', 'required' => true])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span4">
-                                        <div class="control-group">
-                                            {{Form::label('cidade', 'Cidade*', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::text('cidade', $client->cidade, ['id' => 'cidade','placeholder' => 'Insira a cidade', 'class' => 'input-block-level', 'required' => true])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span2">
-                                        <div class="control-group">
-                                            {{Form::label('estado', 'Estado*', array('class' => 'control-label'))}}
-                                            <div class="controls controls-row">
-                                                {{Form::select('estado', $estados, $client->estado, ['class' => 'select2-me input-block-level'])}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">Salvar</button>
-                                    <a href="{{route('clientes.index')}}" class="btn">Cancelar</a>
-                                </div>
-                            {{ Form::close() }}
+                            </div>
+                        </div>
+                        
+                        <table class="table table-striped table-invoice">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th class="tr">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="name">Lorem ipsum in eu quis</td>
+                                    <td class="price">$30.00</td>
+                                    <td class="qty">3</td>
+                                    <td class="total">$90.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Lorem ipsum in eu quis</td>
+                                    <td class="price">$30.00</td>
+                                    <td class="qty">3</td>
+                                    <td class="total">$90.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Lorem ipsum in eu quis</td>
+                                    <td class="price">$30.00</td>
+                                    <td class="qty">3</td>
+                                    <td class="total">$90.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Lorem ipsum in eu quis</td>
+                                    <td class="price">$30.00</td>
+                                    <td class="qty">3</td>
+                                    <td class="total">$90.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Lorem ipsum in eu quis</td>
+                                    <td class="price">$30.00</td>
+                                    <td class="qty">3</td>
+                                    <td class="total">$90.00</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td class="taxes">
+                                        <p>
+                                            <span class="light">Subtotal</span>
+                                            <span>$450.00</span>
+                                        </p>
+                                        <p>
+                                            <span class="light">Tax(10%)</span>
+                                            <span>$45.00</span>
+                                        </p>
+                                        <p>
+                                            <span class="light">Total</span>
+                                            <span class="totalprice">
+                                                $495.00
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="invoice-payment">
+                            <span>Payment methods</span>
+                            <ul>
+                                
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+
+        <!--Modal-->
+        <div id="new-task" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Adicionando Produto</h3>
+            </div>
+            <form action="#" class='new-task-form form-horizontal form-bordered'>
+                <div class="">
+                    <div class="control-group">
+                        {{Form::label('codigo', 'Código*', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            <div class="input-xlarge">
+                                <select name="select" id="select-product" onselect="showDynamic(this.id)" class='chosen-select'>
+                                    <option value="">Selecione...</option>
+                                    @foreach($products as $value)
+                                    <option value="{{$value->id}}">{{$value->codigo}} - {{$value->descricao}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('espessura', 'Espessura', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('espessura', '', ['id' => 'espessura','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('cobre', 'Cobre', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('cobre', '', ['id' => 'cobre','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('arco', 'Arco', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('arco', '', ['id' => 'arco','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('valor', 'Valor', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('valor', '', ['id' => 'valor','placeholder' => '0.00', 'class' => 'money input-medium', 'required' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('icms', 'ICMS', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('icms', '', ['id' => 'icms','placeholder' => '0.00', 'class' => 'decimal input-medium', 'required' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('ipi', 'IPI', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('ipi', '', ['id' => 'ipi','placeholder' => '0.00', 'class' => 'decimal input-medium', 'required' => true])}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Adicionar">
+                </div>
+            </form>
+    
+        </div>
+                    
 
         </div>
     </div>
 
 </div>
 
+<script type="text/javascript">
+
+const attributes = ['espessura', 'cobre', 'arco', 'valor', 'icms', 'ipi'];
+
+$('#select-product').on('change', function () {
+  //console.log('Changed option value ' + this.value);
+  //console.log('Changed option text ' + $(this).find('option').filter(':selected').text());
+  clear();
+
+  $.ajax({
+    url: "{{route('produtos.show')}}",
+    type: "GET",
+    data: {
+        "_token": "{{csrf_token()}}",
+        "id": this.value
+    },
+    dataType: 'json',
+        success: function(data)
+        {
+            for(var i = 0; i < attributes.length; i++)
+            {
+                $("#"+attributes[i]).val(data[attributes[i]]);
+            }
+        }
+    });
+});
+
+function clear()
+{
+    for(var i = 0; i < attributes.length; i++)
+    {
+        $("#"+attributes[i]).val("");
+    }
+}
+
     
-@include('clients.cep')
+    </script>
+
     
 @endsection

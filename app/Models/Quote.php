@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Quote extends Model
 {
     use HasFactory;
+
+    public function Client()
+    {
+        return $this->hasOne(Client::class, 'id', 'client_id');
+    }
 }
