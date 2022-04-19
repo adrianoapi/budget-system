@@ -60,6 +60,17 @@ Route::prefix('produtos')->group(function(){
     Route::delete('destroy/{product}', 'ProductController@destroy')->name('produtos.destroy');
 });
 
+Route::prefix('items')->group(function(){
+    Route::get('/',           'ItemController@index' )->name('itens.index');
+    Route::get('novo',        'ItemController@create')->name('itens.create');
+    Route::get('show',        'ItemController@show'  )->name('itens.show');
+    Route::post('store',      'ItemController@store' )->name('itens.store');
+    Route::get('edit/{item}', 'ItemController@edit'  )->name('itens.edit');
+    Route::put('edit/{item}', 'ItemController@update')->name('itens.update');
+
+    Route::delete('destroy/{item}', 'ItemController@destroy')->name('itens.destroy');
+});
+
 Route::prefix('cotacoes')->group(function(){
     Route::get('/',              'QuoteController@index' )->name('cotacoes.index');
     Route::get('novo/{client}',  'QuoteController@create')->name('cotacoes.create');

@@ -156,13 +156,13 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h3 id="myModalLabel">Adicionando Produto</h3>
             </div>
-            <form action="#" class='new-task-form form-horizontal form-bordered'>
+            <form action="#" onsubmit="return false;" name="addItem" id="addItem" class='new-task-form form-horizontal form-bordered'>
                 <div class="">
                     <div class="control-group">
                         {{Form::label('codigo', 'Código*', array('class' => 'control-label'))}}
                         <div class="controls">
                             <div class="input-xlarge">
-                                <select name="select" id="select-product" onselect="showDynamic(this.id)" class='chosen-select'>
+                                <select name="produto" id="select-product" onselect="showDynamic(this.id)" class='chosen-select' required="true">
                                     <option value="">Selecione...</option>
                                     @foreach($products as $value)
                                     <option value="{{$value->id}}">{{$value->codigo}} - {{$value->descricao}}</option>
@@ -172,39 +172,45 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        {{Form::label('espessura', 'Quantidade', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('quantidade', '', ['id' => 'quantidade','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
                         {{Form::label('espessura', 'Espessura', array('class' => 'control-label'))}}
                         <div class="controls">
-                            {{Form::text('espessura', '', ['id' => 'espessura','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                            {{Form::text('espessura', '', ['id' => 'espessura','placeholder' => '0', 'class' => 'input-medium', 'disabled' => true])}}
                         </div>
                     </div>
                     <div class="control-group">
                         {{Form::label('cobre', 'Cobre', array('class' => 'control-label'))}}
                         <div class="controls">
-                            {{Form::text('cobre', '', ['id' => 'cobre','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                            {{Form::text('cobre', '', ['id' => 'cobre','placeholder' => '0', 'class' => 'input-medium', 'disabled' => true])}}
                         </div>
                     </div>
                     <div class="control-group">
                         {{Form::label('arco', 'Arco', array('class' => 'control-label'))}}
                         <div class="controls">
-                            {{Form::text('arco', '', ['id' => 'arco','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                            {{Form::text('arco', '', ['id' => 'arco','placeholder' => '0', 'class' => 'input-medium', 'disabled' => true])}}
                         </div>
                     </div>
                     <div class="control-group">
                         {{Form::label('valor', 'Valor', array('class' => 'control-label'))}}
                         <div class="controls">
-                            {{Form::text('valor', '', ['id' => 'valor','placeholder' => '0.00', 'class' => 'money input-medium', 'required' => true])}}
+                            {{Form::text('valor', '', ['id' => 'valor','placeholder' => '0.00', 'class' => 'money input-medium', 'disabled' => true])}}
                         </div>
                     </div>
                     <div class="control-group">
                         {{Form::label('icms', 'ICMS', array('class' => 'control-label'))}}
                         <div class="controls">
-                            {{Form::text('icms', '', ['id' => 'icms','placeholder' => '0.00', 'class' => 'decimal input-medium', 'required' => true])}}
+                            {{Form::text('icms', '', ['id' => 'icms','placeholder' => '0.00', 'class' => 'decimal input-medium', 'disabled' => true])}}
                         </div>
                     </div>
                     <div class="control-group">
                         {{Form::label('ipi', 'IPI', array('class' => 'control-label'))}}
                         <div class="controls">
-                            {{Form::text('ipi', '', ['id' => 'ipi','placeholder' => '0.00', 'class' => 'decimal input-medium', 'required' => true])}}
+                            {{Form::text('ipi', '', ['id' => 'ipi','placeholder' => '0.00', 'class' => 'decimal input-medium', 'disabled' => true])}}
                         </div>
                     </div>
                 </div>
@@ -256,8 +262,31 @@ function clear()
     }
 }
 
-    
-    </script>
+$("#addItem").submit(function() {
+    const obj = {
+        produto: $("#select-product").val(),
+        quantidade: $("#quantidade").val(),
+        cotacao: {{$quote->id}}
+    };
+
+    $.ajax({
+        url: "{{route('itens.store')}}",
+        type: "POST",
+        cache: false,
+        datatype: "JSON",
+        data: {
+            "_token": "{{csrf_token()}}",
+            "data": JSON.stringify(obj)
+        },
+        dataType: 'json',
+            success: function(data)
+            {
+                console.log(data);
+            }
+    });
+});
+
+</script>
 
     
 @endsection
