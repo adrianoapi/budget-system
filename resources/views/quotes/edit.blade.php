@@ -77,67 +77,8 @@
                             </div>
                         </div>
                         
-                        <table class="table table-striped table-invoice">
-                            <thead>
-                                <tr>
-                                    <th>Item</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
-                                    <th class="tr">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="name">Lorem ipsum in eu quis</td>
-                                    <td class="price">$30.00</td>
-                                    <td class="qty">3</td>
-                                    <td class="total">$90.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="name">Lorem ipsum in eu quis</td>
-                                    <td class="price">$30.00</td>
-                                    <td class="qty">3</td>
-                                    <td class="total">$90.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="name">Lorem ipsum in eu quis</td>
-                                    <td class="price">$30.00</td>
-                                    <td class="qty">3</td>
-                                    <td class="total">$90.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="name">Lorem ipsum in eu quis</td>
-                                    <td class="price">$30.00</td>
-                                    <td class="qty">3</td>
-                                    <td class="total">$90.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="name">Lorem ipsum in eu quis</td>
-                                    <td class="price">$30.00</td>
-                                    <td class="qty">3</td>
-                                    <td class="total">$90.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3"></td>
-                                    <td class="taxes">
-                                        <p>
-                                            <span class="light">Subtotal</span>
-                                            <span>$450.00</span>
-                                        </p>
-                                        <p>
-                                            <span class="light">Tax(10%)</span>
-                                            <span>$45.00</span>
-                                        </p>
-                                        <p>
-                                            <span class="light">Total</span>
-                                            <span class="totalprice">
-                                                $495.00
-                                            </span>
-                                        </p>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div id="dinamic-table">Carregando...</div>
+
                         <div class="invoice-payment">
                             <span>Payment methods</span>
                             <ul>
@@ -282,10 +223,28 @@ $("#addItem").submit(function() {
             success: function(data)
             {
                 console.log(data);
+                getTable();
             }
     });
 });
 
+function getTable()
+{
+    $.ajax({
+    url: "{{route('cotacoes.items', $quote->id)}}",
+    type: "GET",
+    data: {
+        "_token": "{{csrf_token()}}",
+    },
+    dataType: 'json',
+        success: function(data)
+        {
+            $("#dinamic-table").html(data['table']);
+        }
+    });
+}
+
+getTable();
 </script>
 
     

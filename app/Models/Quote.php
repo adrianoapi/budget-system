@@ -13,4 +13,9 @@ class Quote extends Model
     {
         return $this->hasOne(Client::class, 'id', 'client_id');
     }
+
+    public function Items()
+    {
+        return $this->hasMany(Item::class, 'quote_id', 'id')->orderBy('created_at', 'desc');
+    }
 }

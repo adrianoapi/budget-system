@@ -43,7 +43,7 @@ class ItemController extends Controller
         $model->quantidade = (int) $attributes->quantidade;
         
         if($model->save()){
-            print_r($model->getAttributes());
+            return true;
         }
     }
 

@@ -74,6 +74,19 @@ class QuoteController extends UtilController
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
+    public function items(Quote $quote)
+    {
+        return response()->json([
+            'table'   => view('quotes.itemsTable',   ['items' => $quote->Items])->render(),
+        ]);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
