@@ -16,7 +16,8 @@ class LoginController extends Controller
     {
         $credentials = [
             'email' => $request->email,
-            'password' => $request->password
+            'password' => $request->password,
+            'active' => 1
         ];
 
         if(!filter_var($request->email, FILTER_VALIDATE_EMAIL)){

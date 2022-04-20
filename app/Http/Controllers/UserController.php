@@ -24,6 +24,48 @@ class UserController extends UtilController
         return view('users.index', ['title' => $title, 'users' => $users, 'levels' => $this->levels]);
     }
 
+    public function profile()
+    {
+        $title = $this->title. " perfil";
+        $user = User::where('id', Auth::user()->id)->firstOrFail();
+        return view('users.perfil', ['title' => $title, 'user' => $user, 'levels' => $this->levels]);
+    }
+    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function upProfile(Request $request, User $user)
+    {
+        if($user->id === Auth::user()->id){
+
+            $user->name  = $request->name;
+            $user->email = $request->email;
+
+            if(!empty($request->password))
+            {
+                if($request->password === $request->password_confirm)
+                {
+                    $user->password = Hash::make($request->password);
+                    
+                }else{
+                    die('Erro: Senha diferente de confirmação de senha!');
+                }
+            }
+
+            if($user->save())
+            {
+                return redirect()->route('login.logout');
+            }
+
+        }else{
+            die('Usuário não encontrado');
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

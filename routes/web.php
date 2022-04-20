@@ -30,11 +30,14 @@ Route::prefix('dashboard')->group(function(){
 });
 
 Route::prefix('usuarios')->group(function(){
-    Route::get('/',           'UserController@index' )->name('usuarios.index');
-    Route::get('novo',        'UserController@create')->name('usuarios.create');
-    Route::post('store',      'UserController@store' )->name('usuarios.store');
-    Route::get('edit/{user}', 'UserController@edit'  )->name('usuarios.edit');
-    Route::put('edit/{user}', 'UserController@update')->name('usuarios.update');
+    Route::get('/',           'UserController@index'    )->name('usuarios.index');
+    Route::get('perfil',      'UserController@profile'  )->name('usuarios.profile');
+    Route::get('novo',        'UserController@create'   )->name('usuarios.create');
+    Route::post('store',      'UserController@store'    )->name('usuarios.store');
+    Route::get('edit/{user}', 'UserController@edit'     )->name('usuarios.edit');
+    Route::put('edit/{user}', 'UserController@update'   )->name('usuarios.update');
+    
+    Route::put('perfil/{user}', 'UserController@upProfile')->name('usuarios.update.profile');
 
     Route::delete('destroy/{user}', 'UserController@destroy')->name('usuarios.destroy');
 });

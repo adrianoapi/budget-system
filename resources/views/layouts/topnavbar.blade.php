@@ -64,7 +64,10 @@
                 <a href="#" class='dropdown-toggle' data-toggle="dropdown">{{Auth::user()->name}}</a>
                 <ul class="dropdown-menu pull-right">
                     <li>
-                        <a href="{{route('login.logout')}}">Sair</a>
+                        <a href="{{route('usuarios.profile')}}"><i class="icon-user"></i> Perfil</a>
+                    </li>
+                    <li>
+                        <a href="{{route('login.logout')}}"><i class="icon-off"></i> Sair</a>
                     </li>
                 </ul>
             </div>
