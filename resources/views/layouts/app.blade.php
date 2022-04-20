@@ -21,9 +21,6 @@
         <!-- Color CSS -->
         <link rel="stylesheet" href="{!! asset('flat-admin/css/themes.css') !!}">
 
-        <!-- Datepicker -->
-	    <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/datepicker/datepicker.css') !!}">
-
 
         <!-- jQuery -->
         <script src="{!! asset('flat-admin/js/jquery.min.js') !!}"></script>
@@ -35,6 +32,7 @@
         <script src="{!! asset('flat-admin/js/plugins/jquery-ui/jquery.ui.mouse.min.js') !!}"></script>
         <script src="{!! asset('flat-admin/js/plugins/jquery-ui/jquery.ui.resizable.min.js') !!}"></script>
         <script src="{!! asset('flat-admin/js/plugins/jquery-ui/jquery.ui.sortable.min.js') !!}"></script>
+        <script src="{!! asset('flat-admin/js/plugins/jquery-ui/jquery.ui.datepicker.min.js') !!}"></script>
         <!-- slimScroll -->
         <script src="{!! asset('flat-admin/js/plugins/slimscroll/jquery.slimscroll.min.js') !!}"></script>
         <!-- Bootstrap -->
@@ -52,9 +50,6 @@
         <script src="{!! asset('flat-admin/js/application.min.js') !!}"></script>
         <!-- Just for demonstration -->
         <script src="{!! asset('flat-admin/js/demonstration.min.js') !!}"></script>
-
-        <!-- Datepicker -->
-	    <script src="{!! asset('flat-admin/js/plugins/datepicker/bootstrap-datepicker.js') !!}"></script>
 
         <script src="{!! asset('librarys/jquery.mask.min.js') !!}"></script>
 

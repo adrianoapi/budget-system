@@ -24,12 +24,19 @@
                     <div class="box-title">
                         <h3>
                             <i class="icon-th-large"></i>
-                            Resumo
+                            Resumo total
                         </h3>
                     </div>
                     <div class="box-content">
 
                         <ul class="stats">
+                            <li class="teal">
+                                <i class="icon-user"></i>
+                                <div class="details">
+                                    <span class="big">{{$total['users']}}</span>
+                                    <span>Usuários</span>
+                                </div>
+                            </li>
                             <li class="blue">
                                 <i class="icon-tags"></i>
                                 <div class="details">
