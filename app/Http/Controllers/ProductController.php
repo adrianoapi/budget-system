@@ -17,6 +17,7 @@ class ProductController extends UtilController
      */
     public function index()
     {
+        $this->levelCheck();
         $title = $this->title. " listagem";
         $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(10);
         return view('products.index', ['title' => $title, 'products' => $products]);
@@ -29,6 +30,7 @@ class ProductController extends UtilController
      */
     public function create()
     {
+        $this->levelCheck();
         $title = $this->title. " cadastar";
 
         return view('products.add', ['title' => $title]);
@@ -42,6 +44,7 @@ class ProductController extends UtilController
      */
     public function store(Request $request)
     {
+        $this->levelCheck();
         $model = new Product();
         $model->user_id   = Auth::id();
         $model->descricao = $request->descricao;
@@ -83,6 +86,7 @@ class ProductController extends UtilController
      */
     public function edit(Product $product)
     {
+        $this->levelCheck();
         $title = $this->title. " alterar";
         return view('products.edit', ['title' => $title, 'product' => $product]);
     }
@@ -96,6 +100,7 @@ class ProductController extends UtilController
      */
     public function update(Request $request, Product $product)
     {
+        $this->levelCheck();
         $product->updated_user_id = Auth::id();
 
         $product->descricao = $request->descricao;
@@ -123,6 +128,7 @@ class ProductController extends UtilController
      */
     public function destroy(Product $product)
     {
+        $this->levelCheck();
         $product->active = false;
         $product->deactivate_user_id = Auth::id();
         if($product->save()){

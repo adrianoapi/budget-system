@@ -6,6 +6,7 @@ use App\Models\Quote;
 use App\Models\Client;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuoteController extends UtilController
 {
@@ -19,7 +20,15 @@ class QuoteController extends UtilController
     public function index()
     {
         $title = $this->title. " listagem";
-        $quotes = Quote::where('active', true)->orderBy('id', 'desc')->paginate(100);
+
+        if(Auth::user()->level > 1)
+        {
+            $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(10);
+            $quotes = Quote::where('active', true)->orderBy('id', 'desc')->paginate(100);
+        }else{
+            $quotes = Quote::where('active', true)->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(100);
+        }
+        
         return view('quotes.index', ['title' => $title, 'quotes' => $quotes]);
     }
 

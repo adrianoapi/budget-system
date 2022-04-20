@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-primary">Salvar</button>
-                                    <a href="{{route('usuarios.index')}}" class="btn">Cancelar</a>
+                                    <a href="{{route('dashboard.index')}}" class="btn">Cancelar</a>
                                 </div>
                             </form>
                         </div>

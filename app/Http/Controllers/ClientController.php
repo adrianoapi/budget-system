@@ -17,9 +17,15 @@ class ClientController extends UtilController
      */
     public function index()
     {
-        $this->levelCheck();
         $title = $this->title. " listagem";
-        $clients = Client::where('active', true)->orderBy('name', 'asc')->paginate(100);
+
+        if(Auth::user()->level > 1)
+        {
+            $clients = Client::where('active', true)->orderBy('name', 'asc')->paginate(100);
+        }else{
+            $clients = Client::where('active', true)->orderBy('name', 'asc')->where('user_id', Auth::user()->id)->paginate(100);
+        }
+        
         return view('clients.index', ['title' => $title, 'users' => $clients]);
     }
 
