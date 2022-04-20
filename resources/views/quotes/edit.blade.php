@@ -220,13 +220,31 @@ $("#addItem").submit(function() {
             "data": JSON.stringify(obj)
         },
         dataType: 'json',
-            success: function(data)
-            {
-                console.log(data);
-                getTable();
-            }
+        success: function(data)
+        {
+            getTable();
+        }
     });
 });
+
+function excluir(id) {
+
+    $.ajax({
+        url: "{{route('itens.destroy')}}",
+        type: "POST",
+        cache: false,
+        datatype: "JSON",
+        data: {
+            "_token": "{{csrf_token()}}",
+            "id": id
+        },
+        dataType: 'json',
+        success: function(data)
+        {
+            getTable();
+        }
+    });
+}
 
 function getTable()
 {

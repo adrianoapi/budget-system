@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
-class ItemController extends Controller
+class ItemController extends UtilController
 {
     /**
      * Display a listing of the resource.
@@ -84,11 +84,16 @@ class ItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
      */
-    public function destroy(Item $item)
+    public function destroy(request $request)
     {
-        //
+        $item = Item::where('id', $request->id)->firstOrFail();
+
+        $this->levelCheck($item->Quote->user_id);
+
+        if($item->delete()){
+            return true;
+        }
     }
 }

@@ -68,7 +68,7 @@ Route::prefix('items')->group(function(){
     Route::get('edit/{item}', 'ItemController@edit'  )->name('itens.edit');
     Route::put('edit/{item}', 'ItemController@update')->name('itens.update');
 
-    Route::delete('destroy/{item}', 'ItemController@destroy')->name('itens.destroy');
+    Route::post('destroy', 'ItemController@destroy')->name('itens.destroy');
 });
 
 Route::prefix('cotacoes')->group(function(){
