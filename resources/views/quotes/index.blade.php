@@ -29,25 +29,27 @@
                                         <th>Nome</th>
                                         <th>Responsável</th>
                                         <th>Telefone</th>
+                                        <th>Data</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($quotes as $value)
                                     <tr>
-                                        <td>{{$value->name}}</td>
-                                        <td>{{$value->responsavel}}</td>
+                                        <td>{{$value->Client->name}}</td>
+                                        <td>{{$value->Client->responsavel}}</td>
                                         <td>
-                                            @if(!empty($value->telefone))
-                                                {{$value->telefone}} |
+                                            @if(!empty($value->Client->telefone))
+                                                {{$value->Client->telefone}} |
                                             @endif
-                                            @if(!empty($value->telefone_com))
-                                                {{$value->telefone_com}} |
+                                            @if(!empty($value->Client->telefone_com))
+                                                {{$value->Client->telefone_com}} |
                                             @endif
-                                            @if(!empty($value->celular))
-                                                {{$value->celular}}
+                                            @if(!empty($value->Client->celular))
+                                                {{$value->Client->celular}}
                                             @endif
                                         </td>
+                                        <td>{{$value->created_at}}</td>
                                         <td class='hidden-1024'>
                                             {{ Form::open(['route' => ['cotacoes.destroy', $value->id],  'method' => 'POST', "onSubmit" => "return confirm('Deseja excluir?');"]) }}
                                                 @csrf
