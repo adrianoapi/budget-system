@@ -91,7 +91,10 @@ class QuoteController extends UtilController
     public function items(Quote $quote)
     {
         return response()->json([
-            'table'   => view('quotes.itemsTable',   ['items' => $quote->Items])->render(),
+            'table'   => view('quotes.itemsTable', [
+                'items' => $quote->Items,
+                'comissao' => $quote->Client->User->comissao
+                ])->render()
         ]);
     }
 
