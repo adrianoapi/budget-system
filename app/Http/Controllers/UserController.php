@@ -95,6 +95,7 @@ class UserController extends UtilController
         $model->password  = Hash::make($request->password);
         $model->level     = !empty($request->level) ? $request->level : 1;
         $model->active    = true;
+        $model->comissao  = str_replace(',', '.', str_replace('.', '', $request->comissao));
         $model->save();
 
         return redirect()->route('usuarios.index');
@@ -123,13 +124,14 @@ class UserController extends UtilController
     public function update(Request $request, User $user)
     {
         $this->levelCheck();
-        $user->name  = $request->name;
-        $user->level = $request->level;
-
+        $user->name      = $request->name;
+        $user->level     = $request->level;
+        $user->comissao  = str_replace(',', '.', str_replace('.', '', $request->comissao));
+        
         if(filter_var($request->email, FILTER_VALIDATE_EMAIL)){
             $user->email = $request->email;
         }
-
+        
         if(!empty($request->password)){
             $user->password = Hash::make($request->password);
         }

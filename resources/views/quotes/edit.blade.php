@@ -73,8 +73,8 @@
                             <div class="span12">
                                 <div class="basic-margin" style="float:right;">
                                     <a href="#new-task" data-toggle="modal" class="btn btn-blue"><i class="icon-plus-sign"></i> Adicionar Produto</a>
-                                    <a href="#new-task" class="btn btn-red"><i class="icon-file-alt"></i> Exportar PDF</a>
-                                    <a href="#new-task" class="btn btn-green"><i class="icon-table"></i> Exportar Excel</a>
+                                    <a href="#new-task" class="btn btn-red" style="display: none"><i class="icon-file-alt"></i> Exportar PDF</a>
+                                    <a href="#new-task" class="btn btn-green" style="display: none"><i class="icon-table"></i> Exportar Excel</a>
                                 </div>
                             </div>
                         </div>

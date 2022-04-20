@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('deactivate_user_id')->default(0);
             $table->integer('level');
             $table->boolean('active');
+            $table->decimal('comissao', 10, 2)->nullable(true);
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

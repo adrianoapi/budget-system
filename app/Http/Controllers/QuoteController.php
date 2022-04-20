@@ -52,8 +52,8 @@ class QuoteController extends UtilController
             $this->autoridadeCheck($client->user_id);
 
             $model = new Quote();
-            $model->user_id     =  $client->id;
-            $model->client_id   =  $client->user_id;
+            $model->user_id     =  $client->user_id;
+            $model->client_id   =  $client->id;
 
             if($model->save()){
                 return redirect()->route('cotacoes.edit', ['quote' => $model->id]);
