@@ -90,7 +90,7 @@ class ItemController extends UtilController
     {
         $item = Item::where('id', $request->id)->firstOrFail();
 
-        $this->levelCheck($item->Quote->user_id);
+        $this->autoridadeCheck($item->Quote->user_id);
 
         if($item->delete()){
             return true;
