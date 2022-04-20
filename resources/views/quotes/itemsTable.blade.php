@@ -9,8 +9,9 @@
         </tr>
     </thead>
     <tbody>
+        <?php $total = 0; ?>
         @foreach($items as $value)
-        <?php $total = $value->Product->valor * $value->quantidade; ?>
+        <?php $total = $total + $value->Product->valor * $value->quantidade; ?>
         <tr>
             <td>
                 <a href="javascript:void(0)" onclick="excluir({{$value->id}})" class="btn" rel="tooltip" title="" data-original-title="Excluir">
@@ -20,7 +21,7 @@
             <td class="name">{{$value->Product->descricao}}</td>
             <td class="price">{{$value->Product->valor}}</td>
             <td class="qty">{{$value->quantidade}}</td>
-            <td class="total">R${{$total}}</td>
+            <td class="total">R${{$value->Product->valor * $value->quantidade}}</td>
         </tr>
         @endforeach
         <tr>
@@ -28,7 +29,7 @@
             <td class="taxes">
                 <p>
                     <span class="light">Subtotal</span>
-                    <span>$450.00</span>
+                    <span>R${{$total}}</span>
                 </p>
                 <p>
                     <span class="light">Tax(10%)</span>
@@ -37,7 +38,7 @@
                 <p>
                     <span class="light">Total</span>
                     <span class="totalprice">
-                        $495.00
+                        R${{$total}}
                     </span>
                 </p>
             </td>
