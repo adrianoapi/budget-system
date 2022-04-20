@@ -32,13 +32,14 @@
                     <span>R${{$total}}</span>
                 </p>
                 <p>
-                    <span class="light">Tax(10%)</span>
-                    <span>$45.00</span>
+                    <span class="light">Tax({{Auth::user()->comissao}}%)</span>
+                    <?php $taxa = $total * Auth::user()->comissao / 100; ?>
+                    <span>R${{number_format($taxa, 2, '.', ',')}}</span>
                 </p>
                 <p>
                     <span class="light">Total</span>
                     <span class="totalprice">
-                        R${{$total}}
+                        R${{number_format($total + $taxa, 2, '.', ',')}}
                     </span>
                 </p>
             </td>
