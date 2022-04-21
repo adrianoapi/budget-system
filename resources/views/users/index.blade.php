@@ -41,7 +41,7 @@
                                         <td>{{$value->email}}</td>
                                         <td class='hidden-350'>{{$levels[$value->level]}}</td>
                                         <td class='hidden-1024'>
-                                            {{ Form::open(['route' => ['usuarios.destroy', $value->id],  'method' => 'POST']) }}
+                                            {{ Form::open(['route' => ['usuarios.destroy', $value->id],  'method' => 'POST', 'style' => 'margin: 0;padding:0;']) }}
                                                 @csrf
                                                 @method('delete')
                                                 <a href="{{route('usuarios.edit', $value->id)}}" class="btn" rel="tooltip" title="" data-original-title="Editar">

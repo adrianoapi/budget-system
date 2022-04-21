@@ -51,7 +51,7 @@
                                             @endif
                                         </td>
                                         <td class='hidden-1024'>
-                                            {{ Form::open(['route' => ['clientes.destroy', $value->id],  'method' => 'POST', "onSubmit" => "return confirm('Deseja excluir?');"]) }}
+                                            {{ Form::open(['route' => ['clientes.destroy', $value->id],  'method' => 'POST', "onSubmit" => "return confirm('Deseja excluir?');", 'style' => 'margin: 0;padding:0;']) }}
                                                 @csrf
                                                 @method('delete')
                                                 <a href="{{route('cotacoes.create', $value->id)}}" class="btn btn-info" rel="tooltip" title="" data-original-title="Nova Cotação">
