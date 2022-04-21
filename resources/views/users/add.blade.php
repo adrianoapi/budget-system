@@ -19,28 +19,40 @@
                         <div class="box-content nopadding">
                             <form action="{{route('usuarios.store')}}" method="POST" class='form-horizontal form-bordered'>
                             @csrf
-                            <div class="control-group">
+                                <div class="control-group">
                                     <label for="name" class="control-label">Nome completo</label>
                                     <div class="controls">
                                         <input type="text" name="name" id="name" placeholder="Insira o nome" class="input-xlarge" required>
+                                        @error('name')
+                                        <div class="alert-danger input-xlarge">{{$message}}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label for="email" class="control-label">E-mail</label>
                                     <div class="controls">
                                         <input type="text" name="email" id="email" placeholder="name@provider.domain" class="input-xlarge" required>
+                                        @error('email')
+                                        <div class="alert-danger input-xlarge">{{$message}}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label for="password" class="control-label">Senha</label>
                                     <div class="controls">
                                         <input type="password" name="password" id="password" placeholder="Insira uma senha" class="input-xlarge" required>
+                                        @error('password')
+                                        <div class="alert-danger input-xlarge">{{$message}}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     {{Form::label('Comissão', 'Valor', array('class' => 'control-label'))}}
                                     <div class="controls">
                                         {{Form::text('comissao', '', ['id' => 'comissao','placeholder' => '0.00', 'class' => 'money input-medium', 'required' => true])}}
+                                        @error('comissao')
+                                        <div class="alert-danger input-xlarge">{{$message}}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="control-group">

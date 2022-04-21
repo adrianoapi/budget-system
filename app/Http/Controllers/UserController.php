@@ -88,6 +88,13 @@ class UserController extends UtilController
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'     => 'required|min:5',
+            'email'    => 'required|email',
+            'password' => 'required|min:6',
+            'comissao' => 'required',
+        ]);
+
         $this->levelCheck();
         $model = new User();
         $model->name      = $request->name;

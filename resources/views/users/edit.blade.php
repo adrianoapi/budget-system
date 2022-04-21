@@ -20,7 +20,7 @@
                             <form action="{{route('usuarios.update', ['user' => $user->id])}}" method="POST" class='form-horizontal form-bordered'>
                                 @csrf
                                 @method('PUT')
-                            <div class="control-group">
+                                <div class="control-group">
                                     <label for="name" class="control-label">Nome completo</label>
                                     <div class="controls">
                                         <input type="text" name="name" id="name" value="{{$user->name}}" placeholder="Insira o nome" class="input-xlarge" required>

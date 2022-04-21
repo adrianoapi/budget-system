@@ -94,6 +94,7 @@ class ClientController extends UtilController
      */
     public function edit(Client $client)
     {
+        $this->autoridadeCheck($client->user_id);
         $title = $this->title. " alterar";
         return view('clients.edit', ['title' => $title, 'client' => $client, 'estados' => $this->getEstados()]);
     }
