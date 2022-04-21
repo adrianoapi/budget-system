@@ -72,6 +72,8 @@ class QuoteController extends UtilController
      */
     public function edit(Quote $quote)
     {
+        $this->autoridadeCheck($quote->Client->user_id);
+
         $title = $this->title. " editar";
 
         $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(1000);
@@ -118,6 +120,11 @@ class QuoteController extends UtilController
      */
     public function destroy(Quote $quote)
     {
-        //
+        $this->autoridadeCheck($quote->Client->user_id);
+
+        if($quote->delete()){
+            return redirect()->route('cotacoes.index');
+        }
+
     }
 }

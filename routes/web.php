@@ -82,5 +82,5 @@ Route::prefix('cotacoes')->group(function(){
     Route::get('items/{quote}',  'QuoteController@items' )->name('cotacoes.items');
     Route::put('edit/{quote}',   'QuoteController@update')->name('cotacoes.update');
 
-    Route::delete('destroy/{quote}', 'ProductController@destroy')->name('cotacoes.destroy');
+    Route::delete('destroy/{quote}', 'QuoteController@destroy')->name('cotacoes.destroy');
 });
