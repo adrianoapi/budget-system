@@ -44,9 +44,9 @@
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    {{Form::label('arco', 'Arco', array('class' => 'control-label'))}}
+                                    {{Form::label('aco', 'Aço', array('class' => 'control-label'))}}
                                     <div class="controls">
-                                        {{Form::text('arco', '', ['id' => 'arco','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                                        {{Form::text('aco', '', ['id' => 'aco','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
                                     </div>
                                 </div>
                                 <div class="control-group">

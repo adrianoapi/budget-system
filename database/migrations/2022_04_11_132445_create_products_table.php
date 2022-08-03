@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('codigo', 10)->nullable(true);
             $table->string('espessura', 10)->nullable(true);
             $table->string('cobre', 10)->nullable(true);
-            $table->string('arco', 10)->nullable(true);
+            $table->string('aco', 10)->nullable(true);
             $table->string('unidade', 10)->nullable(true);
             $table->decimal('valor', 10, 2)->nullable(true);
             $table->decimal('icms', 10, 2)->nullable(true);

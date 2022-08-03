@@ -133,9 +133,9 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        {{Form::label('arco', 'Arco', array('class' => 'control-label'))}}
+                        {{Form::label('aco', 'Aço', array('class' => 'control-label'))}}
                         <div class="controls">
-                            {{Form::text('arco', '', ['id' => 'arco','placeholder' => '0', 'class' => 'input-medium', 'disabled' => true])}}
+                            {{Form::text('aco', '', ['id' => 'aco','placeholder' => '0', 'class' => 'input-medium', 'disabled' => true])}}
                         </div>
                     </div>
                     <div class="control-group">
@@ -172,7 +172,7 @@
 
 <script type="text/javascript">
 
-const attributes = ['espessura', 'cobre', 'arco', 'valor', 'icms', 'ipi'];
+const attributes = ['espessura', 'cobre', 'aco', 'valor', 'icms', 'ipi'];
 
 $('#select-product').on('change', function () {
   //console.log('Changed option value ' + this.value);
