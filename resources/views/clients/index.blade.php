@@ -30,10 +30,11 @@
                                     <tr>
                                         <th>
                                             <form action="" method="GET" class="span12" style="margin: 0;padding:0;">
+                                            <input type="hidden" name="filtro" id="filtro" value="pesquisa">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input id="name" placeholder="name" type="text" name="Nome" value="" class="input-block-level">
+                                                        <input id="name" placeholder="Nome" type="text" name="name" value="{{$name}}" class="input-block-level">
                                                     </div>
                                                 </div>
                                             </div>
@@ -42,7 +43,7 @@
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input id="responsavel" placeholder="Responsável" type="text" name="responsavel" value="" class="input-block-level">
+                                                        <input id="responsavel" placeholder="Responsável" type="text" name="responsavel" value="{{$responsavel}}" class="input-block-level">
                                                     </div>
                                                 </div>
                                             </div>
@@ -51,7 +52,7 @@
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input id="telefone" placeholder="Telefone" type="text" name="telefone" value="" class="input-block-level">
+                                                        <input id="telefone" placeholder="Telefone" type="text" name="telefone" value="{{$telefone}}" class="input-block-level">
                                                     </div>
                                                 </div>
                                             </div>

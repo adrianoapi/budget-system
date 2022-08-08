@@ -19,14 +19,50 @@ class ClientController extends UtilController
     {
         $title = $this->title. " listagem";
 
+        $ids          = [];
+        $name         = NULL;
+        $responsavel  = NULL;
+        $telefone     = NULL;
+
+        if(array_key_exists('filtro',$_GET))
+        {
+            $name        = $_GET['name'       ];
+            $responsavel = $_GET['responsavel'];
+            $telefone    = $_GET['telefone'   ];
+
+            $clients = Client::select('id')->where('name', 'like', '%' . $name . '%')
+            ->where('active', true)
+            ->where('responsavel', 'like', '%' . $responsavel . '%')
+            ->where('telefone', 'like', '%' . $telefone . '%')
+            ->orderBy('name', 'asc')
+            ->paginate(10);
+
+            foreach($clients as $value):
+                array_push($ids, $value->id);
+            endforeach;
+
+        }else{
+            $clients = Client::select('id')->where('active', true)->orderBy('name', 'asc')->paginate(10);
+            
+            foreach($clients as $value):
+                array_push($ids, $value->id);
+            endforeach;
+        }
+
         if(Auth::user()->level > 1)
         {
-            $clients = Client::where('active', true)->orderBy('name', 'asc')->paginate(100);
+            $clients = Client::whereIn('id', $ids)->where('active', true)->orderBy('name', 'asc')->paginate(100);
         }else{
-            $clients = Client::where('active', true)->orderBy('name', 'asc')->where('user_id', Auth::user()->id)->paginate(100);
+            $clients = Client::whereIn('id', $ids)->where('active', true)->orderBy('name', 'asc')->where('user_id', Auth::user()->id)->paginate(100);
         }
         
-        return view('clients.index', ['title' => $title, 'users' => $clients]);
+        return view('clients.index', [
+            'title' => $title,
+            'users' => $clients,
+            'name' => $name,
+            'responsavel' => $responsavel,
+            'telefone' => $telefone
+        ]);
     }
 
     /**
