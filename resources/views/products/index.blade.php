@@ -30,10 +30,11 @@
                                     <tr>
                                         <th>
                                             <form action="" method="GET" class="span12" style="margin: 0;padding:0;">
+                                            <input type="hidden" name="filtro" id="filtro" value="pesquisa">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input id="descricao" placeholder="descricao" type="text" name="Descrição" value="" class="input-block-level">
+                                                        <input id="descricao" placeholder="Descrição" type="text" name="descricao" value="{{$descricao}}" class="input-block-level">
                                                     </div>
                                                 </div>
                                             </div>
@@ -42,7 +43,7 @@
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input id="codigo" placeholder="Código" type="text" name="codigo" value="" class="input-block-level">
+                                                        <input id="codigo" placeholder="Código" type="text" name="codigo" value="{{$codigo}}" class="input-block-level">
                                                     </div>
                                                 </div>
                                             </div>

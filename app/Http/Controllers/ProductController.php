@@ -18,9 +18,35 @@ class ProductController extends UtilController
     public function index()
     {
         $this->levelCheck();
+
+        $descricao  = NULL;
+        $codigo     = NULL;
+
+        if(array_key_exists('filtro',$_GET))
+        {
+            # Pega todos os id de estudantes onde
+            # algum dos campos atenda ao menos
+            # uma coluna abaixo.
+            $descricao  = $_GET['descricao' ];
+            $codigo     = $_GET['codigo'];
+
+            $products = Product::where('descricao', 'like', '%' . $descricao . '%')
+            ->where('active', true)
+            ->where('codigo', 'like', '%' . $codigo . '%')
+            ->orderBy('descricao', 'asc')
+            ->paginate(10);
+
+        }else{
+            $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(10);
+        }
+
         $title = $this->title. " listagem";
-        $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(10);
-        return view('products.index', ['title' => $title, 'products' => $products]);
+        return view('products.index', [
+            'title' => $title,
+            'products' => $products,
+            'descricao' => $descricao,
+            'codigo' => $codigo
+        ]);
     }
 
     /**
