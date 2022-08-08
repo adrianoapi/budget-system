@@ -26,6 +26,57 @@
                             <table class="table table-hover table-nomargin table-colored-header">
                                 <thead>
                                     <tr>
+                                        <th>
+                                            <form action="" method="GET" class="span12" style="margin: 0;padding:0;">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="name" placeholder="name" type="text" name="Nome" value="" class="input-block-level">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="responsavel" placeholder="Responsável" type="text" name="responsavel" value="" class="input-block-level">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="telefone" placeholder="Telefone" type="text" name="telefone" value="" class="input-block-level">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="created_at" placeholder="Data" type="text" name="created_at" value="" class="input-block-level">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <span class="input-group-append">
+                                                            <button type="submit" class="btn btn-sm" style="margin-top:-10px;">Pesquisar</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </form>
+                                        </th>
+                                    </tr>
+                                    <tr>
                                         <th>Nome</th>
                                         <th>Responsável</th>
                                         <th>Telefone</th>

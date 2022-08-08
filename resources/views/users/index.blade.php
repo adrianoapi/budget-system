@@ -28,6 +28,52 @@
                             <table class="table table-hover table-nomargin table-colored-header">
                                 <thead>
                                     <tr>
+                                        <th>
+                                            <form action="" method="GET" class="span12" style="margin: 0;padding:0;">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="name" placeholder="nome" type="text" name="name" value="" class="input-block-level">
+                                                    </div>
+                                                </div>
+										    </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="email" placeholder="email" type="text" name="email" value="" class="input-block-level">
+                                                    </div>
+                                                </div>
+										    </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <select name="level" id="level" class='input-block-level'>
+                                                            <option value="">Level</option>
+                                                            <option value="administrador">Administrador</option>
+                                                            <option value="representante">Representante</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <span class="input-group-append">
+                                                            <button type="submit" class="btn btn-sm" style="margin-top:-10px;">Pesquisar</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </form>
+                                        </th>
+                                    </tr>
+                                    <tr>
                                         <th>Nome</th>
                                         <th>E-mail</th>
                                         <th class='hidden-350'>Level</th>
