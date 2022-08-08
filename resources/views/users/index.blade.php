@@ -30,10 +30,11 @@
                                     <tr>
                                         <th>
                                             <form action="" method="GET" class="span12" style="margin: 0;padding:0;">
+                                            <input type="hidden" name="filtro" id="filtro" value="pesquisa">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input id="name" placeholder="nome" type="text" name="name" value="" class="input-block-level">
+                                                        <input id="name" placeholder="nome" type="text" name="name" value="{{$name}}" class="input-block-level">
                                                     </div>
                                                 </div>
 										    </div>
@@ -42,7 +43,7 @@
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input id="email" placeholder="email" type="text" name="email" value="" class="input-block-level">
+                                                        <input id="email" placeholder="email" type="text" name="email" value="{{$email}}" class="input-block-level">
                                                     </div>
                                                 </div>
 										    </div>
@@ -53,8 +54,9 @@
                                                     <div class="controls controls-row">
                                                         <select name="level" id="level" class='input-block-level'>
                                                             <option value="">Level</option>
-                                                            <option value="administrador">Administrador</option>
-                                                            <option value="representante">Representante</option>
+                                                            @foreach($levels as $key => $level)
+                                                                <option value="{{$key}}" {{$level == $key ? 'selected':''}}>{{$level}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -85,7 +87,7 @@
                                     <tr>
                                         <td>{{$value->name}}</td>
                                         <td>{{$value->email}}</td>
-                                        <td class='hidden-350'>{{$levels[$value->level]}}</td>
+                                        <td class='hidden-350'>{{$levels[$value->level]}} {{$value->level}}</td>
                                         <td class='hidden-1024'>
                                             {{ Form::open(['route' => ['usuarios.destroy', $value->id],  'method' => 'POST', 'style' => 'margin: 0;padding:0;']) }}
                                                 @csrf

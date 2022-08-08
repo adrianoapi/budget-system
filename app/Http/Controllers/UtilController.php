@@ -8,7 +8,6 @@ class UtilController extends Controller
     protected $levels = [
         1 => 'Representante',
         2 => 'Gerente',
-        3 => 'Proprietário',
     ];
 
     public function __construct()

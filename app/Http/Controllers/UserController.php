@@ -18,10 +18,60 @@ class UserController extends UtilController
     public function index()
     {
         $this->levelCheck();
-        $title = $this->title. " listagem";
-        $users = User::where('active', true)->orderBy('name', 'asc')->paginate(100);
 
-        return view('users.index', ['title' => $title, 'users' => $users, 'levels' => $this->levels]);
+
+        $ids   = [];
+        $name  = NULL;
+        $email = NULL;
+        $level = NULL;
+
+        if(array_key_exists('filtro',$_GET))
+        {
+            # Pega todos os id de estudantes onde
+            # algum dos campos atenda ao menos
+            # uma coluna abaixo.
+            $name  = $_GET['name' ];
+            $email = $_GET['email'];
+            $level = $_GET['level'];
+
+            $users = User::select("id")->where('name', 'like', '%' . $name . '%')
+            ->where('active', true)
+            ->where('email', 'like', '%' . $email . '%')
+            ->get();
+
+            $ids = [];
+            foreach($users as $value):
+                array_push($ids, $value->id);
+            endforeach;
+
+            if(strlen($level))
+            {
+                $students = User::whereIn('id', $ids)
+                ->where('level', $level)
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;                
+            }
+
+            $users = User::whereIn('id', $ids)->orderBy('name', 'asc')->paginate(100);
+
+        }else{
+            $users = User::where('active', true)->orderBy('name', 'asc')->paginate(100);
+        }
+
+        $title = $this->title. " listagem";
+        
+        return view('users.index', [
+            'title' => $title,
+            'users' => $users,
+            'levels' => $this->levels,
+            'name' => $name,
+            'email' => $email,
+            'level' => $level
+        ]);
     }
 
     public function profile()

@@ -28,6 +28,7 @@
                                     <tr>
                                         <th>
                                             <form action="" method="GET" class="span12" style="margin: 0;padding:0;">
+                                            <input type="hidden" name="filtro" id="filtro" value="pesquisa">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
