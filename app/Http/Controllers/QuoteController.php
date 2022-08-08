@@ -21,15 +21,51 @@ class QuoteController extends UtilController
     {
         $title = $this->title. " listagem";
 
+        $ids          = [];
+        $name         = NULL;
+        $responsavel  = NULL;
+        $telefone     = NULL;
+
+        if(array_key_exists('filtro',$_GET))
+        {
+            $name        = $_GET['name'       ];
+            $responsavel = $_GET['responsavel'];
+            $telefone    = $_GET['telefone'   ];
+
+            $clients = Client::select('id')->where('name', 'like', '%' . $name . '%')
+            ->where('active', true)
+            ->where('responsavel', 'like', '%' . $responsavel . '%')
+            ->where('telefone', 'like', '%' . rtrim($telefone) . '%')
+            ->orderBy('name', 'asc')
+            ->paginate(10);
+
+            foreach($clients as $value):
+                array_push($ids, $value->id);
+            endforeach;
+
+        }else{
+            $clients = Client::select('id')->where('active', true)->orderBy('name', 'asc')->paginate(10);
+            
+            foreach($clients as $value):
+                array_push($ids, $value->id);
+            endforeach;
+        }
+
         if(Auth::user()->level > 1)
         {
             $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(10);
-            $quotes = Quote::where('active', true)->orderBy('id', 'desc')->paginate(100);
+            $quotes = Quote::whereIn('client_id', $ids)->where('active', true)->orderBy('id', 'desc')->paginate(100);
         }else{
-            $quotes = Quote::where('active', true)->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(100);
+            $quotes = Quote::whereIn('client_id', $ids)->where('active', true)->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(100);
         }
         
-        return view('quotes.index', ['title' => $title, 'quotes' => $quotes]);
+        return view('quotes.index', [
+            'title' => $title,
+            'quotes' => $quotes,
+            'name' => $name,
+            'responsavel' => $responsavel,
+            'telefone' => $telefone
+        ]);
     }
 
     /**

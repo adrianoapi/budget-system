@@ -33,7 +33,7 @@ class ClientController extends UtilController
             $clients = Client::select('id')->where('name', 'like', '%' . $name . '%')
             ->where('active', true)
             ->where('responsavel', 'like', '%' . $responsavel . '%')
-            ->where('telefone', 'like', '%' . $telefone . '%')
+            ->where('telefone', 'like', '%' . rtrim($telefone) . '%')
             ->orderBy('name', 'asc')
             ->paginate(10);
 
