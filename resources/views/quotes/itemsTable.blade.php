@@ -14,9 +14,15 @@
         <?php $total = $total + $value->Product->valor * $value->quantidade; ?>
         <tr>
             <td>
+                @if(!$close)
                 <a href="javascript:void(0)" onclick="excluir({{$value->id}})" class="btn btn-danger" rel="tooltip" title="" data-original-title="Excluir">
                     <i class="icon-trash"></i>
                 </a>
+                @else
+                <a href="javascript:void(0)" class="btn btn-default" rel="tooltip" title="" data-original-title="Excluir">
+                    <i class="icon-trash"></i>
+                </a>
+                @endif
             </td>
             <td class="name">{{$value->Product->descricao}}</td>
             <td class="price">{{$value->Product->valor}}</td>

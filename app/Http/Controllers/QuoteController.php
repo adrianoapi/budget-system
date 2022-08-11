@@ -126,10 +126,36 @@ class QuoteController extends UtilController
      * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
+    public function close(Quote $quote)
+    {
+        $this->autoridadeCheck($quote->Client->user_id);
+
+        if($quote->Items->count() < 1){
+            return redirect()->route('cotacoes.edit', $quote->id)->with(
+                'quote_close',
+                'Não pode fechar cotação sem produtos!'
+            );
+        }
+
+        $quote->close = true;
+
+        if($quote->save()){
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
+        }
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
     public function items(Quote $quote)
     {
         return response()->json([
             'table'   => view('quotes.itemsTable', [
+                'close' => $quote->close,
                 'items' => $quote->Items,
                 'comissao' => $quote->Client->User->comissao
                 ])->render()

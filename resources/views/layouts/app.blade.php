@@ -69,13 +69,14 @@
 
         </head>
 
+        <body class="theme-{{Auth::user()->level > 1 ? 'teal' : 'blue'}}">
 
             <!-- Top Bar -->
             @include('layouts.topnavbar')
 
 
 
-
+        
             @yield('content')
 
         </body>

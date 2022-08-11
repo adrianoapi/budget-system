@@ -18,10 +18,21 @@
                         <h3>
                             <i class="icon-money"></i>
                             Cotação
+                            @if($quote->close)
+                            FECHADA //////////////////////////
+                            @endif
                         </h3>
                     </div>
                     <div class="box-content">
                         <div class="invoice-info">
+
+                            @if(session('quote_close'))
+                                <div class="alert alert-danger">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {!!session('quote_close')!!}
+                                </div>
+                            @endif
+
                             <div class="invoice-from">
                                 <span>De</span>
                                 <strong>DRY AIR TEC MAQUINAS INDUSTRIAIS LTDA</strong>
@@ -72,21 +83,27 @@
                         <div class="row-fluid">
                             <div class="span12">
                                 <div class="basic-margin" style="float:right;">
+                                    @if(!$quote->close)
                                     <a href="#new-task" data-toggle="modal" class="btn btn-blue"><i class="icon-plus-sign"></i> Adicionar Produto</a>
-                                    <a href="#new-task" class="btn btn-red" style="display: none"><i class="icon-file-alt"></i> Exportar PDF</a>
+                                    @else
+                                    <a href="javascript:void(0)" class="btn btn-default" disabled="disabled"><i class="icon-plus-sign"></i> Adicionar Produto</a>
+                                    <a href="#new-task" class="btn btn-primary" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
                                     <a href="#new-task" class="btn btn-green" style="display: none"><i class="icon-table"></i> Exportar Excel</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                         
                         <div id="dinamic-table">Carregando...</div>
-
+                        @if(!$quote->close)
                         <div class="invoice-payment">
-                            <span>Payment methods</span>
-                            <ul>
-                                
-                            </ul>
+                            {{ Form::open(['route' => ['cotacoes.close', $quote->id],  'method' => 'POST']) }}
+                            {!! Form::button('<i class="icon-folder-close-alt"></i> Fechar Cotação', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
+                            {{ Form::close() }}
                         </div>
+                        @else 
+                        {!! Form::button('<i class="icon-folder-close-alt"></i> Fechar Cotação', ['class' => 'btn btn-default', 'type' => 'submit', 'disabled' => 'disabled']) !!}
+                        @endif
                     </div>
                 </div>
             </div>

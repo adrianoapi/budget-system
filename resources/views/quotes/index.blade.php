@@ -59,6 +59,15 @@
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
+                                                        <input id="close" placeholder="Fechada" type="text" name="close" value="" class="input-block-level">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
                                                         <input id="created_at" placeholder="Data" type="text" name="created_at" value="" class="input-block-level">
                                                     </div>
                                                 </div>
@@ -81,6 +90,7 @@
                                         <th>Nome</th>
                                         <th>Responsável</th>
                                         <th>Telefone</th>
+                                        <th>Fechada</th>
                                         <th>Data</th>
                                         <th>Ações</th>
                                     </tr>
@@ -101,6 +111,7 @@
                                                 {{$value->Client->celular}}
                                             @endif
                                         </td>
+                                        <td>{{$value->close}}</td>
                                         <td>{{$value->created_at}}</td>
                                         <td class='hidden-1024'>
                                             {{ Form::open(['route' => ['cotacoes.destroy', $value->id],  'method' => 'POST', "onSubmit" => "return confirm('Deseja excluir?');", 'style' => 'margin: 0;padding:0;']) }}
