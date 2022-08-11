@@ -59,7 +59,11 @@
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input id="close" placeholder="Fechada" type="text" name="close" value="" class="input-block-level">
+                                                        <select name="close" id="close" class='input-block-level'>
+                                                            <option value="">Fechada?</option>
+                                                            <option value="yes" {{$close == "yes" ? 'selected':''}}>Sim</option>
+                                                            <option value="no"  {{$close == "no"  ? 'selected':''}}>Não</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>

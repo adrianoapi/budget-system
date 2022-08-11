@@ -25,12 +25,14 @@ class QuoteController extends UtilController
         $name         = NULL;
         $responsavel  = NULL;
         $telefone     = NULL;
+        $close        = NULL;
 
         if(array_key_exists('filtro',$_GET))
         {
             $name        = $_GET['name'       ];
             $responsavel = $_GET['responsavel'];
             $telefone    = $_GET['telefone'   ];
+            $close       = $_GET['close'      ];
 
             $clients = Client::select('id')->where('name', 'like', '%' . $name . '%')
             ->where('active', true)
@@ -53,10 +55,41 @@ class QuoteController extends UtilController
 
         if(Auth::user()->level > 1)
         {
-            $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(10);
-            $quotes = Quote::whereIn('client_id', $ids)->where('active', true)->orderBy('id', 'desc')->paginate(100);
-        }else{
-            $quotes = Quote::whereIn('client_id', $ids)->where('active', true)->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(100);
+            $products = Product::where('active', true)
+            ->orderBy('descricao', 'asc')
+            ->paginate(10);
+
+            if(!empty($close))
+            {
+                $quotes = Quote::whereIn('client_id', $ids)
+                ->where('active', true)
+                ->where('close', $close == "yes" ? true : false)
+                ->orderBy('id', 'desc')
+                ->paginate(100);
+            }else{
+                $quotes = Quote::whereIn('client_id', $ids)
+                ->where('active', true)
+                ->orderBy('id', 'desc')
+                ->paginate(100);
+            }
+
+        }else
+        {
+            if(!empty($close))
+            {
+                $quotes = Quote::whereIn('client_id', $ids)
+                ->where('active', true)
+                ->where('close', $close == "yes" ? true : false)
+                ->where('user_id', Auth::user()->id)
+                ->orderBy('id', 'desc')
+                ->paginate(100);
+            }else{
+                $quotes = Quote::whereIn('client_id', $ids)
+                ->where('active', true)
+                ->where('user_id', Auth::user()->id)
+                ->orderBy('id', 'desc')
+                ->paginate(100);
+            }
         }
         
         return view('quotes.index', [
@@ -64,7 +97,8 @@ class QuoteController extends UtilController
             'quotes' => $quotes,
             'name' => $name,
             'responsavel' => $responsavel,
-            'telefone' => $telefone
+            'telefone' => $telefone,
+            'close' => $close
         ]);
     }
 
