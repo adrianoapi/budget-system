@@ -48,7 +48,7 @@
                                 <i class="icon-shopping-cart"></i>
                                 <div class="details">
                                     <span class="big">{{$total['quotes']}}</span>
-                                    <span>Propostas</span>
+                                    <span>Cotações</span>
                                 </div>
                             </li>
                             <li class="orange">

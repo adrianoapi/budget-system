@@ -64,19 +64,31 @@
                             </div>
                             <div class="invoice-infos">
                                 <table>
-                                    <tbody><tr>
-                                        <th>Date:</th>
-                                        <td>Aug 06, 2012</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Invoice #:</th>
-                                        <td>0001752188s</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Product:</th>
-                                        <td>Service Hotline</td>
-                                    </tr>
-                                </tbody></table>
+                                    <tbody>
+                                        <tr>
+                                            <th>Serial #:</th>
+                                            <td>
+                                                {{$quote->serial}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Data:</th>
+                                            <td>Aug 06, 2012</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Fator:</th>
+                                            <td>
+                                                //
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total:</th>
+                                            <td>
+                                                //
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 

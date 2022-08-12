@@ -80,6 +80,7 @@ class QuoteController extends UtilController
                 $quotes = Quote::whereIn('client_id', $ids)
                 ->where('active', true)
                 ->where('close', $close == "yes" ? true : false)
+                ->where('close', $close == "yes" ? true : false)
                 ->where('user_id', Auth::user()->id)
                 ->orderBy('id', 'desc')
                 ->paginate(100);
@@ -122,8 +123,9 @@ class QuoteController extends UtilController
             $this->autoridadeCheck($client->user_id);
 
             $model = new Quote();
-            $model->user_id     =  $client->user_id;
-            $model->client_id   =  $client->id;
+            $model->user_id     = $client->user_id;
+            $model->client_id   = $client->id;
+            $model->serial      = uniqid();
 
             if($model->save()){
                 return redirect()->route('cotacoes.edit', ['quote' => $model->id]);
@@ -171,7 +173,7 @@ class QuoteController extends UtilController
             );
         }
 
-        $quote->close = true;
+        $quote->close  = true;
 
         if($quote->save()){
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
@@ -217,6 +219,13 @@ class QuoteController extends UtilController
     public function destroy(Quote $quote)
     {
         $this->autoridadeCheck($quote->Client->user_id);
+
+        if($quote->close){
+            return redirect()->route('cotacoes.edit', $quote->id)->with(
+                'quote_close',
+                'Cotações fechadas não podem ser excluídas!'
+            );
+        }
 
         if($quote->delete()){
             return redirect()->route('cotacoes.index');

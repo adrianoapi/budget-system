@@ -19,7 +19,7 @@
                     <i class="icon-trash"></i>
                 </a>
                 @else
-                <a href="javascript:void(0)" class="btn btn-default" rel="tooltip" title="" data-original-title="Excluir">
+                <a href="javascript:void(0)" class="btn btn-default" rel="tooltip" title="" data-original-title="Excluir" disabled="disabled">
                     <i class="icon-trash"></i>
                 </a>
                 @endif

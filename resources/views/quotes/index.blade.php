@@ -121,12 +121,27 @@
                                             {{ Form::open(['route' => ['cotacoes.destroy', $value->id],  'method' => 'POST', "onSubmit" => "return confirm('Deseja excluir?');", 'style' => 'margin: 0;padding:0;']) }}
                                                 @csrf
                                                 @method('delete')
+                                                
+                                                @if($value->close)
+                                                <a href="{{route('cotacoes.edit', $value->id)}}" class="btn" rel="tooltip" title="" data-original-title="Visualizar">
+                                                    <i class="icon-eye-open"></i>
+                                                </a>
+                                                @else
                                                 <a href="{{route('cotacoes.edit', $value->id)}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
                                                     <i class="icon-edit"></i>
                                                 </a>
+                                                @endif
+
+                                                @if($value->close)
+                                                <button type="button" class="btn" rel="tooltip" title="" data-original-title="Excluir" disabled="disabled">
+                                                    <i class="icon-trash"></i>
+                                                </button>
+                                                @else
                                                 <button type="submit" class="btn" rel="tooltip" title="" data-original-title="Excluir">
                                                     <i class="icon-trash"></i>
                                                 </button>
+                                                @endif
+                                                
                                             {{ Form::close() }}
                                         </td>
                                     </tr>
