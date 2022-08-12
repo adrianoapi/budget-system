@@ -27,6 +27,7 @@ class QuoteController extends UtilController
         $responsavel  = NULL;
         $telefone     = NULL;
         $close        = NULL;
+        $serial       = NULL;
 
         if(array_key_exists('filtro',$_GET))
         {
@@ -34,6 +35,7 @@ class QuoteController extends UtilController
             $responsavel = $_GET['responsavel'];
             $telefone    = $_GET['telefone'   ];
             $close       = $_GET['close'      ];
+            $serial      = $_GET['serial'     ];
 
             $clients = Client::select('id')->where('name', 'like', '%' . $name . '%')
             ->where('active', true)
@@ -64,12 +66,14 @@ class QuoteController extends UtilController
             {
                 $quotes = Quote::whereIn('client_id', $ids)
                 ->where('active', true)
+                ->where('serial', 'like', '%' . rtrim($serial) . '%')
                 ->where('close', $close == "yes" ? true : false)
                 ->orderBy('id', 'desc')
                 ->paginate(100);
             }else{
                 $quotes = Quote::whereIn('client_id', $ids)
                 ->where('active', true)
+                ->where('serial', 'like', '%' . rtrim($serial) . '%')
                 ->orderBy('id', 'desc')
                 ->paginate(100);
             }
@@ -80,6 +84,7 @@ class QuoteController extends UtilController
             {
                 $quotes = Quote::whereIn('client_id', $ids)
                 ->where('active', true)
+                ->where('serial', 'like', '%' . rtrim($serial) . '%')
                 ->where('close', $close == "yes" ? true : false)
                 ->where('close', $close == "yes" ? true : false)
                 ->where('user_id', Auth::user()->id)
@@ -88,6 +93,7 @@ class QuoteController extends UtilController
             }else{
                 $quotes = Quote::whereIn('client_id', $ids)
                 ->where('active', true)
+                ->where('serial', 'like', '%' . rtrim($serial) . '%')
                 ->where('user_id', Auth::user()->id)
                 ->orderBy('id', 'desc')
                 ->paginate(100);
@@ -100,7 +106,8 @@ class QuoteController extends UtilController
             'name' => $name,
             'responsavel' => $responsavel,
             'telefone' => $telefone,
-            'close' => $close
+            'close' => $close,
+            'serial' => $serial
         ]);
     }
 

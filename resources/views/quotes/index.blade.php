@@ -59,6 +59,15 @@
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
+                                                        <input id="serial" placeholder="Serial" type="text" name="serial" value="{{$serial}}" class="input-block-level">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
                                                         <select name="close" id="close" class='input-block-level'>
                                                             <option value="">Fechada?</option>
                                                             <option value="yes" {{$close == "yes" ? 'selected':''}}>Sim</option>
@@ -94,6 +103,7 @@
                                         <th>Nome</th>
                                         <th>Responsável</th>
                                         <th>Telefone</th>
+                                        <th>Serial</th>
                                         <th>Fechada</th>
                                         <th>Data</th>
                                         <th>Ações</th>
@@ -115,7 +125,15 @@
                                                 {{$value->Client->celular}}
                                             @endif
                                         </td>
-                                        <td>{{$value->close}}</td>
+                                        <td>{{$value->serial}}</td>
+                                        <td>
+                                            @if($value->close)
+                                                <span class="btn btn-primary">Sim</span>
+                                            @else
+                                                <span class="btn btn-default">Não</span>
+                                            @endif
+                                        </td>
+                                        
                                         <td>{{$value->created_at}}</td>
                                         <td class='hidden-1024'>
                                             {{ Form::open(['route' => ['cotacoes.destroy', $value->id],  'method' => 'POST', "onSubmit" => "return confirm('Deseja excluir?');", 'style' => 'margin: 0;padding:0;']) }}

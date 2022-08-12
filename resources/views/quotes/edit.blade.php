@@ -16,110 +16,163 @@
                 <div class="box box-bordered box-color">
                     <div class="box-title">
                         <h3>
-                            <i class="icon-money"></i>
+                            <i class="icon-reorder"></i>
                             Cotação
                             @if($quote->close)
-                            FECHADA //////////////////////////
+                            FECHADA
                             @endif
                         </h3>
                     </div>
-                    <div class="box-content">
-                        <div class="invoice-info">
-
-                            @if(session('quote_close'))
-                                <div class="alert alert-danger">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    {!!session('quote_close')!!}
-                                </div>
-                            @endif
-
-                            <div class="invoice-from">
-                                <span>De</span>
-                                <strong>DRY AIR TEC MAQUINAS INDUSTRIAIS LTDA</strong>
-                                <address>
-                                    Condômino Alfa , Barração -4, Rodovia da Uva, 693<br>
-                                    Roça Grande, Colombo - PR,  83402-000 <br>
-                                    <abbr title="Phone">Phone:</abbr>+55 41 3359 6809 <br>
-                                    <abbr title="Fax">Phone:</abbr> +55 41 991288200
-                                </address>
-                            </div>
-                            <div class="invoice-to">
-                                <span>Para</span>
-                                <strong>{{$quote->client->name}}</strong>
-                                <address>
-                                    {{$quote->client->endereco}}, {{$quote->client->numero}} <br>
-                                    {{$quote->client->bairro}}, {{$quote->client->cidade}}/{{$quote->client->estado}}, {{$quote->client->cep}} <br>
-                                    <abbr title="Telefone">Phone:</abbr>
-                                    @if(!empty($quote->client->telefone))
-                                    {{$quote->client->telefone}} |
-                                    @endif
-                                    @if(!empty($quote->client->telefone_com))
-                                        {{$quote->client->telefone_com}} |
-                                    @endif
-                                    @if(!empty($quote->client->celular))
-                                        {{$quote->client->celular}}
-                                    @endif<br>
-                                    <abbr title="E-mail">E-mail:</abbr> {{$quote->client->celular}}
-                                </address>
-                            </div>
-                            <div class="invoice-infos">
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <th>Serial #:</th>
-                                            <td>
-                                                {{$quote->serial}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Data:</th>
-                                            <td>Aug 06, 2012</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Fator:</th>
-                                            <td>
-                                                //
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Total:</th>
-                                            <td>
-                                                //
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="row-fluid">
-                            <div class="span12">
-                                <div class="basic-margin" style="float:right;">
+                    <div class="box-content nopadding">
+                        <ul class="tabs tabs-inline tabs-top">
+                            <li class='active'>
+                                <a href="#first11" data-toggle='tab'><i class="icon-list-alt"></i> Resumo</a>
+                            </li>
+                            <li>
+                                <a href="#second22" data-toggle='tab'><i class="icon-edit"></i> Editar</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content padding tab-content-inline tab-content-bottom">
+                            <div class="tab-pane active" id="first11">
+                                <div class="tab-pane active" id="first11">
+                                    <div class="invoice-info">
+            
+                                        @if(session('quote_close'))
+                                            <div class="alert alert-danger">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                {!!session('quote_close')!!}
+                                            </div>
+                                        @endif
+            
+                                        <div class="invoice-from">
+                                            <span>De</span>
+                                            <strong>DRY AIR TEC MAQUINAS INDUSTRIAIS LTDA</strong>
+                                            <address>
+                                                Condômino Alfa , Barração -4, Rodovia da Uva, 693<br>
+                                                Roça Grande, Colombo - PR,  83402-000 <br>
+                                                <abbr title="Phone">Phone:</abbr>+55 41 3359 6809 <br>
+                                                <abbr title="Fax">Phone:</abbr> +55 41 991288200
+                                            </address>
+                                        </div>
+                                        <div class="invoice-to">
+                                            <span>Para</span>
+                                            <strong>{{$quote->client->name}}</strong>
+                                            <address>
+                                                {{$quote->client->endereco}}, {{$quote->client->numero}} <br>
+                                                {{$quote->client->bairro}}, {{$quote->client->cidade}}/{{$quote->client->estado}}, {{$quote->client->cep}} <br>
+                                                <abbr title="Telefone">Phone:</abbr>
+                                                @if(!empty($quote->client->telefone))
+                                                {{$quote->client->telefone}} |
+                                                @endif
+                                                @if(!empty($quote->client->telefone_com))
+                                                    {{$quote->client->telefone_com}} |
+                                                @endif
+                                                @if(!empty($quote->client->celular))
+                                                    {{$quote->client->celular}}
+                                                @endif<br>
+                                                <abbr title="E-mail">E-mail:</abbr> {{$quote->client->celular}}
+                                            </address>
+                                        </div>
+                                        <div class="invoice-infos">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Serial #:</th>
+                                                        <td>
+                                                            {{$quote->serial}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Data:</th>
+                                                        <td>Aug 06, 2012</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Fator:</th>
+                                                        <td>
+                                                            {{$quote->fator}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Total:</th>
+                                                        <td>
+                                                            {{$quote->total}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+            
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <div class="basic-margin" style="float:right;">
+                                                @if(!$quote->close)
+                                                <a href="#new-task" data-toggle="modal" class="btn btn-primary"><i class="icon-plus-sign"></i> Adicionar Produto</a>
+                                                @else
+                                                <a href="javascript:void(0)" class="btn btn-default" disabled="disabled"><i class="icon-plus-sign"></i> Adicionar Produto</a>
+                                                <a href="#new-task" class="btn btn-primary" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
+                                                <a href="#new-task" class="btn btn-green" style="display: none"><i class="icon-table"></i> Exportar Excel</a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="dinamic-table">Carregando...</div>
                                     @if(!$quote->close)
-                                    <a href="#new-task" data-toggle="modal" class="btn btn-primary"><i class="icon-plus-sign"></i> Adicionar Produto</a>
-                                    @else
-                                    <a href="javascript:void(0)" class="btn btn-default" disabled="disabled"><i class="icon-plus-sign"></i> Adicionar Produto</a>
-                                    <a href="#new-task" class="btn btn-primary" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
-                                    <a href="#new-task" class="btn btn-green" style="display: none"><i class="icon-table"></i> Exportar Excel</a>
+                                    <div class="invoice-payment">
+                                        {{ Form::open(['route' => ['cotacoes.close', $quote->id],  'method' => 'POST']) }}
+                                        {!! Form::button('<i class="icon-folder-close-alt"></i> Fechar Cotação', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
+                                        {{ Form::close() }}
+                                    </div>
+                                    @else 
+                                    <div class="invoice-payment">
+                                        {{ Form::open(['route' => ['cotacoes.clone', $quote->id],  'method' => 'POST']) }}
+                                        {!! Form::button('<i class="icon-copy"></i> Clonar Cotação', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
+                                        {{ Form::close() }}
+                                    </div>
                                     @endif
                                 </div>
                             </div>
+                            <div class="tab-pane" id="second22">
+                                <form>
+                                    @csrf
+                                    @method('PUT')
+    
+                                    <div class="row-fluid">
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="multa" class="control-label">Multa (%)</label>
+                                                <div class="controls controls-row">
+                                                    //
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="total" class="control-label">Total Líquido</label>
+                                                <div class="controls controls-row">
+                                                    //
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="total" class="control-label">Total Geral</label>
+                                                <div class="controls controls-row">
+                                                    //
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="row-fluid">
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary">Salvar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div><!--Tab 2-->
                         </div>
-                        
-                        <div id="dinamic-table">Carregando...</div>
-                        @if(!$quote->close)
-                        <div class="invoice-payment">
-                            {{ Form::open(['route' => ['cotacoes.close', $quote->id],  'method' => 'POST']) }}
-                            {!! Form::button('<i class="icon-folder-close-alt"></i> Fechar Cotação', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
-                            {{ Form::close() }}
-                        </div>
-                        @else 
-                        <div class="invoice-payment">
-                            {{ Form::open(['route' => ['cotacoes.clone', $quote->id],  'method' => 'POST']) }}
-                            {!! Form::button('<i class="icon-copy"></i> Clonar Cotação', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
-                            {{ Form::close() }}
-                        </div>
-                        @endif
                     </div>
                 </div>
             </div>
