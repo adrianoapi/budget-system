@@ -114,7 +114,11 @@
                             {{ Form::close() }}
                         </div>
                         @else 
-                        {!! Form::button('<i class="icon-folder-close-alt"></i> Fechar Cotação', ['class' => 'btn btn-default', 'type' => 'submit', 'disabled' => 'disabled']) !!}
+                        <div class="invoice-payment">
+                            {{ Form::open(['route' => ['cotacoes.clone', $quote->id],  'method' => 'POST']) }}
+                            {!! Form::button('<i class="icon-copy"></i> Clonar Cotação', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
+                            {{ Form::close() }}
+                        </div>
                         @endif
                     </div>
                 </div>

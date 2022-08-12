@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Quote;
 use App\Models\Client;
 use App\Models\Product;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -177,6 +178,40 @@ class QuoteController extends UtilController
 
         if($quote->save()){
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
+        }
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
+    public function clone(Quote $quote)
+    {
+        $this->autoridadeCheck($quote->Client->user_id);
+
+        $quote->close  = false;
+
+        $model = new Quote();
+        $model->user_id     = $quote->user_id;
+        $model->client_id   = $quote->client_id;
+        $model->serial      = uniqid();
+
+        if($model->save()){
+
+            foreach($quote->Items as $value):
+                $item = new Item();
+                $item->quote_id   = $model->id;
+                $item->product_id = $value->product_id;
+                $item->quantidade = $value->quantidade;
+                $item->save();
+            endforeach;
+
+            return redirect()->route('cotacoes.edit', ['quote' => $model->id]);
+        }else{
+            die('Erro ao clonar a cotação!');
         }
 
     }
