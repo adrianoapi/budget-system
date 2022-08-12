@@ -18,12 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('login', "LoginController@index")->name('auth.login');
-Route::post('/login/auth', "LoginController@auth")->name('login.auth');
-Route::get('/login/sair', "LoginController@logout")->name('login.logout');
-Route::get('/login/recover', "LoginController@recover")->name('login.recover');
-Route::post('/login/recover/do', "LoginController@recoverDo")->name('login.recover.do');
+Route::prefix('login')->group(function(){
+    Route::get('/', "LoginController@index")->name('login');
+    Route::post('/auth', "LoginController@auth")->name('login.auth');
+    Route::get('/sair', "LoginController@logout")->name('login.logout');
+    Route::get('/recover', "LoginController@recover")->name('login.recover');
+    Route::post('/recover/do', "LoginController@recoverDo")->name('login.recover.do');
+});
 
 Route::prefix('dashboard')->group(function(){
     Route::get('/', "DashboardController@index")->name('dashboard.index');
