@@ -53,6 +53,16 @@ Route::prefix('clientes')->group(function(){
     Route::delete('destroy/{client}', 'ClientController@destroy')->name('clientes.destroy');
 });
 
+Route::prefix('empresas')->group(function(){
+    Route::get('/',              'CompanyController@index' )->name('empresas.index');
+    Route::get('novo',           'CompanyController@create')->name('empresas.create');
+    Route::post('store',         'CompanyController@store' )->name('empresas.store');
+    Route::get('edit/{company}', 'CompanyController@edit'  )->name('empresas.edit');
+    Route::put('edit/{company}', 'CompanyController@update')->name('empresas.update');
+
+    Route::delete('destroy/{company}', 'CompanyController@destroy')->name('empresas.destroy');
+});
+
 Route::prefix('produtos')->group(function(){
     Route::get('/',              'ProductController@index' )->name('produtos.index');
     Route::get('novo',           'ProductController@create')->name('produtos.create');

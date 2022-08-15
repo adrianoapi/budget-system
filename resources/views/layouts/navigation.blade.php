@@ -15,6 +15,9 @@
 					<li>
 						<a href="{{route('produtos.index')}}">PRODUTOS</a>
 					</li>
+					<li>
+						<a href="{{route('empresas.index')}}">EMPRESAS</a>
+					</li>
 				</ul>
                 @endif
 			</div>
