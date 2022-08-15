@@ -141,7 +141,20 @@
                                     <div class="row-fluid">
                                         <div class="span2">
                                             <div class="control-group">
-                                                <label for="multa" class="control-label">Multa (%)</label>
+                                                <label for="multa" class="control-label">Empesa</label>
+                                                <div class="controls controls-row">
+                                                    <select name="level" id="level" class='input-block-level'>
+                                                        <option value="">Empesa</option>
+                                                        @foreach($companies as $value)
+                                                            <option value="{{$value->id}}">{{$value->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="total" class="control-label">Fator</label>
                                                 <div class="controls controls-row">
                                                     //
                                                 </div>
@@ -149,15 +162,7 @@
                                         </div>
                                         <div class="span2">
                                             <div class="control-group">
-                                                <label for="total" class="control-label">Total Líquido</label>
-                                                <div class="controls controls-row">
-                                                    //
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="span2">
-                                            <div class="control-group">
-                                                <label for="total" class="control-label">Total Geral</label>
+                                                <label for="total" class="control-label">Valor Total</label>
                                                 <div class="controls controls-row">
                                                     //
                                                 </div>

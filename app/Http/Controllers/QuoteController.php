@@ -6,6 +6,7 @@ use App\Models\Quote;
 use App\Models\Client;
 use App\Models\Product;
 use App\Models\Item;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -156,11 +157,14 @@ class QuoteController extends UtilController
 
         $title = $this->title. " editar";
 
-        $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(1000);
+        $companies = Company::select('id','name')->where('active', true)->orderBy('name', 'asc')->get();
+        $products  = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(1000);
+
         return view('quotes.edit', [
             'title' => $title,
             'quote' => $quote,
-            'products' => $products
+            'products' => $products,
+            'companies' => $companies
         ]);
     }
 
