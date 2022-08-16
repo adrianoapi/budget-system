@@ -121,6 +121,12 @@ class QuoteController extends UtilController
     public function create($client)
     {
         $title = $this->title. " cadastar";
+
+        $company = Company::where('active', true)->first();
+
+        if(empty($company)){
+            die('Nenhuma empresa encontrada!');
+        }
         
         $id     = (int) $client;
         $client = Client::where('active', true)
@@ -130,8 +136,8 @@ class QuoteController extends UtilController
         if(!empty($client)){
 
             $this->autoridadeCheck($client->user_id);
-
             $model = new Quote();
+            $model->company_id  = $company->id;
             $model->user_id     = $client->user_id;
             $model->client_id   = $client->id;
             $model->serial      = uniqid();
@@ -253,7 +259,23 @@ class QuoteController extends UtilController
      */
     public function update(Request $request, Quote $quote)
     {
-        //
+        $this->autoridadeCheck($quote->client->user_id);
+        $this->autoridadeCheck($quote->client->user_id);
+
+        if(!empty($request->company_id)){
+            $quote->company_id = (int) $request->company_id;
+
+            if($quote->save()){
+                return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
+            }
+            
+        }else{
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
+                'quote_close',
+                'Selecione uma empresa!'
+            );
+        }
+
     }
 
     /**

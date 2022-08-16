@@ -4,7 +4,7 @@
             <th>Excluir</th>
             <th>Item</th>
             <th>Price</th>
-            <th>Qty</th>
+            <th>Qtd</th>
             <th class="tr">Total</th>
         </tr>
     </thead>

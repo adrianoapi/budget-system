@@ -46,12 +46,13 @@
             
                                         <div class="invoice-from">
                                             <span>De</span>
-                                            <strong>DRY AIR TEC MAQUINAS INDUSTRIAIS LTDA</strong>
+                                            <strong>{{$quote->company->name}}</strong>
                                             <address>
-                                                Condômino Alfa , Barração -4, Rodovia da Uva, 693<br>
-                                                Roça Grande, Colombo - PR,  83402-000 <br>
-                                                <abbr title="Phone">Phone:</abbr>+55 41 3359 6809 <br>
-                                                <abbr title="Fax">Phone:</abbr> +55 41 991288200
+                                                {{$quote->company->endereco}}, {{$quote->company->numero}}, {{$quote->company->complemento}}<br>
+                                                {{$quote->company->bairro}}, {{$quote->company->cidade}} - {{$quote->company->estado}},  {{$quote->company->cep}} <br>
+                                                <abbr title="Telefone">Telefone:</abbr> {{$quote->company->telefone}} -
+                                                <abbr title="Comercial">Comercial:</abbr> {{$quote->company->telefone_com}} <br>
+                                                <abbr title="Celular">Celular:</abbr> {{$quote->company->celular}}
                                             </address>
                                         </div>
                                         <div class="invoice-to">
@@ -134,8 +135,8 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="second22">
-                                <form>
-                                    @csrf
+                                {{ Form::open(['route' => ['cotacoes.update', $quote->id], 'class' => 'form']) }}    
+                                    @csrf 
                                     @method('PUT')
     
                                     <div class="row-fluid">
@@ -143,10 +144,10 @@
                                             <div class="control-group">
                                                 <label for="multa" class="control-label">Empesa</label>
                                                 <div class="controls controls-row">
-                                                    <select name="level" id="level" class='input-block-level'>
+                                                    <select name="company_id" id="company_id" class='input-block-level'>
                                                         <option value="">Empesa</option>
                                                         @foreach($companies as $value)
-                                                            <option value="{{$value->id}}">{{$value->name}}</option>
+                                                            <option value="{{$value->id}}" {{$quote->company_id == $value->id ? "selected" : NULL}}>{{$value->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
