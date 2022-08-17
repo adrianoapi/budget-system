@@ -140,6 +140,8 @@ class QuoteController extends UtilController
             $model->company_id  = $company->id;
             $model->user_id     = $client->user_id;
             $model->client_id   = $client->id;
+            $model->fator       = "0.0";
+            $model->total       = "0.00";
             $model->serial      = uniqid();
 
             if($model->save()){
@@ -260,10 +262,25 @@ class QuoteController extends UtilController
     public function update(Request $request, Quote $quote)
     {
         $this->autoridadeCheck($quote->client->user_id);
-        $this->autoridadeCheck($quote->client->user_id);
+
+        if(empty($request->fator) || $request->fator < 0 || $request->fator >= 1){
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
+                'quote_close',
+                'O campo Fator precisa ser um número entre 0.0 e 0.9!'
+            );
+        }
+
+        if(empty($request->total) || $request->total < 0){
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
+                'quote_close',
+                'O campo Total não pode ser menor que 0,00!'
+            );
+        }
 
         if(!empty($request->company_id)){
             $quote->company_id = (int) $request->company_id;
+            $quote->fator      = $request->fator;
+            $quote->total      = $request->total;
 
             if($quote->save()){
                 return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);

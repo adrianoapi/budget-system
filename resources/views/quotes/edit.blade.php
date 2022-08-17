@@ -155,17 +155,37 @@
                                         </div>
                                         <div class="span2">
                                             <div class="control-group">
-                                                <label for="total" class="control-label">Fator</label>
-                                                <div class="controls controls-row">
-                                                    //
+                                                {{Form::label('fator', 'Fator (0.0 a 0.9)', array('class' => 'control-label'))}}
+                                                <div class="controls">
+                                                    {{Form::text('fator', $quote->fator, [
+                                                        'id' => 'fator',
+                                                        'placeholder' => '0.0',
+                                                        'class' => 'fator input-medium',
+                                                        'required' => true
+                                                        ])}}
+                                                    @error('fator')
+                                                    <div class="alert-danger input-xlarge">{{$message}}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="span2">
                                             <div class="control-group">
-                                                <label for="total" class="control-label">Valor Total</label>
-                                                <div class="controls controls-row">
-                                                    //
+                                                {{Form::label('total', 'Total (0,00)', array('class' => 'control-label'))}}
+                                                <div class="controls">
+                                                    <div class="input-append">
+                                                        <span class="add-on">R$</span>
+                                                        {{Form::text('total', $quote->total, [
+                                                            'id' => 'total',
+                                                            'placeholder' => '0.00', 
+                                                            'class' => 'money input-medium', 
+                                                            'required' => true
+                                                            ]
+                                                            )}}
+                                                        @error('total')
+                                                        <div class="alert-danger input-xlarge">{{$message}}</div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -263,6 +283,14 @@
 </div>
 
 <script type="text/javascript">
+
+(function( $ ) {
+    $(function() {
+        $('.money').mask('#.##0,00', {reverse: true});
+        $('.fator').mask('#.#', {reverse: true});
+    });
+})(jQuery);
+
 
 const attributes = ['espessura', 'cobre', 'aco', 'valor', 'icms', 'ipi'];
 

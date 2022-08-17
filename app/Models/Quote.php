@@ -23,4 +23,14 @@ class Quote extends Model
     {
         return $this->hasOne(Company::class, 'id', 'company_id');
     }
+
+    public function setTotalAttribute($value)
+    {
+        return $this->attributes['total'] = str_replace(',', '.', str_replace('.', '', $value));
+    }
+
+    public function getTotalAttribute($value)
+    {
+        return $this->attributes['total'] = $value;
+    }
 }
