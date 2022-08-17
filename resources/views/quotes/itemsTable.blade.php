@@ -10,11 +10,11 @@
     </thead>
     <tbody>
         <?php $total = 0; ?>
-        @foreach($items as $value)
+        @foreach($quote->items as $value)
         <?php $total = $total + $value->Product->valor * $value->quantidade; ?>
         <tr>
             <td>
-                @if(!$close)
+                @if(!$quote->close)
                 <a href="javascript:void(0)" onclick="excluir({{$value->id}})" class="btn btn-danger" rel="tooltip" title="" data-original-title="Excluir">
                     <i class="icon-trash"></i>
                 </a>
@@ -38,14 +38,13 @@
                     <span>R${{$total}}</span>
                 </p>
                 <p>
-                    <span class="light">Tax({{$comissao}}%)</span>
-                    <?php $taxa = $total * $comissao / 100; ?>
-                    <span>R${{number_format($taxa, 2, '.', ',')}}</span>
+                    <span class="light">Tax(0%)</span>
+                    <span>R$0</span>
                 </p>
                 <p>
                     <span class="light">Total</span>
                     <span class="totalprice">
-                        R${{number_format($total + $taxa, 2, '.', ',')}}
+                        R${{number_format($total, 2, '.', ',')}}
                     </span>
                 </p>
             </td>

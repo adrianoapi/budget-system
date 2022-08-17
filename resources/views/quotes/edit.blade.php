@@ -161,7 +161,8 @@
                                                         'id' => 'fator',
                                                         'placeholder' => '0.0',
                                                         'class' => 'fator input-medium',
-                                                        'required' => true
+                                                        'required' => true,
+                                                        'disabled' => $quote->close > 0 ? true : false
                                                         ])}}
                                                     @error('fator')
                                                     <div class="alert-danger input-xlarge">{{$message}}</div>
@@ -179,7 +180,8 @@
                                                             'id' => 'total',
                                                             'placeholder' => '0.00', 
                                                             'class' => 'money input-medium', 
-                                                            'required' => true
+                                                            'required' => true,
+                                                            'disabled' => $quote->close > 0 ? true : false
                                                             ]
                                                             )}}
                                                         @error('total')
@@ -193,7 +195,11 @@
     
                                     <div class="row-fluid">
                                         <div class="form-actions">
-                                            <button type="submit" class="btn btn-primary">Salvar</button>
+                                            {{Form::button('Salvar', [
+                                                    'type' => 'submit',
+                                                    'class'=> 'btn btn-primary',
+                                                    'disabled' => $quote->close > 0 ? true : false
+                                            ])}}
                                         </div>
                                     </div>
                                 </form>

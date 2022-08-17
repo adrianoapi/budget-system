@@ -216,6 +216,9 @@ class QuoteController extends UtilController
         $model = new Quote();
         $model->user_id     = $quote->user_id;
         $model->client_id   = $quote->client_id;
+        $model->company_id  = $quote->company_id;
+        $model->fator       = $quote->fator;
+        $model->total       = $quote->total;
         $model->serial      = uniqid();
 
         if($model->save()){
@@ -245,9 +248,7 @@ class QuoteController extends UtilController
     {
         return response()->json([
             'table'   => view('quotes.itemsTable', [
-                'close' => $quote->close,
-                'items' => $quote->Items,
-                'comissao' => $quote->Client->User->comissao
+                'quote' => $quote
                 ])->render()
         ]);
     }
@@ -262,6 +263,13 @@ class QuoteController extends UtilController
     public function update(Request $request, Quote $quote)
     {
         $this->autoridadeCheck($quote->client->user_id);
+
+        if($quote->close){
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
+                'quote_close',
+                'Não é possível alterar uma cotação Fechada!'
+            );
+        }
 
         if(empty($request->fator) || $request->fator < 0 || $request->fator >= 1){
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
