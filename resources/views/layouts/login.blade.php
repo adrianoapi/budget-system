@@ -47,15 +47,15 @@
 
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="{!! asset('favicon.ico') !!}" />
+	<link rel="shortcut icon" href="{!! asset('flat-admin/img/favicon.ico') !!}" />
 	<!-- Apple devices Homescreen icon -->
-	<link rel="apple-touch-icon-precomposed" href="{!! asset('crm.png') !!}" />
+	<link rel="apple-touch-icon-precomposed" href="{!! asset('flat-admin/img/crm.png') !!}" />
 
 </head>
 
 <body class='login'>
 	<div class="wrapper">
-		<h1><a href="javascript:void(0)">DRY AIR TEC</a></h1>
+		<h1><a href="javascript:void(0)"><img src="{!! asset('flat-admin/img/logo-big.png') !!}" alt="" class="retina-ready" width="59" height="49">DRY AIR TEC</a></h1>
 		<div class="login-body">
             @yield('content')
 		</div>

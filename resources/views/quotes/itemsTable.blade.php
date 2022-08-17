@@ -11,7 +11,7 @@
     <tbody>
         <?php $total = 0; ?>
         @foreach($quote->items as $value)
-        <?php $total = $total + $value->Product->valor * $value->quantidade; ?>
+        <?php $total = $total + ($value->Product->valor - ($value->Product->valor * $quote->fator)) * $value->quantidade; ?>
         <tr>
             <td>
                 @if(!$quote->close)
@@ -25,9 +25,15 @@
                 @endif
             </td>
             <td class="name">{{$value->Product->descricao}}</td>
-            <td class="price">{{$value->Product->valor}}</td>
+            <td class="price">
+                @if($quote->fator > 0)
+                <s>{{$value->Product->valor}}</s> {{number_format($value->Product->valor - ($value->Product->valor * $quote->fator), 2, ".", ",")}}
+                @else
+                {{$value->Product->valor}}
+                @endif
+            </td>
             <td class="qty">{{$value->quantidade}}</td>
-            <td class="total">R${{$value->Product->valor * $value->quantidade}}</td>
+            <td class="total">R${{($value->Product->valor - ($value->Product->valor * $quote->fator)) * $value->quantidade}}</td>
         </tr>
         @endforeach
         <tr>
@@ -37,16 +43,29 @@
                     <span class="light">Subtotal</span>
                     <span>R${{$total}}</span>
                 </p>
+                @if ($quote->total > 0)
                 <p>
-                    <span class="light">Tax(0%)</span>
-                    <span>R$0</span>
+                    <span class="light">Desconto</span>
+                    <span class="totalprice">
+                        R${{number_format($total - $quote->total, 2, '.', ',')}}
+                    </span>
                 </p>
+                <p>
+                    <span class="light">Total</span>
+                    <span class="totalprice">
+                        R${{number_format($quote->total, 2, '.', ',')}}
+                    </span>
+                </p>
+                @else
                 <p>
                     <span class="light">Total</span>
                     <span class="totalprice">
                         R${{number_format($total, 2, '.', ',')}}
                     </span>
                 </p>
+                @endif
+                
+                
             </td>
         </tr>
     </tbody>
