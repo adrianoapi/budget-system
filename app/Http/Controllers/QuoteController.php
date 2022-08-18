@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 class QuoteController extends UtilController
 {
     private $title  = 'Cotação';
+    private $dtInicial;
+    private $dtFinal;
 
     /**
      * Display a listing of the resource.
@@ -24,19 +26,23 @@ class QuoteController extends UtilController
         $title = $this->title. " listagem";
 
         $ids          = [];
+        $quoteIds     = [];
         $name         = NULL;
         $responsavel  = NULL;
         $telefone     = NULL;
         $close        = NULL;
         $serial       = NULL;
 
-        if(array_key_exists('filtro',$_GET))
+        if(array_key_exists('filtro', $_GET))
         {
             $name        = $_GET['name'       ];
             $responsavel = $_GET['responsavel'];
             $telefone    = $_GET['telefone'   ];
             $close       = $_GET['close'      ];
             $serial      = $_GET['serial'     ];
+
+            $this->dtInicial = strlen($_GET['dt_inicio']) > 2 ? $this->dataSql($_GET['dt_inicio']) : $this->dtInicial;
+            $this->dtFinal   = strlen($_GET['dt_fim'   ]) > 2 ? $this->dataSql($_GET['dt_fim'   ]) : $this->dtFinal;
 
             $clients = Client::select('id')->where('name', 'like', '%' . $name . '%')
             ->where('active', true)
@@ -57,49 +63,93 @@ class QuoteController extends UtilController
             endforeach;
         }
 
+        # Se for administrador
         if(Auth::user()->level > 1)
         {
-            $products = Product::where('active', true)
-            ->orderBy('descricao', 'asc')
-            ->paginate(10);
-
             if(!empty($close))
             {
-                $quotes = Quote::whereIn('client_id', $ids)
+                $quotes = Quote::select('id')->whereIn('client_id', $ids)
                 ->where('active', true)
                 ->where('serial', 'like', '%' . rtrim($serial) . '%')
                 ->where('close', $close == "yes" ? true : false)
                 ->orderBy('id', 'desc')
-                ->paginate(100);
+                ->get();
+
+                foreach($quotes as $value):
+                    array_push($quoteIds, $value->id);
+                endforeach;
+
             }else{
-                $quotes = Quote::whereIn('client_id', $ids)
+                $quotes = Quote::select('id')->whereIn('client_id', $ids)
                 ->where('active', true)
                 ->where('serial', 'like', '%' . rtrim($serial) . '%')
                 ->orderBy('id', 'desc')
-                ->paginate(100);
+                ->get();
+
+                foreach($quotes as $value):
+                    array_push($quoteIds, $value->id);
+                endforeach;
             }
 
         }else
         {
+            # Se for usuário comum
             if(!empty($close))
             {
-                $quotes = Quote::whereIn('client_id', $ids)
+                $quotes = Quote::select('id')->whereIn('client_id', $ids)
                 ->where('active', true)
                 ->where('serial', 'like', '%' . rtrim($serial) . '%')
                 ->where('close', $close == "yes" ? true : false)
                 ->where('close', $close == "yes" ? true : false)
                 ->where('user_id', Auth::user()->id)
                 ->orderBy('id', 'desc')
-                ->paginate(100);
+                ->get();
+
+                foreach($quotes as $value):
+                    array_push($quoteIds, $value->id);
+                endforeach;
+
             }else{
-                $quotes = Quote::whereIn('client_id', $ids)
+                $quotes = Quote::select('id')->whereIn('client_id', $ids)
                 ->where('active', true)
                 ->where('serial', 'like', '%' . rtrim($serial) . '%')
                 ->where('user_id', Auth::user()->id)
                 ->orderBy('id', 'desc')
-                ->paginate(100);
+                ->get();
+
+                foreach($quotes as $value):
+                    array_push($quoteIds, $value->id);
+                endforeach;
             }
         }
+
+        if(!empty($this->dtInicial) && !empty($this->dtFinal))
+        {
+            if($this->dtInicial > $this->dtFinal)
+            {
+                return redirect()->route('cotacoes.index')->with(
+                    'quote_filter',
+                    'A data Inicial não pode ser maior que a data Final!'
+                );
+            }else{
+                $quotes = Quote::select('id')->whereIn('id', $quoteIds)
+                ->where('active', true)
+                ->where('created_at', '>=', $this->dtInicial.' 00:00:00')
+                ->where('created_at', '<=', $this->dtFinal.' 23:59:59')
+                ->orderBy('id', 'desc')
+                ->get();
+                
+                $quoteIds = [];
+                foreach($quotes as $value):
+                    array_push($quoteIds, $value->id);
+                endforeach;
+            }
+        }
+            
+
+        $quotes = Quote::whereIn('id', $quoteIds)
+        ->orderBy('id', 'desc')
+        ->paginate(100);
         
         return view('quotes.index', [
             'title' => $title,
@@ -108,7 +158,9 @@ class QuoteController extends UtilController
             'responsavel' => $responsavel,
             'telefone' => $telefone,
             'close' => $close,
-            'serial' => $serial
+            'serial' => $serial,
+            'dt_inicio' => !empty($this->dtInicial) ? $this->dataBr($this->dtInicial) : NULL,
+            'dt_fim' => !empty($this->dtFinal     ) ? $this->dataBr($this->dtFinal  ) : NULL
         ]);
     }
 

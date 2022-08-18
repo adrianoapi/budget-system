@@ -23,6 +23,14 @@
                         </div>
 
                         <div class="box-content nopadding">
+
+                            @if(session('quote_filter'))
+                                <div class="alert alert-danger">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {!!session('quote_filter')!!}
+                                </div>
+                            @endif
+                            
                             <table class="table table-hover table-nomargin table-colored-header">
                                 <thead>
                                     <tr>
@@ -81,7 +89,16 @@
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input id="created_at" placeholder="Data" type="text" name="created_at" value="" class="input-block-level">
+                                                        <input id="dt_inicio" placeholder="{{date('01/m/Y')}}" type="text" name="dt_inicio" value="{{$dt_inicio}}" class="input-block-level datepick" require>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="dt_fim" placeholder="{{date('t/m/Y')}}" type="text" name="dt_fim" value="{{$dt_fim}}" class="input-block-level datepick" require>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,7 +122,7 @@
                                         <th>Telefone</th>
                                         <th>Serial</th>
                                         <th>Fechada</th>
-                                        <th>Data</th>
+                                        <th colspan="2">Data</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -134,7 +151,7 @@
                                             @endif
                                         </td>
                                         
-                                        <td>{{$value->created_at}}</td>
+                                        <td colspan="2">{{$value->created_at}}</td>
                                         <td class='hidden-1024'>
                                             {{ Form::open(['route' => ['cotacoes.destroy', $value->id],  'method' => 'POST', "onSubmit" => "return confirm('Deseja excluir?');", 'style' => 'margin: 0;padding:0;']) }}
                                                 @csrf
@@ -177,4 +194,31 @@
 
 </div>
 
+
+<script>
+
+// Mascaras formulario
+(function( $ ) {
+$(function() {
+    $('.date').mask('00/00/0000');
+});
+})(jQuery);
+
+
+
+$(document).ready(function () {
+    $(document).on('focus', '.datepick', function () {
+        $(this).datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'pt-BR'
+        });
+    });
+});
+
+$('.datepick').datepicker({
+    format: 'dd/mm/yyyy',
+    language: 'pt-BR'
+});
+
+</script>
 @endsection

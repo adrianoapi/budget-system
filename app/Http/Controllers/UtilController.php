@@ -63,4 +63,15 @@ class UtilController extends Controller
             'TO' => 'Tocantins',
         ];
     }
+
+    public function dataSql($value)
+    {
+        $date = str_replace('/', '-', $value);
+        return date("Y-m-d", strtotime($date));
+    }
+
+    public function dataBr($value)
+    {
+        return date("d/m/Y", strtotime($value));
+    }
 }

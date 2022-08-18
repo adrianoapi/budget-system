@@ -16,6 +16,10 @@
         <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/jquery-ui/smoothness/jquery.ui.theme.css') !!}">
         <!-- select2 -->
 	    <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/select2/select2.css') !!}">
+
+        <!-- Datepicker -->
+        <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/datepicker/datepicker.css') !!}">
+        
         <!-- Theme CSS -->
         <link rel="stylesheet" href="{!! asset('flat-admin/css/style.css') !!}">
         <!-- Color CSS -->
@@ -51,6 +55,9 @@
         <!-- Just for demonstration -->
         <script src="{!! asset('flat-admin/js/demonstration.min.js') !!}"></script>
 
+        <!-- Datepicker -->
+	    <script src="{!! asset('flat-admin/js/plugins/datepicker/bootstrap-datepicker.js') !!}"></script>
+        
         <script src="{!! asset('librarys/jquery.mask.min.js') !!}"></script>
 
         <!--[if lte IE 9]>

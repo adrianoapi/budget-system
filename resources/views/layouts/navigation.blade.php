@@ -41,13 +41,5 @@
 				</ul>
 			</div>
 
-			<div class="subnav">
-				<div class="subnav-title">
-					<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Calendar</span></a>
-				</div>
-				<div class="subnav-content less">
-					<div class="jq-datepicker"></div>
-				</div>
-			</div>
 
 		</div>
