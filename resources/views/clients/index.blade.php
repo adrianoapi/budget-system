@@ -98,7 +98,7 @@
                                                 @csrf
                                                 @method('delete')
                                                 <a href="{{route('cotacoes.create', $value->id)}}" class="btn btn-info" rel="tooltip" title="" data-original-title="Nova Cotação">
-                                                    <i class="glyphicon-new_window"></i>
+                                                    <i class="icon-tags"></i>
                                                 </a>
                                                 <a href="{{route('clientes.edit', $value->id)}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
                                                     <i class="icon-edit"></i>

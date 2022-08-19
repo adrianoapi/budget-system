@@ -314,8 +314,11 @@ class QuoteController extends UtilController
      */
     public function update(Request $request, Quote $quote)
     {
-        $this->autoridadeCheck($quote->client->user_id);
-
+        if(Auth::user()->level <= 1)
+        {
+            $this->autoridadeCheck($quote->client->user_id);
+        }
+        
         if($quote->close){
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
                 'quote_close',
@@ -341,6 +344,13 @@ class QuoteController extends UtilController
             $quote->company_id = (int) $request->company_id;
             $quote->fator      = $request->fator;
             $quote->total      = $request->total;
+            $quote->percentual = $request->percentual;
+            $quote->frete      = $request->frete;
+
+            if(Auth::user()->level > 1)
+            {
+                $quote->aprovado = $request->aprovado;
+            }
 
             if($quote->save()){
                 return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);

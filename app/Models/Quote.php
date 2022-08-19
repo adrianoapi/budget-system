@@ -33,4 +33,24 @@ class Quote extends Model
     {
         return $this->attributes['total'] = $value;
     }
+
+    public function setPercentualAttribute($value)
+    {
+        return $this->attributes['percentual'] = str_replace(',', '.', str_replace('.', '', $value));
+    }
+
+    public function getPercentualAttribute($value)
+    {
+        return $this->attributes['percentual'] = $value;
+    }
+
+    public function setFreteAttribute($value)
+    {
+        return $this->attributes['frete'] = str_replace(',', '.', str_replace('.', '', $value));
+    }
+
+    public function getFreteAttribute($value)
+    {
+        return $this->attributes['frete'] = $value;
+    }
 }

@@ -18,7 +18,10 @@ class AddColumnsToQuotes extends Migration
             $table->string('serial', 20)->nullable(true);
             $table->decimal('fator', 1, 1)->nullable(true);
             $table->decimal('total', 10, 2)->nullable(true);
+            $table->decimal('percentual', 10, 2)->nullable(true);
+            $table->decimal('frete', 10, 2)->nullable(true);
             $table->boolean('close')->default(false);
+            $table->boolean('aprovado')->default(false);
             
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('CASCADE');
         });
@@ -32,11 +35,15 @@ class AddColumnsToQuotes extends Migration
     public function down()
     {
         Schema::table('quotes', function (Blueprint $table) {
+            $table->dropForeign('quotes_company_id_foreign');
             $table->dropColumn('company_id');
             $table->dropColumn('serial');
             $table->dropColumn('fator');
             $table->dropColumn('total');
+            $table->dropColumn('percentual');
+            $table->dropColumn('frete');
             $table->dropColumn('close');
+            $table->dropColumn('aprovado');
         });
     }
 }

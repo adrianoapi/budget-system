@@ -111,8 +111,8 @@
                                                 <a href="#new-task" data-toggle="modal" class="btn btn-primary"><i class="icon-plus-sign"></i> Adicionar Produto</a>
                                                 @else
                                                 <a href="javascript:void(0)" class="btn btn-default" disabled="disabled"><i class="icon-plus-sign"></i> Adicionar Produto</a>
-                                                <a href="#new-task" class="btn btn-primary" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
-                                                <a href="#new-task" class="btn btn-green" style="display: none"><i class="icon-table"></i> Exportar Excel</a>
+                                                <a href="#new-task" class="btn btn-lightred" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
+                                                <a href="./" class="btn btn-satgreen" style=""  onclick="return confirm('Deseja aprovar este orçamento?')"><i class="icon-thumbs-up"></i> Aprovar</a>
                                                 @endif
                                             </div>
                                         </div>
@@ -185,6 +185,61 @@
                                                             ]
                                                             )}}
                                                         @error('total')
+                                                        <div class="alert-danger input-xlarge">{{$message}}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="multa" class="control-label">Aprovado</label>
+                                                <div class="controls controls-row">
+                                                    <select name="aprovado" id="aprovado" class='input-block-level'>
+                                                        <option value="1" {{$quote->aprovado == true ? "selected" : NULL}}>Sim</option>
+                                                        <option value="0" {{$quote->aprovado != true ? "selected" : NULL}}>Não</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                {{Form::label('percentual', 'Percentual (0,00)', array('class' => 'control-label'))}}
+                                                <div class="controls">
+                                                    <div class="input-append">
+                                                        <span class="add-on">R$</span>
+                                                        {{Form::text('percentual', $quote->percentual, [
+                                                            'id' => 'percentual',
+                                                            'placeholder' => '0.00', 
+                                                            'class' => 'money input-medium', 
+                                                            'required' => true,
+                                                            'disabled' => $quote->close > 0 ? true : false
+                                                            ]
+                                                            )}}
+                                                        @error('percentual')
+                                                        <div class="alert-danger input-xlarge">{{$message}}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                {{Form::label('frete', 'Frete (0,00)', array('class' => 'control-label'))}}
+                                                <div class="controls">
+                                                    <div class="input-append">
+                                                        <span class="add-on">R$</span>
+                                                        {{Form::text('frete', $quote->frete, [
+                                                            'id' => 'frete',
+                                                            'placeholder' => '0.00', 
+                                                            'class' => 'money input-medium', 
+                                                            'required' => true,
+                                                            'disabled' => $quote->close > 0 ? true : false
+                                                            ]
+                                                            )}}
+                                                        @error('frete')
                                                         <div class="alert-danger input-xlarge">{{$message}}</div>
                                                         @enderror
                                                     </div>
