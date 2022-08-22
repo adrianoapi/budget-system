@@ -9,6 +9,7 @@ use App\Models\Item;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class QuoteController extends UtilController
 {
@@ -226,6 +227,21 @@ class QuoteController extends UtilController
             'products' => $products,
             'companies' => $companies
         ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
+    public function export(Quote $quote)
+    {
+        $this->autoridadeCheck($quote->Client->user_id);
+
+        $pdf = PDF::loadView('auth.teste', []);
+
+        return $pdf->download('auth.pdf');
     }
 
     /**

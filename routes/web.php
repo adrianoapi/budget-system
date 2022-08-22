@@ -93,6 +93,7 @@ Route::prefix('cotacoes')->group(function(){
     Route::post('close/{quote}', 'QuoteController@close' )->name('cotacoes.close');
     Route::post('clone/{quote}', 'QuoteController@clone' )->name('cotacoes.clone');
     Route::get('items/{quote}',  'QuoteController@items' )->name('cotacoes.items');
+    Route::get('items/export/{quote}',  'QuoteController@export' )->name('cotacoes.export');
     Route::put('edit/{quote}',   'QuoteController@update')->name('cotacoes.update');
 
     Route::delete('destroy/{quote}', 'QuoteController@destroy')->name('cotacoes.destroy');

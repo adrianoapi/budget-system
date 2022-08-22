@@ -111,7 +111,7 @@
                                                 <a href="#new-task" data-toggle="modal" class="btn btn-primary"><i class="icon-plus-sign"></i> Adicionar Produto</a>
                                                 @else
                                                 <a href="javascript:void(0)" class="btn btn-default" disabled="disabled"><i class="icon-plus-sign"></i> Adicionar Produto</a>
-                                                <a href="#new-task" class="btn btn-lightred" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
+                                                <a href="{{route('cotacoes.export', $quote->id)}}" class="btn btn-lightred" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
                                                 <a href="./" class="btn btn-satgreen" style=""  onclick="return confirm('Deseja aprovar este orçamento?')"><i class="icon-thumbs-up"></i> Aprovar</a>
                                                 @endif
                                             </div>
