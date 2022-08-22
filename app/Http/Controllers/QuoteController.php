@@ -239,7 +239,7 @@ class QuoteController extends UtilController
     {
         $this->autoridadeCheck($quote->Client->user_id);
 
-        $pdf = PDF::loadView('auth.teste', []);
+        $pdf = PDF::loadView('quotes.pdf.resume', ['quote' => $quote]);
 
         return $pdf->download('auth.pdf');
     }
