@@ -344,13 +344,6 @@ class QuoteController extends UtilController
             );
         }
 
-        if(empty($request->fator) || $request->fator < 0 || $request->fator >= 1){
-            return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
-                'quote_close',
-                'O campo Fator precisa ser um número entre 0.0 e 0.9!'
-            );
-        }
-
         if(empty($request->total) || $request->total < 0){
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
                 'quote_close',
@@ -360,7 +353,6 @@ class QuoteController extends UtilController
 
         if(!empty($request->company_id)){
             $quote->company_id = (int) $request->company_id;
-            $quote->fator      = $request->fator;
             $quote->total      = $request->total;
             $quote->percentual = $request->percentual;
             $quote->frete      = $request->frete;
@@ -370,13 +362,8 @@ class QuoteController extends UtilController
                 $quote->aprovado = $request->aprovado;
             }
 
-            if($quote->save()){
-
-               foreach($quote->items as $value):
-                $value->fator = $quote->fator;
-                $value->save();
-               endforeach;
-
+            if($quote->save())
+            {
                 return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
             }
             
@@ -387,6 +374,40 @@ class QuoteController extends UtilController
             );
         }
 
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
+    public function updateFator(Request $request, Quote $quote)
+    {
+        if(Auth::user()->level <= 1)
+        {
+            $this->autoridadeCheck($quote->client->user_id);
+        }
+
+        if($request->fator < 0 || $request->fator > 1){
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
+                'quote_close',
+                'O campo Fator precisa ser um número entre 0.0 e 0.9!'
+            );
+        }
+
+        $quote->fator = ($request->fator == 0) ? 0.0 : "0.$request->fator";
+        
+        if($quote->save()){
+
+            foreach($quote->items as $value):
+                $value->fator = $quote->fator;
+                $value->save();
+            endforeach;
+
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
+        }
     }
 
     /**

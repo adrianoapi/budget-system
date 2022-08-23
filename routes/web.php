@@ -96,6 +96,7 @@ Route::prefix('cotacoes')->group(function(){
     Route::get('items/{quote}',  'QuoteController@items' )->name('cotacoes.items');
     Route::get('items/export/{quote}',  'QuoteController@export' )->name('cotacoes.export');
     Route::put('edit/{quote}',   'QuoteController@update')->name('cotacoes.update');
+    Route::put('edit/{quote}/fator',   'QuoteController@updateFator')->name('cotacoes.update.fator');
 
     Route::delete('destroy/{quote}', 'QuoteController@destroy')->name('cotacoes.destroy');
 });

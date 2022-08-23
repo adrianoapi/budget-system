@@ -31,6 +31,9 @@
                             <li>
                                 <a href="#second22" data-toggle='tab'><i class="icon-edit"></i> Editar</a>
                             </li>
+                            <li>
+                                <a href="#third" data-toggle='tab'><i class="glyphicon-flag"></i> Fator Geral</a>
+                            </li>
                         </ul>
                         <div class="tab-content padding tab-content-inline tab-content-bottom">
                             <div class="tab-pane active" id="first11">
@@ -155,23 +158,6 @@
                                         </div>
                                         <div class="span2">
                                             <div class="control-group">
-                                                {{Form::label('fator', 'Fator (0.0 a 0.9)', array('class' => 'control-label'))}}
-                                                <div class="controls">
-                                                    {{Form::text('fator', $quote->fator, [
-                                                        'id' => 'fator',
-                                                        'placeholder' => '0.0',
-                                                        'class' => 'fator input-medium',
-                                                        'required' => true,
-                                                        'disabled' => $quote->close > 0 ? true : false
-                                                        ])}}
-                                                    @error('fator')
-                                                    <div class="alert-danger input-xlarge">{{$message}}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="span2">
-                                            <div class="control-group">
                                                 {{Form::label('total', 'Total (0,00)', array('class' => 'control-label'))}}
                                                 <div class="controls">
                                                     <div class="input-append">
@@ -259,6 +245,38 @@
                                     </div>
                                 </form>
                             </div><!--Tab 2-->
+                            <div class="tab-pane" id="third">
+                                {{ Form::open(['route' => ['cotacoes.update.fator', $quote->id], 'class' => 'form']) }}    
+                                    @csrf 
+                                    @method('PUT')
+    
+                                    <div class="row-fluid">
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                {{Form::label('fator', 'Fator', array('class' => 'control-label'))}}
+                                                <div class="controls">
+                                                    <select name="fator" id="fator" class='input-small'>
+                                                        @foreach($fatorLista as $key => $faValue)
+                                                            <option value="{{$key}}" {{$faValue == $quote->fator ? "selected" : NULL}}>{{$faValue}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+    
+                                    <div class="row-fluid">
+                                        <div class="form-actions">
+                                            {{Form::button('Salvar', [
+                                                    'type' => 'submit',
+                                                    'class'=> 'btn btn-primary',
+                                                    'disabled' => $quote->close > 0 ? true : false
+                                            ])}}
+                                        </div>
+                                    </div>
+                                </form>
+                            </div><!--Tab 3-->
                         </div>
                     </div>
                 </div>
