@@ -390,7 +390,7 @@ class QuoteController extends UtilController
             $this->autoridadeCheck($quote->client->user_id);
         }
 
-        if($request->fator < 0 || $request->fator > 1){
+        if($request->fator < 0 || $request->fator > 9){
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
                 'quote_close',
                 'O campo Fator precisa ser um número entre 0.0 e 0.9!'
