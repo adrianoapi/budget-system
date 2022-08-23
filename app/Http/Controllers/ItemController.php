@@ -92,7 +92,7 @@ class ItemController extends UtilController
     {
         $item = Item::find($request->id);
         $item->quantidade = (int) $request->quantidade;
-        $item->fator      = ($request->fator == 0) ? 0.0 : "0.$request->fator";
+        $item->fator      =  $request->fator;
         $item->icms       =  $request->icms;
         $item->ipi        =  $request->ipi;
         return $item->save();

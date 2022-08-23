@@ -70,11 +70,13 @@
             </td>
             <td class="">
                 <?php $tableFator = 'table_fator_'.$value->id;?>
-                <select name="{{$tableFator}}" id="{{$tableFator}}" class='input-small'>
-                    @foreach($fatorLista as $key => $faValue)
-                        <option value="{{$key}}" {{$faValue == $value->fator ? "selected" : NULL}}>{{$faValue}}</option>
-                    @endforeach
-                </select>
+                {{Form::text($tableFator, $value->fator,
+                [
+                    'id' => $tableFator,
+                    'class' => 'fator input-small',
+                    'style' => 'margin-bottom:0',
+                    'disabled' => $quote->close > 0 ? true : false
+                    ])}}
             </td>
             <td class="">
                 @if($value->fator > 0)
@@ -90,6 +92,7 @@
                     'id' => $tableQtd,
                     'placeholder' => '1',
                     'class' => 'input-small',
+                    'style' => 'margin-bottom:0',
                     'required' => true,
                     'min' => 1,
                     'disabled' => $quote->close > 0 ? true : false
@@ -97,7 +100,7 @@
             </td>
             <td class="price">
                 <?php $tableIcms = 'table_icms_'.$value->id;?>
-                <select name="{{$tableIcms}}" id="{{$tableIcms}}" class='input-small'>
+                <select name="{{$tableIcms}}" id="{{$tableIcms}}" class='input-small' style="margin-bottom:0">
                     @foreach($icmsLista as $keyIcms => $valueIcms)
                         <option value="{{$keyIcms}}" {{$keyIcms == $value->icms ? "selected" : NULL}}>{{$valueIcms}}</option>
                     @endforeach
@@ -105,7 +108,7 @@
             </td>
             <td class="price">
                 <?php $tableIpi = 'table_ipi_'.$value->id;?>
-                <select name="{{$tableIpi}}" id="{{$tableIpi}}" class='input-small'>
+                <select name="{{$tableIpi}}" id="{{$tableIpi}}" class='input-small' style="margin-bottom:0">
                     @foreach($ipiLista as $keyIpi => $valueIpi)
                         <option value="{{$keyIpi}}" {{$keyIpi == $value->ipi ? "selected" : NULL}}>{{$valueIpi}}</option>
                     @endforeach

@@ -261,11 +261,13 @@
                                             <div class="control-group">
                                                 {{Form::label('fator', 'Fator', array('class' => 'control-label'))}}
                                                 <div class="controls">
-                                                    <select name="fator" id="fator" class='input-small'>
-                                                        @foreach($fatorLista as $key => $faValue)
-                                                            <option value="{{$key}}" {{$faValue == $quote->fator ? "selected" : NULL}}>{{$faValue}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    {{Form::text('fator', $quote->fator,
+                                                    [
+                                                        'id' => 'fator',
+                                                        'class' => 'fator input-small',
+                                                        'style' => 'margin-bottom:0',
+                                                        'disabled' => $quote->close > 0 ? true : false
+                                                    ])}}
                                                 </div>
                                             </div>
                                         </div>
@@ -436,7 +438,7 @@
 (function( $ ) {
     $(function() {
         $('.money').mask('#.##0,00', {reverse: true});
-        $('.fator').mask('#.#', {reverse: true});
+        $('.fator').mask('#.##', {reverse: true});
     });
 })(jQuery);
 
