@@ -1,12 +1,17 @@
-<table class="table table-striped table-invoice">
+<div id="msg-success" class="alert alert-success" style="display:none;">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>Sucesso!</strong> <br><span id="msg-success-text"></span>
+</div>
+<table id="tb-cotacao" class="table table-striped table-hover table-invoice">
     <thead>
         <tr>
             <th>Excluir</th>
             <th>Item</th>
-            <th>Price</th>
+            <th>Preço</th>
             <th>Fator</th>
-            <th>Qtd</th>
-            <th class="tr" colspan="2">Total</th>
+            <th>Valor</th>
+            <th>Qutantidade</th>
+            <th class="tr">Total</th>
         </tr>
     </thead>
     <tbody>
@@ -17,7 +22,7 @@
         @foreach($quote->items as $value)
         <?php 
         $i++;
-        if($quote->fator > 0){
+        if($value->fator > 0){
             $total = $total + ($value->Product->valor * $quote->fator) * $value->quantidade;
         }else{
             $total = $total + $value->Product->valor * $value->quantidade;
@@ -26,19 +31,27 @@
         <tr>
             <td>
                 @if(!$quote->close)
-                <a href="javascript:void(0)" onclick="excluir({{$value->id}})" class="btn btn-danger" rel="tooltip" title="" data-original-title="Excluir">
+                <a href="javascript:void(0)" onclick="excluir({{$value->id}})" class="btn btn-danger" rel="tooltip" id="delete" title="" data-original-title="Excluir">
                     <i class="icon-trash"></i>
                 </a>
                 <a href="javascript:void(0)" onclick="update({{$value->id}})" class="btn btn-lime" rel="tooltip" title="" data-original-title="Excluir">
                     <i class="icon-undo"></i>
                 </a>
                 @if($i > 1)
-                <a href="javascript:void(0)" onclick="order({{$value->id}}, 'up')" class="btn btn-primary" rel="tooltip" title="" data-original-title="Excluir">
+                <a href="javascript:void(0)" onclick="order({{$value->id}}, 'up')" class="btn btn-default" rel="tooltip" title="" data-original-title="Excluir">
+                    <i class="glyphicon-up_arrow"></i>
+                </a>
+                @else
+                <a href="javascript:void(0)" class="btn btn-default" disabled rel="tooltip" title="" data-original-title="Excluir">
                     <i class="glyphicon-up_arrow"></i>
                 </a>
                 @endif
                 @if($i < $quote->items->count())
-                <a href="javascript:void(0)" onclick="order({{$value->id}}, 'down')" class="btn btn-primary" rel="tooltip" title="" data-original-title="Excluir">
+                <a href="javascript:void(0)" onclick="order({{$value->id}}, 'down')" class="btn btn-default" rel="tooltip" title="" data-original-title="Excluir">
+                    <i class="glyphicon-down_arrow"></i>
+                </a>
+                @else
+                <a href="javascript:void(0)" class="btn btn-default" disabled rel="tooltip" title="" data-original-title="Excluir">
                     <i class="glyphicon-down_arrow"></i>
                 </a>
                 @endif
@@ -81,8 +94,8 @@
                     ])}}
                 </td>
             <td class="total">
-                @if($quote->fator > 0)
-                R${{($value->Product->valor * $quote->fator) * $value->quantidade}}
+                @if($value->fator > 0)
+                R${{($value->Product->valor * $value->fator) * $value->quantidade}}
                 @else
                 R${{$value->Product->valor * $value->quantidade}}
                 @endif

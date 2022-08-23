@@ -405,9 +405,13 @@ $("#addItem").submit(function() {
         dataType: 'json',
         success: function(data)
         {
-            getTable();
+            getTable("msg-success", "Produto adicionado!");
         }
     });
+});
+
+$("#tb-cotacao").on("click", "#delete", function() {
+   $(this).closest("tr").remove();
 });
 
 function excluir(id) {
@@ -424,7 +428,7 @@ function excluir(id) {
         dataType: 'json',
         success: function(data)
         {
-            getTable();
+            getTable("msg-success", "Produto excluído!");
         }
     });
 }
@@ -445,7 +449,7 @@ function update(id) {
         dataType: 'json',
         success: function(data)
         {
-            getTable();
+            getTable("msg-success", "Produto atualizado!");
         }
     });
 }
@@ -465,12 +469,12 @@ function order(id, ordem) {
         dataType: 'json',
         success: function(data)
         {
-            getTable();
+            getTable("","");
         }
     });
 }
 
-function getTable()
+function getTable(id, message)
 {
     $.ajax({
     url: "{{route('cotacoes.items', $quote->id)}}",
@@ -482,11 +486,17 @@ function getTable()
         success: function(data)
         {
             $("#dinamic-table").html(data['table']);
+            $("#"+id+"-text").text(message);
+            $("#"+id).fadeIn();
+
+            setTimeout(() => {
+                $("#"+id).fadeToggle();
+            },2300);
         }
     });
 }
 
-getTable();
+getTable("", "");
 </script>
 
     
