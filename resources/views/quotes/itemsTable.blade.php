@@ -23,7 +23,7 @@
         <?php 
         $i++;
         if($value->fator > 0){
-            $total = $total + ($value->Product->valor * $quote->fator) * $value->quantidade;
+            $total = $total + ($value->Product->valor * $value->fator) * $value->quantidade;
         }else{
             $total = $total + $value->Product->valor * $value->quantidade;
         }
@@ -130,6 +130,15 @@
                     <span class="totalprice">
                         <?php $total = $total - $quote->total; ?>
                         R${{number_format($total, 2, '.', ',')}}
+                    </span>
+                </p>
+                @endif
+
+                @if ($quote->frete > 0)
+                <p>
+                    <span class="light">Frete</span>
+                    <span class="totalprice">
+                        R${{number_format($quote->frete, 2, '.', ',')}}
                     </span>
                 </p>
                 @endif
