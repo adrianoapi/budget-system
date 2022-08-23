@@ -64,6 +64,22 @@ class UtilController extends Controller
         ];
     }
 
+    public function fatorLista()
+    {
+        return [
+            0 => '1.0', 
+            9 => '0.9', 
+            8 => '0.8', 
+            7 => '0.7', 
+            6 => '0.6', 
+            5 => '0.5', 
+            4 => '0.4', 
+            3 => '0.3', 
+            2 => '0.2', 
+            1 => '0.1' 
+        ];
+    }
+
     public function dataSql($value)
     {
         $date = str_replace('/', '-', $value);

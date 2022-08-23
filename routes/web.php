@@ -79,8 +79,9 @@ Route::prefix('items')->group(function(){
     Route::get('novo',        'ItemController@create')->name('itens.create');
     Route::get('show',        'ItemController@show'  )->name('itens.show');
     Route::post('store',      'ItemController@store' )->name('itens.store');
+    Route::post('edit',        'ItemController@update')->name('itens.update');
+    Route::post('edit/order',        'ItemController@order')->name('itens.order');
     Route::get('edit/{item}', 'ItemController@edit'  )->name('itens.edit');
-    Route::put('edit/{item}', 'ItemController@update')->name('itens.update');
 
     Route::post('destroy', 'ItemController@destroy')->name('itens.destroy');
 });

@@ -224,34 +224,42 @@
             <tr style="background-color: #fff; font-family: Arial, Verdana, sans-serif;">
                 <td colspan="3"></td>
                 <td class="taxes">
-                    <p>
-                        <span class="light">Subtotal</span>
-                        <span>R${{$total}}</span>
-                    </p>
-                    @if ($quote->total > 0)
-                    <p>
-                        <span class="light">Desconto</span>
-                        <span class="totalprice">
-                            R${{number_format($total - $quote->total, 2, '.', ',')}}
-                        </span>
-                    </p>
-                    <p>
-                        <span class="light">Total</span>
-                        <span class="totalprice">
-                            R${{number_format($quote->total, 2, '.', ',')}}
-                        </span>
-                    </p>
-                    @else
-                    <p>
-                        <span class="light">Total</span>
-                        <span class="totalprice">
-                            R${{number_format($total, 2, '.', ',')}}
-                        </span>
-                    </p>
-                    @endif
-                    
-                    
-                </td>
+					<p>
+						<span class="light">Subtotal</span>
+						<span>R${{$total}}</span>
+					</p>
+					@if ($quote->total > 0)
+					<p>
+						<span class="light">Desconto</span>
+						<span class="totalprice">
+							<?php $total = $total - $quote->total; ?>
+							R${{number_format($total, 2, '.', ',')}}
+						</span>
+					</p>
+					@endif
+	
+					@if ($quote->percentual > 0)
+					<p>
+						<span class="light">-{{$quote->percentual}}%</span>
+						<span class="totalprice">
+							<?php
+								$descontoPerccentual = ($total * $quote->percentual / 100);
+								$total = $total - $descontoPerccentual;
+							?>
+							R${{number_format($descontoPerccentual, 2, '.', ',')}}
+						</span>
+					</p>
+					@endif
+	
+					<p>
+						<span class="light">Total</span>
+						<span class="totalprice">
+							R${{number_format($total, 2, '.', ',')}}
+						</span>
+					</p>
+					
+					
+				</td>
             </tr>
         </tbody>
     </table>

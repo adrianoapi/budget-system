@@ -225,7 +225,8 @@ class QuoteController extends UtilController
             'title' => $title,
             'quote' => $quote,
             'products' => $products,
-            'companies' => $companies
+            'companies' => $companies,
+            'fatorLista' => $this->fatorLista()
         ]);
     }
 
@@ -316,7 +317,8 @@ class QuoteController extends UtilController
     {
         return response()->json([
             'table'   => view('quotes.itemsTable', [
-                'quote' => $quote
+                'quote' => $quote,
+                'fatorLista' => $this->fatorLista()
                 ])->render()
         ]);
     }
@@ -369,6 +371,12 @@ class QuoteController extends UtilController
             }
 
             if($quote->save()){
+
+               foreach($quote->items as $value):
+                $value->fator = $quote->fator;
+                $value->save();
+               endforeach;
+
                 return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
             }
             

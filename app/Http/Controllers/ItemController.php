@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Quote;
 use Illuminate\Http\Request;
 
 class ItemController extends UtilController
@@ -37,10 +38,13 @@ class ItemController extends UtilController
     {
         $attributes = json_decode($request->data);
 
+        $last = Item::where('quote_id', $attributes->cotacao)->orderBy('ordem', 'desc')->first();
+
         $model = new Item();
         $model->quote_id   = (int) $attributes->cotacao;
         $model->product_id = (int) $attributes->produto;
         $model->quantidade = (int) $attributes->quantidade;
+        $model->ordem      = !empty($last) ? ++$last->ordem : 1;
         
         if($model->save()){
             return true;
@@ -76,9 +80,34 @@ class ItemController extends UtilController
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request)
     {
-        //
+        $item = Item::find($request->id);
+        $item->quantidade = (int) $request->quantidade;
+        $item->fator      = ($request->fator == 0) ? "1.0" : "0.$request->fator";
+        return $item->save();
+    }
+
+    public function order(Request $request)
+    {
+        $item = Item::find($request->id);
+
+        if($request->ordem == "up"){
+            $item->ordem =  ++$item->ordem;
+            $old = Item::where('ordem', $item->ordem)->first();
+            if(!empty($old)){
+                $old->ordem = --$old->ordem;
+                $old->save();
+            }
+        }else{
+            $item->ordem = --$item->ordem;
+            $old = Item::where('ordem', $item->ordem)->first();
+            if(!empty($old)){
+                $old->ordem = ++$old->ordem;
+                $old->save();
+            }
+        }
+        return $item->save();
     }
 
     /**
@@ -92,7 +121,19 @@ class ItemController extends UtilController
 
         $this->autoridadeCheck($item->Quote->user_id);
 
+        $ordem = $item->ordem;
+
         if($item->delete()){
+
+            $updete = Item::where('quote_id', $item->quote_id)
+            ->where('ordem', '>', $item->ordem)
+            ->get();
+
+            foreach($updete as $up):
+                $up->ordem = --$up->ordem;
+                $up->save();
+            endforeach;
+
             return true;
         }
     }

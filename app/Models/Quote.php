@@ -16,7 +16,7 @@ class Quote extends Model
 
     public function Items()
     {
-        return $this->hasMany(Item::class, 'quote_id', 'id')->orderBy('created_at', 'desc');
+        return $this->hasMany(Item::class, 'quote_id', 'id')->orderBy('ordem', 'desc');
     }
 
     public function Company()

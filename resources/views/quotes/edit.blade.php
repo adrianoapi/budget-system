@@ -206,10 +206,10 @@
                                         </div>
                                         <div class="span2">
                                             <div class="control-group">
-                                                {{Form::label('percentual', 'Percentual (0,00)', array('class' => 'control-label'))}}
+                                                {{Form::label('percentual', 'Desconto Percentual (0,00)', array('class' => 'control-label'))}}
                                                 <div class="controls">
                                                     <div class="input-append">
-                                                        <span class="add-on">R$</span>
+                                                        <span class="add-on">%</span>
                                                         {{Form::text('percentual', $quote->percentual, [
                                                             'id' => 'percentual',
                                                             'placeholder' => '0.00', 
@@ -419,6 +419,47 @@ function excluir(id) {
         datatype: "JSON",
         data: {
             "_token": "{{csrf_token()}}",
+            "id": id
+        },
+        dataType: 'json',
+        success: function(data)
+        {
+            getTable();
+        }
+    });
+}
+
+function update(id) {
+
+    $.ajax({
+        url: "{{route('itens.update')}}",
+        type: "POST",
+        cache: false,
+        datatype: "JSON",
+        data: {
+            "_token": "{{csrf_token()}}",
+            "quantidade": $("#table_quantidade_"+id).val(),
+            "fator": $("#table_fator_"+id).val(),
+            "id": id
+        },
+        dataType: 'json',
+        success: function(data)
+        {
+            getTable();
+        }
+    });
+}
+
+function order(id, ordem) {
+
+    $.ajax({
+        url: "{{route('itens.order')}}",
+        type: "POST",
+        cache: false,
+        datatype: "JSON",
+        data: {
+            "_token": "{{csrf_token()}}",
+            "ordem": ordem,
             "id": id
         },
         dataType: 'json',
