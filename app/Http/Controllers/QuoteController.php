@@ -193,8 +193,10 @@ class QuoteController extends UtilController
             $model->company_id  = $company->id;
             $model->user_id     = $client->user_id;
             $model->client_id   = $client->id;
-            $model->fator       = "0.0";
+            $model->fator       = "0.00";
             $model->total       = "0.00";
+            $model->percentual  = "0.00";
+            $model->frete       = "0.00";
             $model->serial      = uniqid();
 
             if($model->save()){
@@ -226,7 +228,9 @@ class QuoteController extends UtilController
             'quote' => $quote,
             'products' => $products,
             'companies' => $companies,
-            'fatorLista' => $this->fatorLista()
+            'fatorLista' => $this->fatorLista(),
+            'icmsLista' => $this->icmsLista(),
+            'ipiLista' => $this->ipiLista()
         ]);
     }
 
@@ -318,7 +322,9 @@ class QuoteController extends UtilController
         return response()->json([
             'table'   => view('quotes.itemsTable', [
                 'quote' => $quote,
-                'fatorLista' => $this->fatorLista()
+                'fatorLista' => $this->fatorLista(),
+                'icmsLista' => $this->icmsLista(),
+                'ipiLista' => $this->ipiLista()
                 ])->render()
         ]);
     }
@@ -403,6 +409,74 @@ class QuoteController extends UtilController
 
             foreach($quote->items as $value):
                 $value->fator = $quote->fator;
+                $value->save();
+            endforeach;
+
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
+    public function updateIcms(Request $request, Quote $quote)
+    {
+        if(Auth::user()->level <= 1)
+        {
+            $this->autoridadeCheck($quote->client->user_id);
+        }
+
+        if(empty($request->icms)){
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
+                'quote_close',
+                'O campo <strong>ICMS</strong> precisa ser preenchido!'
+            );
+        }
+
+        $quote->icms = $request->icms;
+        
+        if($quote->save()){
+
+            foreach($quote->items as $value):
+                $value->icms = $quote->icms;
+                $value->save();
+            endforeach;
+
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
+    public function updateIpi(Request $request, Quote $quote)
+    {
+        if(Auth::user()->level <= 1)
+        {
+            $this->autoridadeCheck($quote->client->user_id);
+        }
+
+        if(empty($request->ipi)){
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
+                'quote_close',
+                'O campo <strong>IPI</strong> precisa ser preenchido!'
+            );
+        }
+
+        $quote->ipi = $request->ipi;
+        
+        if($quote->save()){
+
+            foreach($quote->items as $value):
+                $value->ipi = $quote->ipi;
                 $value->save();
             endforeach;
 

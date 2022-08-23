@@ -14,7 +14,9 @@ class AddColumnsToItems extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->decimal('fator', 1, 1)->default(0);
+            $table->decimal('fator', 10, 2)->default(0);
+            $table->enum('icms', ['inclusivo', '4','12','18'])->default('inclusivo');
+            $table->enum('ipi',  ['inclusivo', 'isento','7.5'])->default('inclusivo');
             $table->decimal('valor', 10, 2)->nullable(true);
             $table->integer('ordem')->default(0);
         });
@@ -29,6 +31,8 @@ class AddColumnsToItems extends Migration
     {
         Schema::table('items', function (Blueprint $table) {
             $table->dropColumn('fator');
+            $table->dropColumn('icms');
+            $table->dropColumn('ipi');
             $table->dropColumn('valor');
             $table->dropColumn('ordem');
         });

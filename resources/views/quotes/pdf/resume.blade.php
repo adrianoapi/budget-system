@@ -207,11 +207,7 @@
             <tr style="background-color: {{($i % 2) == 0 ? '#f9f9f9' : '#fff'}}; font-family: Arial, Verdana, sans-serif;">
                 <td class="name">{{$value->Product->descricao}}</td>
                 <td class="price">
-                    @if($quote->fator > 0)
-                    <s>{{$value->Product->valor}}</s> {{number_format($value->Product->valor - ($value->Product->valor * $quote->fator), 2, ".", ",")}}
-                    @else
                     {{$value->Product->valor}}
-                    @endif
                 </td>
                 <td class="qty">{{$value->quantidade}}</td>
                 <td class="total">R${{($value->Product->valor - ($value->Product->valor * $quote->fator)) * $value->quantidade}}</td>

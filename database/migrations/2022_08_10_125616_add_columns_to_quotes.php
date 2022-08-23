@@ -16,7 +16,9 @@ class AddColumnsToQuotes extends Migration
         Schema::table('quotes', function (Blueprint $table) {
             $table->unsignedBigInteger('company_id');
             $table->string('serial', 20)->nullable(true);
-            $table->decimal('fator', 1, 1)->nullable(true);
+            $table->decimal('fator', 10, 2)->nullable(true);
+            $table->enum('icms', ['inclusivo', '4','12','18'])->default('inclusivo');
+            $table->enum('ipi',  ['inclusivo', 'isento','7.5'])->default('inclusivo');
             $table->decimal('total', 10, 2)->nullable(true);
             $table->decimal('percentual', 10, 2)->nullable(true);
             $table->decimal('frete', 10, 2)->nullable(true);
@@ -39,6 +41,8 @@ class AddColumnsToQuotes extends Migration
             $table->dropColumn('company_id');
             $table->dropColumn('serial');
             $table->dropColumn('fator');
+            $table->dropColumn('icms');
+            $table->dropColumn('ipi');
             $table->dropColumn('total');
             $table->dropColumn('percentual');
             $table->dropColumn('frete');

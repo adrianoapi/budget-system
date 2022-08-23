@@ -32,7 +32,13 @@
                                 <a href="#second22" data-toggle='tab'><i class="icon-edit"></i> Editar</a>
                             </li>
                             <li>
-                                <a href="#third" data-toggle='tab'><i class="glyphicon-flag"></i> Fator Geral</a>
+                                <a href="#third" data-toggle='tab'><i class="glyphicon-flag"></i> Fator</a>
+                            </li>
+                            <li>
+                                <a href="#forth" data-toggle='tab'><i class="icon-fire"></i> ICMS</a>
+                            </li>
+                            <li>
+                                <a href="#five" data-toggle='tab'><i class="icon-fire"></i> IPI</a>
                             </li>
                         </ul>
                         <div class="tab-content padding tab-content-inline tab-content-bottom">
@@ -277,6 +283,70 @@
                                     </div>
                                 </form>
                             </div><!--Tab 3-->
+                            <div class="tab-pane" id="forth">
+                                {{ Form::open(['route' => ['cotacoes.update.icms', $quote->id], 'class' => 'form']) }}    
+                                    @csrf 
+                                    @method('PUT')
+    
+                                    <div class="row-fluid">
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                {{Form::label('icms', 'ICMS', array('class' => 'control-label'))}}
+                                                <div class="controls">
+                                                    <select name="icms" id="icms" class='input-small'>
+                                                        @foreach($icmsLista as $keyIcms => $icmsValue)
+                                                            <option value="{{$keyIcms}}" {{$keyIcms == $quote->icms ? "selected" : NULL}}>{{$icmsValue}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+    
+                                    <div class="row-fluid">
+                                        <div class="form-actions">
+                                            {{Form::button('Salvar', [
+                                                    'type' => 'submit',
+                                                    'class'=> 'btn btn-primary',
+                                                    'disabled' => $quote->close > 0 ? true : false
+                                            ])}}
+                                        </div>
+                                    </div>
+                                </form>
+                            </div><!--Tab 4-->
+                            <div class="tab-pane" id="five">
+                                {{ Form::open(['route' => ['cotacoes.update.ipi', $quote->id], 'class' => 'form']) }}    
+                                    @csrf 
+                                    @method('PUT')
+    
+                                    <div class="row-fluid">
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                {{Form::label('ipi', 'IPI', array('class' => 'control-label'))}}
+                                                <div class="controls">
+                                                    <select name="ipi" id="ipi" class='input-small'>
+                                                        @foreach($ipiLista as $keyIpi => $valueIpi)
+                                                            <option value="{{$keyIpi}}" {{$keyIpi == $quote->ipi ? "selected" : NULL}}>{{$valueIpi}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+    
+                                    <div class="row-fluid">
+                                        <div class="form-actions">
+                                            {{Form::button('Salvar', [
+                                                    'type' => 'submit',
+                                                    'class'=> 'btn btn-primary',
+                                                    'disabled' => $quote->close > 0 ? true : false
+                                            ])}}
+                                        </div>
+                                    </div>
+                                </form>
+                            </div><!--Tab 5-->
                         </div>
                     </div>
                 </div>
@@ -462,6 +532,8 @@ function update(id) {
             "_token": "{{csrf_token()}}",
             "quantidade": $("#table_quantidade_"+id).val(),
             "fator": $("#table_fator_"+id).val(),
+            "icms": $("#table_icms_"+id).val(),
+            "ipi": $("#table_ipi_"+id).val(),
             "id": id
         },
         dataType: 'json',

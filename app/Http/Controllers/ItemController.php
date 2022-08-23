@@ -38,17 +38,25 @@ class ItemController extends UtilController
     {
         $attributes = json_decode($request->data);
 
-        $last = Item::where('quote_id', $attributes->cotacao)->orderBy('ordem', 'desc')->first();
+        $last  = Item::where('quote_id', $attributes->cotacao)->orderBy('ordem', 'desc')->first();
+        $quote = Quote::find($attributes->cotacao);
 
-        $model = new Item();
-        $model->quote_id   = (int) $attributes->cotacao;
-        $model->product_id = (int) $attributes->produto;
-        $model->quantidade = (int) $attributes->quantidade;
-        $model->ordem      = !empty($last) ? ++$last->ordem : 1;
-        
-        if($model->save()){
-            return true;
+        if(!empty($quote))
+        {
+            $model = new Item();
+            $model->quote_id   = (int) $attributes->cotacao;
+            $model->product_id = (int) $attributes->produto;
+            $model->quantidade = (int) $attributes->quantidade;
+            $model->ordem      = !empty($last) ? ++$last->ordem : 1;
+            $model->fator      = $quote->fator;
+            $model->icms       = $quote->icms;
+            $model->ipi        = $quote->ipi;
+
+            if($model->save()){
+                return true;
+            }
         }
+        
     }
 
     /**
@@ -85,6 +93,8 @@ class ItemController extends UtilController
         $item = Item::find($request->id);
         $item->quantidade = (int) $request->quantidade;
         $item->fator      = ($request->fator == 0) ? 0.0 : "0.$request->fator";
+        $item->icms       =  $request->icms;
+        $item->ipi        =  $request->ipi;
         return $item->save();
     }
 

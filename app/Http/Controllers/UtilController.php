@@ -80,6 +80,25 @@ class UtilController extends Controller
         ];
     }
 
+    public function icmsLista()
+    {
+        return [
+            'inclusivo' => 'inclusivo', 
+            '4'  => '4%', 
+            '12' => '12%', 
+            '18' => '18%', 
+        ];
+    }
+
+    public function ipiLista()
+    {
+        return [
+            'inclusivo' => 'inclusivo', 
+            'isento'  => 'isento', 
+            '7.5' => '7.50%', 
+        ];
+    }
+
     public function dataSql($value)
     {
         $date = str_replace('/', '-', $value);

@@ -5,13 +5,15 @@
 <table id="tb-cotacao" class="table table-striped table-hover table-invoice">
     <thead>
         <tr>
-            <th>Excluir</th>
+            <th>Ações</th>
             <th>Item</th>
             <th>Preço</th>
             <th>Fator</th>
             <th>Valor</th>
-            <th>Qutantidade</th>
-            <th class="tr">Total</th>
+            <th>Qtd</th>
+            <th>ICMS</th>
+            <th>IPI</th>
+            <th>Total</th>
         </tr>
     </thead>
     <tbody>
@@ -62,11 +64,11 @@
                 </a>
                 @endif
             </td>
-            <td class="name">{{$value->Product->descricao}}</td>
-            <td class="price">
+            <td class="">{{$value->Product->descricao}}</td>
+            <td class="">
                 {{$value->Product->valor}}
             </td>
-            <td class="price">
+            <td class="">
                 <?php $tableFator = 'table_fator_'.$value->id;?>
                 <select name="{{$tableFator}}" id="{{$tableFator}}" class='input-small'>
                     @foreach($fatorLista as $key => $faValue)
@@ -74,14 +76,14 @@
                     @endforeach
                 </select>
             </td>
-            <td class="price">
+            <td class="">
                 @if($value->fator > 0)
                  {{$value->Product->valor * $value->fator}}
                 @else
                  {{$value->Product->valor}}
                 @endif
             </td>
-            <td class="qty">
+            <td class="">
                 <?php $tableQtd = 'table_quantidade_'.$value->id;?>
                 {{Form::number($tableQtd, $value->quantidade,
                 [
@@ -92,7 +94,23 @@
                     'min' => 1,
                     'disabled' => $quote->close > 0 ? true : false
                     ])}}
-                </td>
+            </td>
+            <td class="price">
+                <?php $tableIcms = 'table_icms_'.$value->id;?>
+                <select name="{{$tableIcms}}" id="{{$tableIcms}}" class='input-small'>
+                    @foreach($icmsLista as $keyIcms => $valueIcms)
+                        <option value="{{$keyIcms}}" {{$keyIcms == $value->icms ? "selected" : NULL}}>{{$valueIcms}}</option>
+                    @endforeach
+                </select>
+            </td>
+            <td class="price">
+                <?php $tableIpi = 'table_ipi_'.$value->id;?>
+                <select name="{{$tableIpi}}" id="{{$tableIpi}}" class='input-small'>
+                    @foreach($ipiLista as $keyIpi => $valueIpi)
+                        <option value="{{$keyIpi}}" {{$keyIpi == $value->ipi ? "selected" : NULL}}>{{$valueIpi}}</option>
+                    @endforeach
+                </select>
+            </td>
             <td class="total">
                 @if($value->fator > 0)
                 R${{($value->Product->valor * $value->fator) * $value->quantidade}}
@@ -103,7 +121,7 @@
         </tr>
         @endforeach
         <tr>
-            <td colspan="6"></td>
+            <td colspan="8"></td>
             <td class="taxes">
                 <p>
                     <span class="light">Subtotal</span>
@@ -147,13 +165,22 @@
                 <p>
                     <span class="light">Total</span>
                     <span class="totalprice">
-                        R${{$quote->total, 2, '.', ','}}
+                        @if ($quote->frete > 0)
+                            R${{$quote->total + $quote->frete, 2, '.', ','}}
+                        @else
+                            R${{$quote->total, 2, '.', ','}}
+                        @endif
+                        
                     </span>
                 </p>
                 @else
                 <p>
                     <span class="light">Total</span>
                     <span class="totalprice">
+                        <?php 
+                            if($quote->frete > 0){
+                                $total = $total + $quote->frete;
+                            }?>
                         R${{$total, 2, '.', ','}}
                     </span>
                 </p>
