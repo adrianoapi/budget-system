@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 $controller = 'App\Http\Controllers';
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', "LoginController@index")->name('login');
 
 Route::prefix('login')->group(function(){
     Route::get('/', "LoginController@index")->name('login');
