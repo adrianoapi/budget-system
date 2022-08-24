@@ -251,7 +251,9 @@ class QuoteController extends UtilController
             'ipiLista' => $this->ipiLista()
         ])->setPaper('a4', 'landscape');
 
-        return $pdf->download('auth.pdf');
+        $fileName = $quote->serial."_".time().".pdf";
+
+        return $pdf->download($fileName);
     }
 
     /**

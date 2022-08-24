@@ -150,7 +150,7 @@
 			</td>
 		</tr>
 	</table>
-	<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+	<table border="1" cellpadding="5" cellspacing="2" width="100%" bgcolor="#fff" style="border-style:dotted;font-size:12px; line-height:18px;">
 		<tr>
 			<td align="center">
 				<center>
@@ -191,6 +191,9 @@
     <table border="1" cellpadding="5" cellspacing="2" width="100%" bgcolor="#fff" style="border-style:dotted;font-size:12px; line-height:18px;">
         <thead>
             <tr style="background-color: #eeeeee; font-family: Arial, Verdana, sans-serif;">
+                <th colspan="10">PRODUTOS</th>
+            </tr>
+            <tr style="background-color: #eeeeee; font-family: Arial, Verdana, sans-serif;">
                 <th>espessura</th>
                 <th>cobre</th>
                 <th>aco</th>
@@ -204,12 +207,29 @@
             </tr>
         </thead>
         <tbody>
-            <?php
-                $total = 0;
-                $i = 0;
-            ?>
-            @foreach($quote->items as $value)
-            <?php $total = $total + ($value->Product->valor - ($value->Product->valor * $quote->fator)) * $value->quantidade; ?>
+            <?php 
+				$total = 0;
+				$ipi = 0;
+				$i = 0;
+			?>
+			@foreach($quote->items as $value)
+			<?php 
+			$i++;
+
+			# Se tiver fator > 0
+			if($value->fator > 0){
+				$total_produto = ($value->Product->valor * $value->fator) * $value->quantidade;
+				$total = $total + $total_produto;
+			}else{
+				$total_produto = $value->Product->valor * $value->quantidade;
+				$total = $total + $total_produto;
+			}
+
+			if($value->ipi == "7.5")
+			{
+				$ipi = $ipi + (($total_produto * 7.5) / 100);
+			}
+			?>
             <tr style="background-color: {{($i % 2) == 0 ? '#f9f9f9' : '#fff'}}; font-family: Arial, Verdana, sans-serif;">
                 <td class="">{{$value->Product->espessura}}</td>
                 <td class="">{{$value->Product->cobre}}</td>
@@ -224,24 +244,20 @@
                 <td class="">{{$icmsLista[$value->icms]}}</td>
                 <td class="">{{$ipiLista[$value->ipi]}}</td>
             </tr>
-            <?php
-                $total = 0;
-                $i++;
-            ?>
             @endforeach
             <tr style="background-color: #fff; font-family: Arial, Verdana, sans-serif;">
-                <td colspan="9"></td>
-                <td class="taxes">
+				<td colspan="9"></td>
+				<td class="taxes">
 					<p>
 						<span class="light">Subtotal</span>
 						<span>R${{$total}}</span>
 					</p>
-					@if ($quote->total > 0)
+		
+					@if ($ipi > 0)
 					<p>
-						<span class="light">Desconto</span>
+						<span class="light">7.5%</span>
 						<span class="totalprice">
-							<?php $total = $total - $quote->total; ?>
-							R${{number_format($total, 2, '.', ',')}}
+							R${{number_format($ipi, 2, '.', ',')}}
 						</span>
 					</p>
 					@endif
@@ -259,16 +275,64 @@
 					</p>
 					@endif
 	
+					@if ($quote->total > 0)
 					<p>
-						<span class="light">Total</span>
+						<span class="light">Desconto</span>
 						<span class="totalprice">
+							<?php $total = $total - $quote->total; ?>
 							R${{number_format($total, 2, '.', ',')}}
 						</span>
 					</p>
+					@endif
+	
+					@if ($quote->frete > 0)
+					<p>
+						<span class="light">Frete</span>
+						<span class="totalprice">
+							R${{number_format($quote->frete, 2, '.', ',')}}
+						</span>
+					</p>
+					@endif
+	
+					@if ($quote->total > 0)
+					<p>
+						<span class="light">Total</span>
+						<span class="totalprice">
+							<?php 
+								$total = $quote->total;
+	
+								if($quote->frete > 0){
+									$total = $total + $quote->frete;
+								}
+	
+								if($ipi > 0){
+									$total = $total + $ipi;
+								}
+							?>
+							R${{$quote->total, 2, '.', ','}}
+						</span>
+					</p>
+					@else
+					<p>
+						<span class="light">Total</span>
+						<span class="totalprice">
+							<?php 
+								if($quote->frete > 0){
+									$total = $total + $quote->frete;
+								}
+	
+								if($ipi > 0){
+									$total = $total + $ipi;
+								}
+							?>
+							R${{$total, 2, '.', ','}}
+						</span>
+					</p>
+					@endif
 					
 					
 				</td>
-            </tr>
+			</tr>
         </tbody>
     </table>
 
@@ -277,13 +341,12 @@
 		<tr>
 			<td align="center">
 				<center>
-					<table border="0" width="500" cellpadding="0" cellspacing="0">
+					<table border="0" width="100%" cellpadding="0" cellspacing="0">
 						<tr>
-							<td style="color:#ffffff !important; font-size:20px; font-family: Arial, Verdana, sans-serif; padding-left:10px;" height="40">
+							<td style="text-align:center;color:#ffffff !important; font-size:20px; font-family: Arial, Verdana, sans-serif; padding-left:10px;" height="40">
 								<center>
 									<p style="font-size:12px; line-height:18px;">
                                         DRY AIR TEC &copy; {{date('Y')}}
-									<br />
 								</p>
 								</center>
 							</td>
