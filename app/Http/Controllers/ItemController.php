@@ -49,8 +49,8 @@ class ItemController extends UtilController
             $model->quantidade = (int) $attributes->quantidade;
             $model->ordem      = !empty($last) ? ++$last->ordem : 1;
             $model->fator      = !empty($quote->fator) ? $quote->fator : '0.00';
-            $model->icms       = !empty($quote->icms ) ? $quote->icms  : '0.00';
-            $model->ipi        = !empty($quote->ipi  ) ? $quote->ipi   : '0.00';
+            $model->icms       = !empty($quote->icms ) ? $quote->icms  : 'inclusivo';
+            $model->ipi        = !empty($quote->ipi  ) ? $quote->ipi   : 'inclusivo';
 
             if($model->save()){
                 return true;
