@@ -121,7 +121,11 @@
                                                 @else
                                                 <a href="javascript:void(0)" class="btn btn-default" disabled="disabled"><i class="icon-plus-sign"></i> Adicionar Produto</a>
                                                 <a href="{{route('cotacoes.export', $quote->id)}}" class="btn btn-lightred" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
-                                                <a href="./" class="btn btn-satgreen" style=""  onclick="return confirm('Deseja aprovar este orçamento?')"><i class="icon-thumbs-up"></i> Aprovar</a>
+                                                    @if(!$quote->aprovado)
+                                                        <a href="{{route('cotacoes.approve', $quote->id)}}" class="btn btn-satgreen" style=""  onclick="return confirm('Deseja aprovar este orçamento?')"> Aprovar</a>
+                                                    @else
+                                                        <a href="javascript:void(0)" class="btn btn-satgreen" disabled><i class="icon-thumbs-up"></i> Aprovado</a>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </div>

@@ -325,6 +325,26 @@ class QuoteController extends UtilController
      * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
+    public function approve(Quote $quote)
+    {
+        $this->autoridadeCheck($quote->Client->user_id);
+
+        $quote->aprovado  = true;
+
+        if($quote->save()){
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
+        }else{
+            die('Erro ao aprovar a cotação!');
+        }
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
     public function items(Quote $quote)
     {
         return response()->json([
