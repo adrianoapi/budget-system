@@ -47,15 +47,6 @@
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    {{Form::label('Comissão', 'Valor', array('class' => 'control-label'))}}
-                                    <div class="controls">
-                                        {{Form::text('comissao', '', ['id' => 'comissao','placeholder' => '0.00', 'class' => 'money input-medium', 'required' => true])}}
-                                        @error('comissao')
-                                        <div class="alert-danger input-xlarge">{{$message}}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="control-group">
                                     <label for="level" class="control-label">Nível</label>
                                     <div class="controls">
                                         <select name="level" id="level" class='select2-me input-xlarge' required>
