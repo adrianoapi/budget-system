@@ -327,9 +327,20 @@ class QuoteController extends UtilController
      */
     public function approve(Quote $quote)
     {
-        $this->autoridadeCheck($quote->Client->user_id);
+        if(Auth::user()->level <= 1)
+        {
+            $this->autoridadeCheck($quote->Client->user_id);
 
-        $quote->aprovado  = true;
+            if($quote->aprovado == true)
+            {
+                return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
+                    'quote_close',
+                    'Apenas o Administrador pode desaprovar o orçamento!'
+                );
+            }
+        }
+
+        $quote->aprovado  = $quote->aprovado == true ? false : true;
 
         if($quote->save()){
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);

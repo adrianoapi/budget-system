@@ -92,22 +92,6 @@
                                                             {{$quote->serial}}
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <th>Data:</th>
-                                                        <td>Aug 06, 2012</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Fator:</th>
-                                                        <td>
-                                                            {{$quote->fator}}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Total:</th>
-                                                        <td>
-                                                            {{$quote->total}}
-                                                        </td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -122,9 +106,9 @@
                                                 <a href="javascript:void(0)" class="btn btn-default" disabled="disabled"><i class="icon-plus-sign"></i> Adicionar Produto</a>
                                                 <a href="{{route('cotacoes.export', $quote->id)}}" class="btn btn-lightred" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
                                                     @if(!$quote->aprovado)
-                                                        <a href="{{route('cotacoes.approve', $quote->id)}}" class="btn btn-satgreen" style=""  onclick="return confirm('Deseja aprovar este orçamento?')"> Aprovar</a>
+                                                        <a href="{{route('cotacoes.approve', $quote->id)}}" class="btn btn-satgreen" style=""  onclick="return confirm('Deseja aprovar este orçamento?')"><i class="glyphicon-unchecked"></i> Aprovar</a>
                                                     @else
-                                                        <a href="javascript:void(0)" class="btn btn-satgreen" disabled><i class="icon-thumbs-up"></i> Aprovado</a>
+                                                        <a href="{{ Auth::user()->level > 1 ? route('cotacoes.approve', $quote->id) : 'javascript:void(0)'}}" class="btn btn-satgreen" {{ Auth::user()->level > 1 ? '': 'disabled'}}><i class="glyphicon-check"></i> Aprovado</a>
                                                     @endif
                                                 @endif
                                             </div>
