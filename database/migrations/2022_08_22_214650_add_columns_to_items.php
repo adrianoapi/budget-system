@@ -20,7 +20,7 @@ class AddColumnsToItems extends Migration
             $table->decimal('valor', 10, 2)->nullable(true);
             $table->integer('ordem')->default(0);
         });
-    }
+    } 
 
     /**
      * Reverse the migrations.
