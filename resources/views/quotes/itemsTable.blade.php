@@ -19,15 +19,25 @@
     <tbody>
         <?php 
             $total = 0;
+            $ipi = 0;
             $i = 0;
         ?>
         @foreach($quote->items as $value)
         <?php 
         $i++;
+
+        # Se tiver fator > 0
         if($value->fator > 0){
-            $total = $total + ($value->Product->valor * $value->fator) * $value->quantidade;
+            $total_produto = ($value->Product->valor * $value->fator) * $value->quantidade;
+            $total = $total + $total_produto;
         }else{
-            $total = $total + $value->Product->valor * $value->quantidade;
+            $total_produto = $value->Product->valor * $value->quantidade;
+            $total = $total + $total_produto;
+        }
+
+        if($value->ipi == "7.5")
+        {
+            $ipi = $ipi + (($total_produto * 7.5) / 100);
         }
          ?>
         <tr>
@@ -100,7 +110,7 @@
             </td>
             <td class="price">
                 <?php $tableIcms = 'table_icms_'.$value->id;?>
-                <select name="{{$tableIcms}}" id="{{$tableIcms}}" class='input-small' style="margin-bottom:0">
+                <select name="{{$tableIcms}}" id="{{$tableIcms}}" class='input-small' style="margin-bottom:0" {{$quote->close > 0 ? 'disabled' : ''}}>
                     @foreach($icmsLista as $keyIcms => $valueIcms)
                         <option value="{{$keyIcms}}" {{$keyIcms == $value->icms ? "selected" : NULL}}>{{$valueIcms}}</option>
                     @endforeach
@@ -108,7 +118,7 @@
             </td>
             <td class="price">
                 <?php $tableIpi = 'table_ipi_'.$value->id;?>
-                <select name="{{$tableIpi}}" id="{{$tableIpi}}" class='input-small' style="margin-bottom:0">
+                <select name="{{$tableIpi}}" id="{{$tableIpi}}" class='input-small' style="margin-bottom:0" {{$quote->close > 0 ? 'disabled' : ''}}>
                     @foreach($ipiLista as $keyIpi => $valueIpi)
                         <option value="{{$keyIpi}}" {{$keyIpi == $value->ipi ? "selected" : NULL}}>{{$valueIpi}}</option>
                     @endforeach
@@ -131,6 +141,14 @@
                     <span>R${{$total}}</span>
                 </p>
   
+                @if ($ipi > 0)
+                <p>
+                    <span class="light">7.5%</span>
+                    <span class="totalprice">
+                        {{$ipi}}
+                    </span>
+                </p>
+                @endif
 
                 @if ($quote->percentual > 0)
                 <p>
@@ -168,12 +186,18 @@
                 <p>
                     <span class="light">Total</span>
                     <span class="totalprice">
-                        @if ($quote->frete > 0)
-                            R${{$quote->total + $quote->frete, 2, '.', ','}}
-                        @else
-                            R${{$quote->total, 2, '.', ','}}
-                        @endif
-                        
+                        <?php 
+                            $total = $quote->total;
+
+                            if($quote->frete > 0){
+                                $total = $total + $quote->frete;
+                            }
+
+                            if($ipi > 0){
+                                $total = $total + $ipi;
+                            }
+                        ?>
+                        R${{$quote->total, 2, '.', ','}}
                     </span>
                 </p>
                 @else
@@ -183,7 +207,12 @@
                         <?php 
                             if($quote->frete > 0){
                                 $total = $total + $quote->frete;
-                            }?>
+                            }
+
+                            if($ipi > 0){
+                                $total = $total + $ipi;
+                            }
+                        ?>
                         R${{$total, 2, '.', ','}}
                     </span>
                 </p>

@@ -191,10 +191,16 @@
     <table border="1" cellpadding="5" cellspacing="2" width="100%" bgcolor="#fff" style="border-style:dotted;font-size:12px; line-height:18px;">
         <thead>
             <tr style="background-color: #eeeeee; font-family: Arial, Verdana, sans-serif;">
+                <th>espessura</th>
+                <th>cobre</th>
+                <th>aco</th>
+                <th>codigo</th>
                 <th>Item</th>
                 <th>Price</th>
                 <th>Qtd</th>
                 <th>Total</th>
+                <th>ICMS</th>
+                <th>IPI</th>
             </tr>
         </thead>
         <tbody>
@@ -205,12 +211,18 @@
             @foreach($quote->items as $value)
             <?php $total = $total + ($value->Product->valor - ($value->Product->valor * $quote->fator)) * $value->quantidade; ?>
             <tr style="background-color: {{($i % 2) == 0 ? '#f9f9f9' : '#fff'}}; font-family: Arial, Verdana, sans-serif;">
-                <td class="name">{{$value->Product->descricao}}</td>
-                <td class="price">
+                <td class="">{{$value->Product->espessura}}</td>
+                <td class="">{{$value->Product->cobre}}</td>
+                <td class="">{{$value->Product->aco}}</td>
+                <td class="">{{$value->Product->codigo}}</td>
+                <td class="">{{$value->Product->descricao}}</td>
+                <td class="">
                     {{$value->Product->valor}}
                 </td>
-                <td class="qty">{{$value->quantidade}}</td>
-                <td class="total">R${{($value->Product->valor - ($value->Product->valor * $quote->fator)) * $value->quantidade}}</td>
+                <td class="">{{$value->quantidade}}</td>
+                <td class="">R${{($value->Product->valor - ($value->Product->valor * $quote->fator)) * $value->quantidade}}</td>
+                <td class="">{{$icmsLista[$value->icms]}}</td>
+                <td class="">{{$ipiLista[$value->ipi]}}</td>
             </tr>
             <?php
                 $total = 0;
@@ -218,7 +230,7 @@
             ?>
             @endforeach
             <tr style="background-color: #fff; font-family: Arial, Verdana, sans-serif;">
-                <td colspan="3"></td>
+                <td colspan="9"></td>
                 <td class="taxes">
 					<p>
 						<span class="light">Subtotal</span>

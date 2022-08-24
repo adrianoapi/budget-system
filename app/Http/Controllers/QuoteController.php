@@ -244,7 +244,12 @@ class QuoteController extends UtilController
     {
         $this->autoridadeCheck($quote->Client->user_id);
 
-        $pdf = PDF::loadView('quotes.pdf.resume', ['quote' => $quote]);
+        $pdf = PDF::loadView('quotes.pdf.resume', [
+            'quote' => $quote,
+            'quote' => $quote,
+            'icmsLista' => $this->icmsLista(),
+            'ipiLista' => $this->ipiLista()
+        ])->setPaper('a4', 'landscape');
 
         return $pdf->download('auth.pdf');
     }
@@ -301,6 +306,9 @@ class QuoteController extends UtilController
                 $item->quote_id   = $model->id;
                 $item->product_id = $value->product_id;
                 $item->quantidade = $value->quantidade;
+                $item->fator      = $value->fator;
+                $item->icms       = $value->icms;
+                $item->ipi        = $value->ipi;
                 $item->save();
             endforeach;
 
