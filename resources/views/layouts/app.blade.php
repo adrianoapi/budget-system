@@ -24,6 +24,8 @@
         <link rel="stylesheet" href="{!! asset('flat-admin/css/style.css') !!}">
         <!-- Color CSS -->
         <link rel="stylesheet" href="{!! asset('flat-admin/css/themes.css') !!}">
+        
+        <link rel="stylesheet" href="{!! asset('librarys/jBox.all.min.css') !!}">
 
 
         <!-- jQuery -->
@@ -59,6 +61,10 @@
 	    <script src="{!! asset('flat-admin/js/plugins/datepicker/bootstrap-datepicker.js') !!}"></script>
         
         <script src="{!! asset('librarys/jquery.mask.min.js') !!}"></script>
+
+        <script src="{!! asset('librarys/jBox.all.min.js') !!}"></script>
+        
+        <script src="{!! asset('librarys/demo.js') !!}"></script>
 
         <!--[if lte IE 9]>
             <script src="{!! asset('flat-admin/js/plugins/placeholder/jquery.placeholder.min.js') !!}"></script>

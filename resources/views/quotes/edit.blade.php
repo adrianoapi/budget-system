@@ -343,7 +343,6 @@
             </div>
         </div>
 
-
         <!--Modal-->
         <div id="new-task" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
             <div class="modal-header">
@@ -423,6 +422,17 @@
 
 <script type="text/javascript">
 
+function notification(color, content)
+{
+    new jBox('Notice', {
+        animation: 'flip',
+        color: color,
+        content: content,
+        delayOnHover: true,
+        showCountdown: true
+    });
+}
+
 (function( $ ) {
     $(function() {
         $('.money').mask('#.##0,00', {reverse: true});
@@ -483,7 +493,7 @@ $("#addItem").submit(function() {
         dataType: 'json',
         success: function(data)
         {
-            getTable("msg-success", "Produto adicionado!");
+            getTable("green", "Produto adicionado!");
         }
     });
 });
@@ -506,7 +516,7 @@ function excluir(id) {
         dataType: 'json',
         success: function(data)
         {
-            getTable("msg-success", "Produto excluído!");
+            getTable("green", "Produto excluído!");
         }
     });
 }
@@ -529,7 +539,7 @@ function update(id) {
         dataType: 'json',
         success: function(data)
         {
-            getTable("msg-success", "Produto atualizado!");
+            getTable("green", "Produto atualizado!");
         }
     });
 }
@@ -554,7 +564,7 @@ function order(id, ordem) {
     });
 }
 
-function getTable(id, message)
+function getTable(color, message)
 {
     $.ajax({
     url: "{{route('cotacoes.items', $quote->id)}}",
@@ -566,12 +576,10 @@ function getTable(id, message)
         success: function(data)
         {
             $("#dinamic-table").html(data['table']);
-            $("#"+id+"-text").text(message);
-            $("#"+id).fadeIn();
-
-            setTimeout(() => {
-                $("#"+id).fadeToggle();
-            },2300);
+            if(message != '')
+            {
+                notification(color, message);
+            }
         }
     });
 }

@@ -1,7 +1,3 @@
-<div id="msg-success" class="alert alert-success" style="display:none;">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong>Sucesso!</strong> <br><span id="msg-success-text"></span>
-</div>
 <table id="tb-cotacao" class="table table-striped table-hover table-invoice">
     <thead>
         <tr>
