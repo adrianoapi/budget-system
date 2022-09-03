@@ -209,6 +209,39 @@ class QuoteController extends UtilController
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function check(Request $request)
+    {
+        if(Auth::user()->level <= 1)
+        {
+            $client = Client::where('active', true)->where('user_id', Auth::user()->id)->first();
+
+            if(!empty($client)){
+                return redirect()->route('cotacoes.create', ['client' => $client->id]);
+            }else{
+                return redirect()->route('cotacoes.index')->with(
+                    'quote_index',
+                    'Seu usuário não possui clientes cadastrados!'
+                );
+            }
+        }else{
+            $client = Client::where('active', true)->first();
+
+            if(!empty($client)){
+                return redirect()->route('cotacoes.create', ['client' => $client->id]);
+            }else{
+                return redirect()->route('cotacoes.index')->with(
+                    'quote_index',
+                    'Não existem clientes cadastrados!'
+                );
+            }
+        }
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Quote  $quote
@@ -221,16 +254,18 @@ class QuoteController extends UtilController
         $title = $this->title. " editar";
 
         $companies = Company::select('id','name')->where('active', true)->orderBy('name', 'asc')->get();
+        $clients   = Client::select('id','name')->where('active', true)->where('user_id', Auth::user()->id)->orderBy('name', 'asc')->get();
         $products  = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(1000);
 
         return view('quotes.edit', [
-            'title' => $title,
-            'quote' => $quote,
-            'products' => $products,
-            'companies' => $companies,
+            'title'      => $title,
+            'quote'      => $quote,
+            'products'   => $products,
+            'companies'  => $companies,
+            'clients'    => $clients,
             'fatorLista' => $this->fatorLista(),
-            'icmsLista' => $this->icmsLista(),
-            'ipiLista' => $this->ipiLista()
+            'icmsLista'  => $this->icmsLista(),
+            'ipiLista'   => $this->ipiLista()
         ]);
     }
 
@@ -398,8 +433,23 @@ class QuoteController extends UtilController
             );
         }
 
+        if(empty($request->company_id)){
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
+                'quote_close',
+                'É necessário selecionar uma Empresa!'
+            );
+        }
+
+        if(empty($request->client_id)){
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
+                'quote_close',
+                'É necessário selecionar um Cliente!'
+            );
+        }
+
         if(!empty($request->company_id)){
             $quote->company_id = (int) $request->company_id;
+            $quote->client_id  = (int) $request->client_id;
             $quote->total      = $request->total;
             $quote->percentual = $request->percentual;
             $quote->frete      = $request->frete;

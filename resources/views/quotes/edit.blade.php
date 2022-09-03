@@ -152,6 +152,19 @@
                                         </div>
                                         <div class="span2">
                                             <div class="control-group">
+                                                <label for="multa" class="control-label">Cliente</label>
+                                                <div class="controls controls-row">
+                                                    <select name="client_id" id="client_id" class='input-block-level'>
+                                                        <option value="">Cliente</option>
+                                                        @foreach($clients as $value)
+                                                            <option value="{{$value->id}}" {{$quote->client_id == $value->id ? "selected" : NULL}}>{{$value->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
                                                 {{Form::label('total', 'Total (0,00)', array('class' => 'control-label'))}}
                                                 <div class="controls">
                                                     <div class="input-append">

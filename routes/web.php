@@ -86,6 +86,7 @@ Route::prefix('items')->group(function(){
 
 Route::prefix('cotacoes')->group(function(){
     Route::get('/',              'QuoteController@index' )->name('cotacoes.index');
+    Route::get('novo/check',     'QuoteController@check')->name('cotacoes.check');
     Route::get('novo/{client}',  'QuoteController@create')->name('cotacoes.create');
     Route::post('store',         'QuoteController@store' )->name('cotacoes.store');
     Route::get('edit/{quote}',   'QuoteController@edit'  )->name('cotacoes.edit');

@@ -19,6 +19,8 @@
                                 {{$title}}
                             </h3>
                             <span class="tabs">
+                                <a href="{{route('cotacoes.check')}}" class="btn btn-primary">
+                                <i class="icon-reorder"></i> Novo</a>
                             </span>
                         </div>
 
