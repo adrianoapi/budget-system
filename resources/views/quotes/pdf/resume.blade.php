@@ -140,7 +140,7 @@
 								<h3 style="font-weight:normal; margin: 20px 0;">Cotação</h3>
 								<p style="font-size:12px; line-height:18px;">
                                     Serial/Versão: {{$quote->serial}}<br />
-                                    Autor: <strong>{{$quote->user->name}}</strong><br />
+                                    Representante: <strong>{{$quote->user->name}}</strong><br />
 									Email: <a href="mailtoto:{{$quote->user->email}}">{{$quote->user->email}}</a>
 								</p>
 							</td>

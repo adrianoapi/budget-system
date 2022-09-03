@@ -87,7 +87,7 @@
                                     <tr>
                                         <td>{{$value->name}}</td>
                                         <td>{{$value->email}}</td>
-                                        <td class='hidden-350'>{{$levels[$value->level]}} {{$value->level}}</td>
+                                        <td class='hidden-350'>{{$levels[$value->level]}}</td>
                                         <td class='hidden-1024'>
                                             {{ Form::open(['route' => ['usuarios.destroy', $value->id],  'method' => 'POST', 'style' => 'margin: 0;padding:0;']) }}
                                                 @csrf
