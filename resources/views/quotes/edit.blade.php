@@ -96,6 +96,14 @@
                                             </table>
                                         </div>
                                     </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <div class="basic-margin">
+                                                Nome do Projeto: <strong>{{$quote->name}}</strong>
+                                            </div>
+                                        </div>
+                                    </div>
             
                                     <div class="row-fluid">
                                         <div class="span12">
@@ -130,7 +138,54 @@
                                     </div>
                                     @endif
                                 </div>
-                            </div>
+
+                                @if($quote->close)
+                                <!--Form comercail begin-->
+                                <div class="row-fluid">
+                                    <div class="box box-bordered">
+                                        <div class="box-title">
+                                            <h3><i class="icon-th-list"></i> Condições comerciais</h3>
+                                        </div>
+                                        <div class="box-content nopadding">
+                                            {{ Form::open(['route' => ['cotacoes.update.comercial', $quote->id],  'method' => 'POST', 'class' =>'form-horizontal form-bordered']) }}
+                                                @method('PUT')
+                                                <div class="control-group">
+                                                    <label for="pagamento" class="control-label">Pagamento</label>
+                                                    <div class="controls">
+                                                        <input type="text" name="pagamento" id="pagamento" value="{{$quote->pagamento}}" placeholder="pagamento..." class="input-xlarge">
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label for="prazo" class="control-label">Prazo</label>
+                                                    <div class="controls">
+                                                        <input type="text" name="prazo" id="prazo" value="{{$quote->prazo}}" placeholder="prazo..." class="input-xlarge">
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label for="transportadora" class="control-label">Transportadora</label>
+                                                    <div class="controls">
+                                                        <input type="text" name="transportadora" id="transportadora" value="{{$quote->transportadora}}" placeholder="transportadora..." class="input-xlarge">
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label for="observacoes" class="control-label">Observações</label>
+                                                    <div class="controls">
+                                                        <textarea name="observacoes" id="observacoes" placeholder="observações..." rows="5" class="input-block-level">{{$quote->observacoes}}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    <button type="button" class="btn">Cancel</button>
+                                                </div>
+                                            {{ Form::close() }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Form comercail end-->
+                                @endif
+                            
+                            </div><!--tab 1-->
+
                             <div class="tab-pane" id="second22">
                                 {{ Form::open(['route' => ['cotacoes.update', $quote->id], 'class' => 'form']) }}    
                                     @csrf 
@@ -181,6 +236,16 @@
                                                         <div class="alert-danger input-xlarge">{{$message}}</div>
                                                         @enderror
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <div class="control-group">
+                                                <label for="name" class="control-label">Nome projeto</label>
+                                                <div class="controls">
+                                                    <input type="text" name="name" id="name" value="{{$quote->name}}" placeholder="Insira um nome" class="input-xlarge">
                                                 </div>
                                             </div>
                                         </div>

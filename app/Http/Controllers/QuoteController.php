@@ -466,6 +466,7 @@ class QuoteController extends UtilController
         if(!empty($request->company_id)){
             $quote->company_id = (int) $request->company_id;
             $quote->client_id  = (int) $request->client_id;
+            $quote->name       = $request->name;
             $quote->total      = $request->total;
             $quote->percentual = $request->percentual;
             $quote->frete      = $request->frete;
@@ -596,6 +597,31 @@ class QuoteController extends UtilController
                 $value->save();
             endforeach;
 
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
+    public function updateComercial(Request $request, Quote $quote)
+    {
+        if(Auth::user()->level <= 1)
+        {
+            $this->autoridadeCheck($quote->client->user_id);
+        }
+
+        $quote->pagamento      = $request->pagamento;
+        $quote->prazo          = $request->prazo;
+        $quote->transportadora = $request->transportadora;
+        $quote->observacoes    = $request->observacoes;
+        
+        if($quote->save())
+        {
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
         }
     }

@@ -15,7 +15,7 @@ class AddColumnsToQuotes extends Migration
     {
         Schema::table('quotes', function (Blueprint $table) {
             $table->unsignedBigInteger('company_id');
-            $table->string('serial', 20)->nullable(true);
+            $table->string('serial', 255)->nullable(true);
             $table->decimal('fator', 10, 2)->nullable(true);
             $table->enum('icms', ['inclusivo', '4','12','18'])->default('inclusivo');
             $table->enum('ipi',  ['inclusivo', 'isento','7.5'])->default('inclusivo');
