@@ -200,12 +200,28 @@ class QuoteController extends UtilController
             $model->serial      = uniqid();
 
             if($model->save()){
+
+                # Update serial
+                $model->serial = $this->nameGenerate(
+                    $model->Company->name,
+                    $model->Client->estado,
+                    $model->id,
+                    $model->Client->name
+                );
+                $model->save();
+
                 return redirect()->route('cotacoes.edit', ['quote' => $model->id]);
             }
 
         }else{
             die('Cliente não encontrado!');
         }
+    }
+
+    public function nameGenerate($companyName, $clientUF, $quoteID, $clientName)
+    {
+       $companyName = substr($companyName, 0, 3);
+       return "{$companyName} - {$clientUF} - {$quoteID} - {$clientName}";
     }
 
     /**
@@ -461,6 +477,15 @@ class QuoteController extends UtilController
 
             if($quote->save())
             {
+                # Update serial
+                $quote->serial = $this->nameGenerate(
+                    $quote->Company->name,
+                    $quote->Client->estado,
+                    $quote->id,
+                    $quote->Client->name
+                );
+                $quote->save();
+
                 return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
             }
             
