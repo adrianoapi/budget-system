@@ -24,120 +24,122 @@
                         </h3>
                     </div>
                     <div class="box-content nopadding">
-                        <ul class="tabs tabs-inline tabs-top">
-                            <li class='active'>
-                                <a href="#first11" data-toggle='tab'><i class="icon-list-alt"></i> Resumo</a>
-                            </li>
-                            <li>
-                                <a href="#second22" data-toggle='tab'><i class="icon-edit"></i> Editar</a>
-                            </li>
-                            <li>
-                                <a href="#third" data-toggle='tab'><i class="glyphicon-flag"></i> Fator</a>
-                            </li>
-                            <li>
-                                <a href="#forth" data-toggle='tab'><i class="icon-fire"></i> ICMS</a>
-                            </li>
-                            <li>
-                                <a href="#five" data-toggle='tab'><i class="icon-fire"></i> IPI</a>
-                            </li>
-                        </ul>
+                        <div class="tabs-container">
+                            <ul class="tabs tabs-inline tabs-top">
+                                <li class='active'>
+                                    <a href="#first11" data-toggle='tab'><i class="icon-list-alt"></i> Resumo</a>
+                                </li>
+                                <li>
+                                    <a href="#second22" data-toggle='tab'><i class="icon-edit"></i> Editar</a>
+                                </li>
+                                <li>
+                                    <a href="#third" data-toggle='tab'><i class="glyphicon-flag"></i> Fator</a>
+                                </li>
+                                <li>
+                                    <a href="#forth" data-toggle='tab'><i class="icon-fire"></i> ICMS</a>
+                                </li>
+                                <li>
+                                    <a href="#five" data-toggle='tab'><i class="icon-fire"></i> IPI</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
                         <div class="tab-content padding tab-content-inline tab-content-bottom">
+                            
                             <div class="tab-pane active" id="first11">
-                                <div class="tab-pane active" id="first11">
-                                    <div class="invoice-info">
-            
-                                        @if(session('quote_close'))
-                                            <div class="alert alert-danger">
-                                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                                {!!session('quote_close')!!}
-                                            </div>
-                                        @endif
-            
-                                        <div class="invoice-from">
-                                            <span>De</span>
-                                            <strong>{{$quote->company->name}}</strong>
-                                            <address>
-                                                {{$quote->company->endereco}}, {{$quote->company->numero}}, {{$quote->company->complemento}}<br>
-                                                {{$quote->company->bairro}}, {{$quote->company->cidade}} - {{$quote->company->estado}},  {{$quote->company->cep}} <br>
-                                                <abbr title="Telefone">Telefone:</abbr> {{$quote->company->telefone}} -
-                                                <abbr title="Comercial">Comercial:</abbr> {{$quote->company->telefone_com}} <br>
-                                                <abbr title="Celular">Celular:</abbr> {{$quote->company->celular}}
-                                            </address>
+                                <div class="invoice-info">
+        
+                                    @if(session('quote_close'))
+                                        <div class="alert alert-danger">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            {!!session('quote_close')!!}
                                         </div>
-                                        <div class="invoice-to">
-                                            <span>Para</span>
-                                            <strong>{{$quote->client->name}}</strong>
-                                            <address>
-                                                {{$quote->client->endereco}}, {{$quote->client->numero}} <br>
-                                                {{$quote->client->bairro}}, {{$quote->client->cidade}}/{{$quote->client->estado}}, {{$quote->client->cep}} <br>
-                                                <abbr title="Telefone">Phone:</abbr>
-                                                @if(!empty($quote->client->telefone))
-                                                {{$quote->client->telefone}} |
-                                                @endif
-                                                @if(!empty($quote->client->telefone_com))
-                                                    {{$quote->client->telefone_com}} |
-                                                @endif
-                                                @if(!empty($quote->client->celular))
-                                                    {{$quote->client->celular}}
-                                                @endif<br>
-                                                <abbr title="E-mail">E-mail:</abbr> {{$quote->client->celular}}
-                                            </address>
-                                        </div>
-                                        <div class="invoice-infos">
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <th>Serial #:</th>
-                                                        <td>
-                                                            {{$quote->serial}}
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                    <div class="row-fluid">
-                                        <div class="span12">
-                                            <div class="basic-margin">
-                                                Nome do Projeto: <strong>{{$quote->name}}</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-            
-                                    <div class="row-fluid">
-                                        <div class="span12">
-                                            <div class="basic-margin" style="float:right;">
-                                                @if(!$quote->close)
-                                                <a href="#new-task" data-toggle="modal" class="btn btn-primary"><i class="icon-plus-sign"></i> Adicionar Produto</a>
-                                                @else
-                                                <a href="javascript:void(0)" class="btn btn-default" disabled="disabled"><i class="icon-plus-sign"></i> Adicionar Produto</a>
-                                                <a href="{{route('cotacoes.export', $quote->id)}}" class="btn btn-lightred" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
-                                                    @if(!$quote->aprovado)
-                                                        <a href="{{route('cotacoes.approve', $quote->id)}}" class="btn btn-satgreen" style=""  onclick="return confirm('Deseja aprovar este orçamento?')"><i class="glyphicon-unchecked"></i> Aprovar</a>
-                                                    @else
-                                                        <a href="{{ Auth::user()->level > 1 ? route('cotacoes.approve', $quote->id) : 'javascript:void(0)'}}" class="btn btn-satgreen" {{ Auth::user()->level > 1 ? '': 'disabled'}}><i class="glyphicon-check"></i> Aprovado</a>
-                                                    @endif
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div id="dinamic-table">Carregando...</div>
-                                    @if(!$quote->close)
-                                    <div class="invoice-payment">
-                                        {{ Form::open(['route' => ['cotacoes.close', $quote->id],  'method' => 'POST']) }}
-                                        {!! Form::button('<i class="icon-folder-close-alt"></i> Fechar Cotação', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
-                                        {{ Form::close() }}
-                                    </div>
-                                    @else 
-                                    <div class="invoice-payment">
-                                        {{ Form::open(['route' => ['cotacoes.clone', $quote->id],  'method' => 'POST']) }}
-                                        {!! Form::button('<i class="icon-copy"></i> Clonar Cotação', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
-                                        {{ Form::close() }}
-                                    </div>
                                     @endif
+        
+                                    <div class="invoice-from">
+                                        <span>De</span>
+                                        <strong>{{$quote->company->name}}</strong>
+                                        <address>
+                                            {{$quote->company->endereco}}, {{$quote->company->numero}}, {{$quote->company->complemento}}<br>
+                                            {{$quote->company->bairro}}, {{$quote->company->cidade}} - {{$quote->company->estado}},  {{$quote->company->cep}} <br>
+                                            <abbr title="Telefone">Telefone:</abbr> {{$quote->company->telefone}} -
+                                            <abbr title="Comercial">Comercial:</abbr> {{$quote->company->telefone_com}} <br>
+                                            <abbr title="Celular">Celular:</abbr> {{$quote->company->celular}}
+                                        </address>
+                                    </div>
+                                    <div class="invoice-to">
+                                        <span>Para</span>
+                                        <strong>{{$quote->client->name}}</strong>
+                                        <address>
+                                            {{$quote->client->endereco}}, {{$quote->client->numero}} <br>
+                                            {{$quote->client->bairro}}, {{$quote->client->cidade}}/{{$quote->client->estado}}, {{$quote->client->cep}} <br>
+                                            <abbr title="Telefone">Phone:</abbr>
+                                            @if(!empty($quote->client->telefone))
+                                            {{$quote->client->telefone}} |
+                                            @endif
+                                            @if(!empty($quote->client->telefone_com))
+                                                {{$quote->client->telefone_com}} |
+                                            @endif
+                                            @if(!empty($quote->client->celular))
+                                                {{$quote->client->celular}}
+                                            @endif<br>
+                                            <abbr title="E-mail">E-mail:</abbr> {{$quote->client->celular}}
+                                        </address>
+                                    </div>
+                                    <div class="invoice-infos">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <th>Serial #:</th>
+                                                    <td>
+                                                        {{$quote->serial}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
+
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <div class="basic-margin">
+                                            Nome do Projeto: <strong>{{$quote->name}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <div class="basic-margin" style="float:right;">
+                                            @if(!$quote->close)
+                                            <a href="#new-task" data-toggle="modal" class="btn btn-primary"><i class="icon-plus-sign"></i> Adicionar Produto</a>
+                                            @else
+                                            <a href="javascript:void(0)" class="btn btn-default" disabled="disabled"><i class="icon-plus-sign"></i> Adicionar Produto</a>
+                                            <a href="{{route('cotacoes.export', $quote->id)}}" class="btn btn-lightred" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
+                                                @if(!$quote->aprovado)
+                                                    <a href="{{route('cotacoes.approve', $quote->id)}}" class="btn btn-satgreen" style=""  onclick="return confirm('Deseja aprovar este orçamento?')"><i class="glyphicon-unchecked"></i> Aprovar</a>
+                                                @else
+                                                    <a href="{{ Auth::user()->level > 1 ? route('cotacoes.approve', $quote->id) : 'javascript:void(0)'}}" class="btn btn-satgreen" {{ Auth::user()->level > 1 ? '': 'disabled'}}><i class="glyphicon-check"></i> Aprovado</a>
+                                                @endif
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="dinamic-table">Carregando...</div>
+                                @if(!$quote->close)
+                                <div class="invoice-payment">
+                                    {{ Form::open(['route' => ['cotacoes.close', $quote->id],  'method' => 'POST']) }}
+                                    {!! Form::button('<i class="icon-folder-close-alt"></i> Fechar Cotação', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
+                                    {{ Form::close() }}
+                                </div>
+                                @else 
+                                <div class="invoice-payment">
+                                    {{ Form::open(['route' => ['cotacoes.clone', $quote->id],  'method' => 'POST']) }}
+                                    {!! Form::button('<i class="icon-copy"></i> Clonar Cotação', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
+                                    {{ Form::close() }}
+                                </div>
+                                @endif
 
                                 @if($quote->close)
                                 <!--Form comercail begin-->
@@ -187,12 +189,22 @@
                             </div><!--tab 1-->
 
                             <div class="tab-pane" id="second22">
-                                {{ Form::open(['route' => ['cotacoes.update', $quote->id], 'class' => 'form']) }}    
+                                {{ Form::open(['route' => ['cotacoes.update', $quote->id], 'class' => 'form-vertical']) }}    
                                     @csrf 
                                     @method('PUT')
     
                                     <div class="row-fluid">
-                                        <div class="span2">
+                                        <div class="span12">
+                                            <div class="control-group">
+                                                <label for="name" class="control-label">Nome do Projeto</label>
+                                                <div class="controls">
+                                                    <input type="text" name="name" id="name" value="{{$quote->name}}" placeholder="Insira um nome" class="input-block-level">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span4">
                                             <div class="control-group">
                                                 <label for="multa" class="control-label">Empesa</label>
                                                 <div class="controls controls-row">
@@ -205,7 +217,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="span2">
+                                        <div class="span4">
                                             <div class="control-group">
                                                 <label for="multa" class="control-label">Cliente</label>
                                                 <div class="controls controls-row">
@@ -218,7 +230,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="span2">
+                                        <div class="span4">
                                             <div class="control-group">
                                                 {{Form::label('total', 'Total (0,00)', array('class' => 'control-label'))}}
                                                 <div class="controls">
@@ -241,17 +253,7 @@
                                         </div>
                                     </div>
                                     <div class="row-fluid">
-                                        <div class="span12">
-                                            <div class="control-group">
-                                                <label for="name" class="control-label">Nome projeto</label>
-                                                <div class="controls">
-                                                    <input type="text" name="name" id="name" value="{{$quote->name}}" placeholder="Insira um nome" class="input-xlarge">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <div class="span2">
+                                        <div class="span4">
                                             <div class="control-group">
                                                 <label for="multa" class="control-label">Aprovado</label>
                                                 <div class="controls controls-row">
@@ -262,7 +264,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="span2">
+                                        <div class="span4">
                                             <div class="control-group">
                                                 {{Form::label('percentual', 'Desconto Percentual (0,00)', array('class' => 'control-label'))}}
                                                 <div class="controls">
@@ -283,7 +285,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="span2">
+                                        <div class="span4">
                                             <div class="control-group">
                                                 {{Form::label('frete', 'Frete (0,00)', array('class' => 'control-label'))}}
                                                 <div class="controls">
