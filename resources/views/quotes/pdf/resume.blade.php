@@ -112,16 +112,29 @@
 		</style>
 	<![endif]-->
 </head>
-<body style="padding:0; margin:0;" bgcolor="#ffffff">
+<img src="{!! asset('flat-admin/img/lonhas_pdf.png') !!}" width="130px" alt=""
+style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
+<body style="padding:0; margin:0;margin-top:-30px;" bgcolor="#ffffff">
 
-	<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#368ee0">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr>
 			<td align="center">
 				<center>
-					<table border="0" width="500" cellpadding="0" cellspacing="0">
+					<table border="0" width="100%" cellpadding="0" cellspacing="0">
 						<tr>
-							<td style="color:#ffffff !important; font-size:24px; font-family: Arial, Verdana, sans-serif; padding-left:10px;" height="40">
-                                <img src="{!! asset('flat-admin/img/apple-touch-icon-precomposed.png') !!}" width="43px" alt="" style="display:block;" />
+							<td style="" >
+                                <img src="{!! asset('flat-admin/img/logo.jpg') !!}" width="300px" alt="" style="display:block;" />
+                            </td>
+							<td style="">
+                            </td>
+							<td style="">
+								&nbsp;
+                            </td>
+							<td style="">
+								&nbsp;
+                            </td>
+							<td style="">
+								<a href="http://www.dryairtec.com.br" style="color:#333333 !important; font-size:16px; font-family: Arial, Verdana, sans-serif; padding-left:10px;">www.dryairtec.com.br</a>
                             </td>
 						</tr>
 					</table>
@@ -129,6 +142,16 @@
 			</td>
 		</tr>
 	</table>
+	<br/>
+	<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#368ee0">
+		<tr>
+			<td align="center">
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+
+	<p style="color:#333333 !important; font-size:16px; font-family: Arial, Verdana, sans-serif; padding-left:10px;">Projeto: <strong>{{$quote->name}}</strong></p>
 
 	<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
 		<tr>
@@ -161,7 +184,8 @@
                                 <strong>{{$quote->company->name}}</strong>
                                     {{$quote->company->endereco}}, {{$quote->company->numero}}, {{$quote->company->complemento}}<br>
                                     {{$quote->company->bairro}}, {{$quote->company->cidade}} - {{$quote->company->estado}},  {{$quote->company->cep}} <br>
-                                    <abbr title="Telefone">Telefone:</abbr> {{$quote->company->telefone}} -
+                                    CNPJ: {{$quote->company->cpf_cnpj}}, IE: {{$quote->company->ie}}<br>
+									<abbr title="Telefone">Telefone:</abbr> {{$quote->company->telefone}} -
                                     <abbr title="Comercial">Comercial:</abbr> {{$quote->company->telefone_com}} <br>
                                     <abbr title="Celular">Celular:</abbr> {{$quote->company->celular}}
                             </td>
@@ -170,6 +194,7 @@
                                 <strong>{{$quote->client->name}}</strong>
                                     {{$quote->client->endereco}}, {{$quote->client->numero}} <br>
                                     {{$quote->client->bairro}}, {{$quote->client->cidade}}/{{$quote->client->estado}}, {{$quote->client->cep}} <br>
+                                    CNPJ: {{$quote->client->cpf_cnpj}}, IE: {{$quote->client->ie}}<br>
                                     <abbr title="Telefone">Phone:</abbr>
                                     @if(!empty($quote->client->telefone))
                                     {{$quote->client->telefone}} |
