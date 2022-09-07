@@ -15,6 +15,7 @@ class AddColumnsToQuotes02 extends Migration
     {
         Schema::table('quotes', function (Blueprint $table) {
             $table->string('name')->nullable(true);
+            $table->string('representante')->nullable(true);
         });
     }
 
@@ -27,6 +28,7 @@ class AddColumnsToQuotes02 extends Migration
     {
         Schema::table('quotes', function (Blueprint $table) {
             $table->dropColumn('name');
+            $table->dropColumn('representante');
         });
     }
 }

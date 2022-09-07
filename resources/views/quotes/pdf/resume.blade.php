@@ -150,38 +150,15 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 			</td>
 		</tr>
 	</table>
-
-	<p style="color:#333333 !important; font-size:16px; font-family: Arial, Verdana, sans-serif; padding-left:10px;">Projeto: <strong>{{$quote->name}}</strong></p>
-
-	<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
-		<tr>
-			<td align="center">
-				<center>
-					<table border="0" width="500" cellpadding="0" cellspacing="0">
-						<tr>
-							<td style="color:#333333 !important; font-size:20px; font-family: Arial, Verdana, sans-serif; padding-left:10px;" height="40">
-								<h3 style="font-weight:normal; margin: 20px 0;">Cotação</h3>
-								<p style="font-size:12px; line-height:18px;">
-                                    Serial/Versão: {{$quote->serial}}<br />
-                                    Representante: <strong>{{$quote->user->name}}</strong><br />
-									Email: <a href="mailtoto:{{$quote->user->email}}">{{$quote->user->email}}</a>
-								</p>
-							</td>
-						</tr>
-					</table>
-				</center>
-			</td>
-		</tr>
-	</table>
 	<table border="1" cellpadding="5" cellspacing="2" width="100%" bgcolor="#fff" style="border-style:dotted;font-size:12px; line-height:18px;">
 		<tr>
 			<td align="center">
 				<center>
-					<table border="0" cellpadding="5" cellspacing="2" width="100%" bgcolor="#fff" style="border-style:solid;font-family: Arial, Verdana, sans-serif;font-size:12px; line-height:18px;">
+					<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fff" style="border-style:solid;font-family: Arial, Verdana, sans-serif;font-size:12px; line-height:18px;">
 						<tr>
 							<td>
                                 <span>De</span>
-                                <strong>{{$quote->company->name}}</strong>
+                                <strong>{{$quote->company->name}}</strong><br>
                                     {{$quote->company->endereco}}, {{$quote->company->numero}}, {{$quote->company->complemento}}<br>
                                     {{$quote->company->bairro}}, {{$quote->company->cidade}} - {{$quote->company->estado}},  {{$quote->company->cep}} <br>
                                     CNPJ: {{$quote->company->cpf_cnpj}}, IE: {{$quote->company->ie}}<br>
@@ -191,7 +168,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                             </td>
 							<td>
                                 <span>Para</span>
-                                <strong>{{$quote->client->name}}</strong>
+                                <strong>{{$quote->client->name}}</strong><br>
                                     {{$quote->client->endereco}}, {{$quote->client->numero}} <br>
                                     {{$quote->client->bairro}}, {{$quote->client->cidade}}/{{$quote->client->estado}}, {{$quote->client->cep}} <br>
                                     CNPJ: {{$quote->client->cpf_cnpj}}, IE: {{$quote->client->ie}}<br>
@@ -205,11 +182,33 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                                     @if(!empty($quote->client->celular))
                                         {{$quote->client->celular}}
                                     @endif<br>
-                                    <abbr title="E-mail">E-mail:</abbr> {{$quote->client->celular}}
+                                    Contato: {{$quote->client->responsavel}} <abbr title="E-mail">E-mail:</abbr> {{$quote->client->celular}}<br>
                             </td>
 						</tr>
 					</table>
 				</center>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+					<tr>
+						<td align="center">
+							<center>
+								<table border="0" width="500" cellpadding="0" cellspacing="0">
+									<tr>
+										<td style="color:#333333 !important; font-size:20px; font-family: Arial, Verdana, sans-serif; padding-left:10px;" height="40">
+											<p style="font-size:12px; line-height:18px;">
+												Projeto: <strong>{{$quote->name}}</strong><br />
+												Serial/Versão: {{$quote->serial}}
+											</p>
+										</td>
+									</tr>
+								</table>
+							</center>
+						</td>
+					</tr>
+				</table>
 			</td>
 		</tr>
 	</table>
@@ -361,7 +360,42 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
         </tbody>
     </table>
 
-
+	<table border="0" cellpadding="2" cellspacing="2" width="250" bgcolor="#fff" style="font-family: Arial, Verdana, sans-serif; font-size:12px; line-height:18px;">
+		<thead>
+			<tr>
+				<th colspan="2" style="text-align: left;"><strong>Condições comerciais</strong></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr style="background-color: #fff">
+				<td>Representante:</td>
+				<td>{{$quote->representante}}</td>
+			</tr>
+			<tr style="background-color: #f9f9f9">
+				<td>Forma Pagamento:</td>
+				<td>{{$quote->pagamento}}</td>
+			</tr>
+			<tr style="background-color: #fff">
+				<td>Prazo de entrega:</td>
+				<td>{{$quote->prazo}}</td>
+			</tr>
+			<tr style="background-color: #f9f9f9">
+				<td>Transportadora:</td>
+				<td>{{$quote->transportadora}}</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<p style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;"><strong>Observações Gerais:</strong></p>
+	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- PRAZO DE ENTREGA: produto em estoque. Após confirmação do pedido, embarque em até 48h úteis mais prazo da transportadora (a confirmar).</span><br> 
+	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- Os serviços de mão de obra necessários para a montagem não estão incluídos nos preços acima.</span><br>
+	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- VALIDADE: 10 DIAS</span><br>
+	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- Empresa optante pelo Simples Nacional</span><br>
+	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- Mercadoria não configura uso em auto peças.</span><br>
+	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- Diferencial de alíquota sera recolhido ao Estado de destino pelo comprador.</span><br>
+	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- Valor sem ST, Se aplicável, será de responsabilidade do comprador d☺e acordo com as regras e legislação aplicável.</span><br>
+	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- Valor do ICMS @ 4% (base de cálculo) e IPI incluso no Preço</span><br>
+<br>
 	<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#368ee0">
 		<tr>
 			<td align="center">
@@ -371,7 +405,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 							<td style="text-align:center;color:#ffffff !important; font-size:20px; font-family: Arial, Verdana, sans-serif; padding-left:10px;" height="40">
 								<center>
 									<p style="font-size:12px; line-height:18px;">
-                                        DRY AIR TEC &copy; {{date('Y')}}
+                                        {{strtoupper($quote->company->name)}} &copy; {{date('Y')}}
 								</p>
 								</center>
 							</td>

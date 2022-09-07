@@ -300,8 +300,8 @@ class QuoteController extends UtilController
             'quote' => $quote,
             'icmsLista' => $this->icmsLista(),
             'ipiLista' => $this->ipiLista()
-        ])->setPaper('a4', 'landscape');
-
+        ]);
+            #->setPaper('a4', 'landscape')
         $fileName = $quote->serial."_".time().".pdf";
 
         return $pdf->download($fileName);
@@ -618,7 +618,7 @@ class QuoteController extends UtilController
         $quote->pagamento      = $request->pagamento;
         $quote->prazo          = $request->prazo;
         $quote->transportadora = $request->transportadora;
-        $quote->observacoes    = $request->observacoes;
+        $quote->representante  = $request->representante;
         
         if($quote->save())
         {

@@ -152,6 +152,12 @@
                                             {{ Form::open(['route' => ['cotacoes.update.comercial', $quote->id],  'method' => 'POST', 'class' =>'form-horizontal form-bordered']) }}
                                                 @method('PUT')
                                                 <div class="control-group">
+                                                    <label for="representante" class="control-label">Representante</label>
+                                                    <div class="controls">
+                                                        <input type="text" name="representante" id="representante" value="{{!empty($quote->representante) ? $quote->representante : 'usuario' }}" placeholder="representante..." class="input-xlarge">
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
                                                     <label for="pagamento" class="control-label">Pagamento</label>
                                                     <div class="controls">
                                                         <input type="text" name="pagamento" id="pagamento" value="{{$quote->pagamento}}" placeholder="pagamento..." class="input-xlarge">
@@ -167,12 +173,6 @@
                                                     <label for="transportadora" class="control-label">Transportadora</label>
                                                     <div class="controls">
                                                         <input type="text" name="transportadora" id="transportadora" value="{{$quote->transportadora}}" placeholder="transportadora..." class="input-xlarge">
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <label for="observacoes" class="control-label">Observações</label>
-                                                    <div class="controls">
-                                                        <textarea name="observacoes" id="observacoes" placeholder="observações..." rows="5" class="input-block-level">{{$quote->observacoes}}</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-actions">
