@@ -225,9 +225,9 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                 <th>Item</th>
                 <th>Price</th>
                 <th>Qtd</th>
-                <th>Total</th>
                 <th>ICMS</th>
                 <th>IPI</th>
+                <th>Total</th>
             </tr>
         </thead>
         <tbody>
@@ -264,14 +264,14 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                     {{$value->Product->valor}}
                 </td>
                 <td class="">{{$value->quantidade}}</td>
-                <td class="">R${{($value->Product->valor - ($value->Product->valor * $quote->fator)) * $value->quantidade}}</td>
                 <td class="">{{$icmsLista[$value->icms]}}</td>
                 <td class="">{{$ipiLista[$value->ipi]}}</td>
+                <td class="">R${{($value->Product->valor - ($value->Product->valor * $quote->fator)) * $value->quantidade}}</td>
             </tr>
             @endforeach
             <tr style="background-color: #fff; font-family: Arial, Verdana, sans-serif;">
-				<td colspan="9"></td>
-				<td class="taxes">
+				<td colspan="7"></td>
+				<td colspan="3" class="taxes">
 					<p>
 						<span class="light">Subtotal</span>
 						<span>R${{$total}}</span>

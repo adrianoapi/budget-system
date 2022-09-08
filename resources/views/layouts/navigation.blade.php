@@ -7,16 +7,16 @@
 				</div>
 				<ul class="subnav-menu">
 					<li>
-						<a href="{{route('dashboard.index')}}">DASHBOARD</a>
+						<a href="{{route('dashboard.index')}}"><i class="icon-desktop"></i> DASHBOARD</a>
 					</li>
 					<li>
-						<a href="{{route('usuarios.index')}}">USUÁRIOS</a>
+						<a href="{{route('usuarios.index')}}"><i class="icon-user"></i> USUÁRIOS</a>
 					</li>
 					<li>
-						<a href="{{route('produtos.index')}}">PRODUTOS</a>
+						<a href="{{route('produtos.index')}}"><i class="icon-tags"></i> PRODUTOS</a>
 					</li>
 					<li>
-						<a href="{{route('empresas.index')}}">EMPRESAS</a>
+						<a href="{{route('empresas.index')}}"><i class="glyphicon-building"></i> EMPRESAS</a>
 					</li>
 				</ul>
                 @endif
@@ -29,14 +29,14 @@
 				<ul class="subnav-menu">
 					@if(Auth::user()->level <= 1)
 					<li>
-						<a href="{{route('dashboard.index')}}">DASHBOARD</a>
+						<a href="{{route('dashboard.index')}}"><i class="icon-desktop"></i> DASHBOARD</a>
 					</li>
 					@endif
 					<li>
-						<a href="{{route('clientes.index')}}">CLIENTES</a>
+						<a href="{{route('clientes.index')}}"><i class="glyphicon-bookmark"></i> CLIENTES</a>
 					<li>
 					<li>
-						<a href="{{route('cotacoes.index')}}">COTAÇÕES</a>
+						<a href="{{route('cotacoes.index')}}"><i class="glyphicon-shopping_bag"></i> COTAÇÕES</a>
 					<li>
 				</ul>
 			</div>

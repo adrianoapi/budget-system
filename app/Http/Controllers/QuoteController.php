@@ -32,6 +32,7 @@ class QuoteController extends UtilController
         $responsavel  = NULL;
         $telefone     = NULL;
         $close        = NULL;
+        $aprovado     = NULL;
         $serial       = NULL;
 
         if(array_key_exists('filtro', $_GET))
@@ -40,6 +41,7 @@ class QuoteController extends UtilController
             $responsavel = $_GET['responsavel'];
             $telefone    = $_GET['telefone'   ];
             $close       = $_GET['close'      ];
+            $aprovado    = $_GET['aprovado'   ];
             $serial      = $_GET['serial'     ];
 
             $this->dtInicial = strlen($_GET['dt_inicio']) > 2 ? $this->dataSql($_GET['dt_inicio']) : $this->dtInicial;
@@ -101,7 +103,6 @@ class QuoteController extends UtilController
                 ->where('active', true)
                 ->where('serial', 'like', '%' . rtrim($serial) . '%')
                 ->where('close', $close == "yes" ? true : false)
-                ->where('close', $close == "yes" ? true : false)
                 ->where('user_id', Auth::user()->id)
                 ->orderBy('id', 'desc')
                 ->get();
@@ -122,6 +123,20 @@ class QuoteController extends UtilController
                     array_push($quoteIds, $value->id);
                 endforeach;
             }
+        }
+
+        if(!empty($aprovado))
+        {
+            $quotes = Quote::select('id')->whereIn('id', $quoteIds)
+            ->where('aprovado', $aprovado == "yes" ? true : false)
+            ->orderBy('id', 'desc')
+            ->get();
+
+            $quoteIds = [];
+            foreach($quotes as $value):
+                array_push($quoteIds, $value->id);
+            endforeach;
+
         }
 
         if(!empty($this->dtInicial) && !empty($this->dtFinal))
@@ -153,15 +168,16 @@ class QuoteController extends UtilController
         ->paginate(100);
         
         return view('quotes.index', [
-            'title' => $title,
-            'quotes' => $quotes,
-            'name' => $name,
+            'title'       => $title,
+            'quotes'      => $quotes,
+            'name'        => $name,
             'responsavel' => $responsavel,
-            'telefone' => $telefone,
-            'close' => $close,
-            'serial' => $serial,
-            'dt_inicio' => !empty($this->dtInicial) ? $this->dataBr($this->dtInicial) : NULL,
-            'dt_fim' => !empty($this->dtFinal     ) ? $this->dataBr($this->dtFinal  ) : NULL
+            'telefone'    => $telefone,
+            'close'       => $close,
+            'aprovado'    => $aprovado,
+            'serial'      => $serial,
+            'dt_inicio'   => !empty($this->dtInicial) ? $this->dataBr($this->dtInicial) : NULL,
+            'dt_fim'      => !empty($this->dtFinal  ) ? $this->dataBr($this->dtFinal  ) : NULL
         ]);
     }
 
