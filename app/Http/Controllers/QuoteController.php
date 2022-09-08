@@ -361,12 +361,20 @@ class QuoteController extends UtilController
         $quote->close  = false;
 
         $model = new Quote();
-        $model->user_id     = $quote->user_id;
-        $model->client_id   = $quote->client_id;
-        $model->company_id  = $quote->company_id;
-        $model->fator       = $quote->fator;
-        $model->total       = $quote->total;
-        $model->serial      = uniqid();
+        $model->user_id        = $quote->user_id;
+        $model->client_id      = $quote->client_id;
+        $model->company_id     = $quote->company_id;
+        $model->name           = $quote->name;
+        $model->ipi            = $quote->ipi;
+        $model->icms           = $quote->icms;
+        $model->fator          = $quote->fator;
+        $model->total          = $quote->total;
+        $model->pagamento      = $quote->pagamento;
+        $model->prazo          = $quote->prazo;
+        $model->transportadora = $quote->transportadora;
+        $model->representante  = $quote->representante;
+        $model->percentual     = $quote->percentual;
+        $model->serial         = uniqid();
 
         if($model->save()){
 
