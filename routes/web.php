@@ -84,6 +84,12 @@ Route::prefix('items')->group(function(){
     Route::post('destroy', 'ItemController@destroy')->name('itens.destroy');
 });
 
+Route::prefix('mensagens')->group(function(){
+    Route::get('/',             'MessageController@index' )->name('message.index');
+    Route::get('show/{message}', 'MessageController@show'  )->name('message.show');
+    Route::get('mail/{message}', 'MessageController@mail'  )->name('message.mail');
+});
+
 Route::prefix('cotacoes')->group(function(){
     Route::get('/',              'QuoteController@index' )->name('cotacoes.index');
     Route::get('novo/check',     'QuoteController@check')->name('cotacoes.check');

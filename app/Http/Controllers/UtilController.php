@@ -31,6 +31,14 @@ class UtilController extends Controller
         }
     }
 
+    public function messageTypes()
+    {
+        return [
+            'alert' => 'Alerta',
+            'email' => 'E-mail'
+        ];
+    }
+
     public function getEstados()
     {
         return [

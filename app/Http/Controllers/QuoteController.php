@@ -9,6 +9,9 @@ use App\Models\Item;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RecoverMail;
+use App\Mail\SendQuote;
 use PDF;
 
 class QuoteController extends UtilController
@@ -320,6 +323,16 @@ class QuoteController extends UtilController
             #->setPaper('a4', 'landscape')
         $fileName = $quote->serial."_".time().".pdf";
 
+        Mail::to('adrianoapi@hotmail.com')->send(new SendQuote([
+            'quote' => $quote,
+            'icmsLista' => $this->icmsLista(),
+            'ipiLista' => $this->ipiLista()
+        ]));
+
+        if (Mail::failures()) {
+            die('Erro no envio de e-mail');
+        }
+
         return $pdf->download($fileName);
     }
 
@@ -420,6 +433,29 @@ class QuoteController extends UtilController
         $quote->aprovado  = $quote->aprovado == true ? false : true;
 
         if($quote->save()){
+
+            #Após salvar envia mensagem
+            if($quote->aprovado == true)
+            {
+                # Alerta
+                $message = new \App\Models\Message();
+                $message->title = "Nova Aprovação";
+                $message->type  = "alert";
+                $message->body  = "Novo orçamento aprovado com sucesso!";
+                $message->save();
+
+                # E-mail
+                $message = new \App\Models\Message();
+                $message->title = "Nova Aprovação";
+                $message->type  = "email";
+                $message->body  = view('quotes.pdf.resume', [
+                                        'quote' => $quote,
+                                        'icmsLista' => $this->icmsLista(),
+                                        'ipiLista' => $this->ipiLista()
+                                    ])->render();
+                $message->save();
+            }
+                
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
         }else{
             die('Erro ao aprovar a cotação!');
@@ -670,6 +706,11 @@ class QuoteController extends UtilController
         if($quote->delete()){
             return redirect()->route('cotacoes.index');
         }
+
+    }
+
+    private function sendMail()
+    {
 
     }
 }
