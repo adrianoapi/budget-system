@@ -56,15 +56,9 @@
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    {{Form::label('icms', 'ICMS', array('class' => 'control-label'))}}
+                                    {{Form::label('linha', 'Linha', array('class' => 'control-label'))}}
                                     <div class="controls">
-                                        {{Form::text('icms', '', ['id' => 'icms','placeholder' => '0.00', 'class' => 'decimal input-medium', 'required' => true])}}
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    {{Form::label('ipi', 'IPI', array('class' => 'control-label'))}}
-                                    <div class="controls">
-                                        {{Form::text('ipi', '', ['id' => 'ipi','placeholder' => '0.00', 'class' => 'decimal input-medium', 'required' => true])}}
+                                        {{Form::text('linha', '', ['id' => 'linha','placeholder' => '...', 'class' => 'input-medium', 'required' => true])}}
                                     </div>
                                 </div>
                                 <div class="form-actions">

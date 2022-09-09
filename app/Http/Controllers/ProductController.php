@@ -79,8 +79,7 @@ class ProductController extends UtilController
         $model->cobre     = $request->cobre;
         $model->aco      = $request->aco;
         $model->valor     = str_replace(',', '.', str_replace('.', '', $request->valor));
-        $model->icms      = str_replace(',', '.', $request->icms);
-        $model->ipi       = str_replace(',', '.', $request->ipi);
+        $model->linha     = $request->linha;
         $model->active    = true;
         
         if($model->save()){
@@ -133,10 +132,9 @@ class ProductController extends UtilController
         $product->codigo    = $request->codigo;
         $product->espessura = $request->espessura;
         $product->cobre     = $request->cobre;
-        $product->aco      = $request->aco;
+        $product->aco       = $request->aco;
         $product->valor     = str_replace(',', '.', str_replace('.', '', $request->valor));
-        $product->icms      = str_replace(',', '.', $request->icms);
-        $product->ipi       = str_replace(',', '.', $request->ipi);
+        $product->linha     = $request->linha;
         $product->active    = true;
 
         if($product->save()){
