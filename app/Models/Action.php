@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class Action extends Model
 {
     use HasFactory;
 
-    public function Actions()
+    public function Message()
     {
-        return $this->hasOne(Action::class, 'message_id', 'id')->orderBy('id', 'desc');
+        return $this->hasOne(Message::class, 'id', 'message_id')->orderBy('id', 'desc');
     }
 }

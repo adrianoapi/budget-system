@@ -52,6 +52,9 @@
                                             </div>
                                         </th>
                                         <th>
+                                            #
+                                        </th>
+                                        <th>
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -67,6 +70,7 @@
                                     <tr>
                                         <th>Título</th>
                                         <th>Corpo</th>
+                                        <th>Executado</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -75,6 +79,7 @@
                                     <tr>
                                         <td>{{$value->title}}</td>
                                         <td>{{$types[$value->type]}}</td>
+                                        <td>{{$value->actions->executed}}</td>
                                         <td>
                                             <a href="{{route('message.show', $value->id)}}" class="btn" rel="tooltip" title="" data-original-title="Visualizar">
                                                 <i class="icon-search"></i>

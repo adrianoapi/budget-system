@@ -437,12 +437,26 @@ class QuoteController extends UtilController
             #Após salvar envia mensagem
             if($quote->aprovado == true)
             {
+                $users = \App\Models\User::where('level', 2)
+                    ->where('active', true)
+                    ->orderBy('name', 'asc')
+                    ->get();
+
                 # Alerta
                 $message = new \App\Models\Message();
                 $message->title = "Nova Aprovação";
                 $message->type  = "alert";
                 $message->body  = "Novo orçamento aprovado com sucesso!";
-                $message->save();
+                if($message->save())
+                {
+                    foreach($users as $user):
+                        $action = new \App\Models\Action();
+                        $action->user_id = $user->id;
+                        $action->message_id = $message->id;
+                        $action->save();
+                    endforeach;
+                }
+
 
                 # E-mail
                 $message = new \App\Models\Message();
@@ -452,8 +466,17 @@ class QuoteController extends UtilController
                                         'quote' => $quote,
                                         'icmsLista' => $this->icmsLista(),
                                         'ipiLista' => $this->ipiLista()
-                                    ])->render();
-                $message->save();
+                                    ])
+                                    ->render();
+                if($message->save())
+                {
+                    foreach($users as $user):
+                        $action = new \App\Models\Action();
+                        $action->user_id    = $user->id;
+                        $action->message_id = $message->id;
+                        $action->save();
+                    endforeach;
+                }
             }
                 
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
