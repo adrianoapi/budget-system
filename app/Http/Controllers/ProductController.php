@@ -34,10 +34,10 @@ class ProductController extends UtilController
             ->where('active', true)
             ->where('codigo', 'like', '%' . $codigo . '%')
             ->orderBy('descricao', 'asc')
-            ->paginate(10);
+            ->paginate(20);
 
         }else{
-            $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(10);
+            $products = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(20);
         }
 
         $title = $this->title. " listagem";
