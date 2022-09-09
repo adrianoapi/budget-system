@@ -323,12 +323,6 @@ class QuoteController extends UtilController
             #->setPaper('a4', 'landscape')
         $fileName = $quote->serial."_".time().".pdf";
 
-        Mail::to('adrianoapi@hotmail.com')->send(new SendQuote([
-            'quote' => $quote,
-            'icmsLista' => $this->icmsLista(),
-            'ipiLista' => $this->ipiLista()
-        ]));
-
         if (Mail::failures()) {
             die('Erro no envio de e-mail');
         }
