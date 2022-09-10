@@ -367,7 +367,6 @@ class QuoteController extends UtilController
         $this->autoridadeCheck($quote->Client->user_id);
 
         $quote->close  = false;
-
         $model = new Quote();
         $model->user_id        = $quote->user_id;
         $model->client_id      = $quote->client_id;
@@ -381,9 +380,9 @@ class QuoteController extends UtilController
         $model->prazo          = $quote->prazo;
         $model->transportadora = $quote->transportadora;
         $model->representante  = $quote->representante;
-        $model->percentual     = $quote->percentual;
+        $model->percentual     =  number_format($quote->percentual, 2 , ',', '.');
         $model->serial         = uniqid();
-
+        
         if($model->save()){
 
             foreach($quote->Items as $value):
