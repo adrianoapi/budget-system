@@ -218,7 +218,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                 <th colspan="10">PRODUTOS</th>
             </tr>
             <tr style="background-color: #eeeeee; font-family: Arial, Verdana, sans-serif;">
-                <th>Espessura</th>
+                <th>Esp.</th>
                 <th>Cobre</th>
                 <th>Aço</th>
                 <th>Código</th>
@@ -227,14 +227,14 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                 <th>Qtd</th>
                 <th>ICMS</th>
                 <th>IPI</th>
-                <th>Total</th>
+                <th style="width:80px">Total</th>
             </tr>
         </thead>
         <tbody>
             <?php 
 				$total = 0;
-				$ipi = 0;
-				$i = 0;
+				$ipi   = 0;
+				$i     = 0;
 			?>
 			@foreach($quote->items as $value)
 			<?php 
@@ -289,89 +289,90 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
             <tr style="background-color: #fff; font-family: Arial, Verdana, sans-serif;">
 				<td colspan="7"></td>
 				<td colspan="3" class="taxes">
-					<p>
-						<span class="light">Subtotal</span>
-						<span>R${{number_format($total,2,',','.')}}</span>
-					</p>
+					<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fff" style="border-style:dotted;font-size:12px; line-height:18px;">
+						<tr>
+							<td align="left" class="light">Subtotal</td>
+							<td align="right">R$ {{number_format($total,2,',','.')}}</td>
+						</tr>
 
-					@if ($quote->percentual > 0)
-					<p>
-						<span class="light">-{{$quote->percentual}}%</span>
-						<span class="totalprice">
-							<?php
-								$descontoPerccentual = ($total * $quote->percentual / 100);
-								$total = $total - $descontoPerccentual;
-							?>
-							R$ {{number_format($descontoPerccentual, 2, ",",".")}}
-						</span>
-					</p>
-					@endif
-	  
-					@if ($ipi > 0)
-					<p>
-						<span class="light">IPI</span>
-						<span class="totalprice">
-							{{number_format($ipi, 2, ",",".")}}
-						</span>
-					</p>
-					@endif
-	
-					@if ($quote->total > 0)
-					<p>
-						<span class="light">Desconto</span>
-						<span class="totalprice">
-							<?php $total = $total - $quote->total; ?>
-							R$ {{number_format($total, 2, ",",".")}}
-						</span>
-					</p>
-					@endif
-	
-					@if ($quote->frete > 0)
-					<p>
-						<span class="light">Frete</span>
-						<span class="totalprice">
-							R$ {{number_format($quote->frete, 2, ",",".")}}
-						</span>
-					</p>
-					@endif
-	
-					@if ($quote->total > 0)
-					<p>
-						<span class="light">Total</span>
-						<span class="totalprice">
-							<?php 
-								$total = $quote->total;
-	
-								if($quote->frete > 0){
-									$total = $total + $quote->frete;
-								}
-	
-								if($ipi > 0){
-									$total = $total + $ipi;
-								}
-							?>
-							R$ {{number_format($quote->total, 2, ",",".")}}
-						</span>
-					</p>
-					@else
-					<p>
-						<span class="light">Total</span>
-						<span class="totalprice">
-							<?php 
-								if($quote->frete > 0){
-									$total = $total + $quote->frete;
-								}
-	
-								if($ipi > 0){
-									$total = $total + $ipi;
-								}
-							?>
-							R$ {{number_format($total, 2, ",",".")}}
-						</span>
-					</p>
-					@endif
+						@if ($quote->percentual > 0)
+						<tr>
+							<td align="left" class="light">Desconto</td>
+							<td align="right" class="totalprice">
+								<?php
+									$descontoPerccentual = ($total * $quote->percentual / 100);
+									$total = $total - $descontoPerccentual;
+								?>
+								R$ {{number_format($descontoPerccentual, 2, ",",".")}}
+							</td>
+						</tr>
+						@endif
+		
+						@if ($ipi > 0)
+						<tr>
+							<td align="left" class="light">IPI</td>
+							<td align="right" class="totalprice">
+								{{number_format($ipi, 2, ",",".")}}
+							</td>
+						</tr>
+						@endif
+		
+						@if ($quote->total > 0)
+						<tr>
+							<td align="left" class="light">Desconto</td>
+							<td align="right" class="totalprice">
+								<?php $total = $total - $quote->total; ?>
+								R$ {{number_format($total, 2, ",",".")}}
+							</td>
+						</tr>
+						@endif
+		
+						@if ($quote->frete > 0)
+						<tr>
+							<td align="left" class="light">Frete</td>
+							<td align="right" class="totalprice">
+								R$ {{number_format($quote->frete, 2, ",",".")}}
+							</td>
+						</tr>
+						@endif
+		
+						@if ($quote->total > 0)
+						<tr>
+							<td align="left" class="light">Total</td>
+							<td align="right" class="totalprice">
+								<?php 
+									$total = $quote->total;
+		
+									if($quote->frete > 0){
+										$total = $total + $quote->frete;
+									}
+		
+									if($ipi > 0){
+										$total = $total + $ipi;
+									}
+								?>
+								R$ {{number_format($quote->total, 2, ",",".")}}
+							</td>
+						</tr>
+						@else
+						<tr>
+							<td align="left" class="light">Total</td>
+							<td align="right" class="totalprice">
+								<?php 
+									if($quote->frete > 0){
+										$total = $total + $quote->frete;
+									}
+		
+									if($ipi > 0){
+										$total = $total + $ipi;
+									}
+								?>
+								R$ {{number_format($total, 2, ",",".")}}
+							</td>
+						</tr>
+						@endif
 					
-					
+					</table>	
 				</td>
 			</tr>
         </tbody>
@@ -389,7 +390,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 				<td>{{$quote->representante}}</td>
 			</tr>
 			<tr style="background-color: #f9f9f9">
-				<td>Forma Pagamento:</td>
+				<td>Prazo de Pagamento:</td>
 				<td>{{$quote->pagamento}}</td>
 			</tr>
 			<tr style="background-color: #fff">
