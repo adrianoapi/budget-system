@@ -269,9 +269,9 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                 <td class="">{{$value->Product->descricao}}</td>
                 <td class="">
 					@if($value->fator > 0)
-						{{$value->Product->valor * $value->fator}}
+						{{number_format($value->Product->valor * $value->fator,2,',','.')}}
 					@else
-						{{$value->Product->valor}}
+						{{number_format($value->Product->valor,2,',','.')}}
 					@endif
                 </td>
                 <td class="">{{$value->quantidade}}</td>
@@ -279,9 +279,9 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                 <td class="">{{$ipiLista[$value->ipi]}}</td>
                 <td class="">
 					@if($value->fator > 0)
-					R${{($value->Product->valor * $value->fator) * $value->quantidade}}
+					R$ {{number_format(($value->Product->valor * $value->fator) * $value->quantidade,2,',','.')}}
 					@else
-					R${{$value->Product->valor * $value->quantidade}}
+					R$ {{number_format($value->Product->valor * $value->quantidade,2,',','.')}}
 					@endif
 				</td>
             </tr>
@@ -291,7 +291,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 				<td colspan="3" class="taxes">
 					<p>
 						<span class="light">Subtotal</span>
-						<span>R${{$total}}</span>
+						<span>R${{number_format($total,2,',','.')}}</span>
 					</p>
 
 					@if ($quote->percentual > 0)
@@ -302,7 +302,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 								$descontoPerccentual = ($total * $quote->percentual / 100);
 								$total = $total - $descontoPerccentual;
 							?>
-							R${{number_format($descontoPerccentual, 2, '.', ',')}}
+							R$ {{number_format($descontoPerccentual, 2, '.', ',')}}
 						</span>
 					</p>
 					@endif
@@ -321,7 +321,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 						<span class="light">Desconto</span>
 						<span class="totalprice">
 							<?php $total = $total - $quote->total; ?>
-							R${{number_format($total, 2, '.', ',')}}
+							R$ {{number_format($total, 2, '.', ',')}}
 						</span>
 					</p>
 					@endif
@@ -330,7 +330,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 					<p>
 						<span class="light">Frete</span>
 						<span class="totalprice">
-							R${{number_format($quote->frete, 2, '.', ',')}}
+							R$ {{number_format($quote->frete, 2, '.', ',')}}
 						</span>
 					</p>
 					@endif
@@ -350,7 +350,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 									$total = $total + $ipi;
 								}
 							?>
-							R${{$quote->total, 2, '.', ','}}
+							R$ {{number_format($quote->total, 2, '.', ',')}}
 						</span>
 					</p>
 					@else
@@ -366,7 +366,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 									$total = $total + $ipi;
 								}
 							?>
-							R${{number_format($total, 2, '.', ',')}}
+							R$ {{number_format($total, 2, '.', ',')}}
 						</span>
 					</p>
 					@endif
