@@ -96,7 +96,7 @@ class ProductController extends UtilController
      */
     public function show(Request $request)
     {
-        $product = Product::where('active', true)->firstOrFail();
+        $product = Product::where('active', true)->where('id', $request->id)->firstOrFail();
         if(!empty($product))
         {
             return response()->json($product);
