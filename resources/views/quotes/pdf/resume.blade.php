@@ -311,7 +311,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 					<p>
 						<span class="light">IPI</span>
 						<span class="totalprice">
-							{{$ipi}}
+							{{number_format($ipi, 2, ",",".")}}
 						</span>
 					</p>
 					@endif
