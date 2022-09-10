@@ -366,7 +366,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 									$total = $total + $ipi;
 								}
 							?>
-							R${{$total, 2, '.', ','}}
+							R${{number_format($total, 2, '.', ',')}}
 						</span>
 					</p>
 					@endif
