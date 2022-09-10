@@ -532,6 +532,7 @@ $('#select-product').on('change', function () {
     dataType: 'json',
         success: function(data)
         {
+            console.log(data);
             for(var i = 0; i < attributes.length; i++)
             {
                 $("#"+attributes[i]).val(data[attributes[i]]);
