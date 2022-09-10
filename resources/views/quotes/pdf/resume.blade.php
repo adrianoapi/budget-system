@@ -261,7 +261,11 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                 <td class="">{{$value->Product->codigo}}</td>
                 <td class="">{{$value->Product->descricao}}</td>
                 <td class="">
-                    {{$value->Product->valor}}
+					@if($value->fator > 0)
+						{{$value->Product->valor * $value->fator}}
+					@else
+						{{$value->Product->valor}}
+					@endif
                 </td>
                 <td class="">{{$value->quantidade}}</td>
                 <td class="">{{$icmsLista[$value->icms]}}</td>
