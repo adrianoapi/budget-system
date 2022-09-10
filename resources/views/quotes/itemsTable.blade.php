@@ -38,7 +38,7 @@
          ?>
         <tr>
             <td>
-                @if(!$quote->close)
+                @if(!$quote->aprovado)
                 <a href="javascript:void(0)" onclick="excluir({{$value->id}})" class="btn btn-danger" rel="tooltip" id="delete" title="" data-original-title="Excluir">
                     <i class="icon-trash"></i>
                 </a>
@@ -81,7 +81,7 @@
                     'id' => $tableFator,
                     'class' => 'fator input-small',
                     'style' => 'margin-bottom:0',
-                    'disabled' => $quote->close > 0 ? true : false
+                    'disabled' => $quote->aprovado > 0 ? true : false
                     ])}}
             </td>
             <td class="">
@@ -101,12 +101,12 @@
                     'style' => 'margin-bottom:0',
                     'required' => true,
                     'min' => 1,
-                    'disabled' => $quote->close > 0 ? true : false
+                    'disabled' => $quote->aprovado > 0 ? true : false
                     ])}}
             </td>
             <td class="price">
                 <?php $tableIcms = 'table_icms_'.$value->id;?>
-                <select name="{{$tableIcms}}" id="{{$tableIcms}}" class='input-small' style="margin-bottom:0" {{$quote->close > 0 ? 'disabled' : ''}}>
+                <select name="{{$tableIcms}}" id="{{$tableIcms}}" class='input-small' style="margin-bottom:0" {{$quote->aprovado > 0 ? 'disabled' : ''}}>
                     @foreach($icmsLista as $keyIcms => $valueIcms)
                         <option value="{{$keyIcms}}" {{$keyIcms == $value->icms ? "selected" : NULL}}>{{$valueIcms}}</option>
                     @endforeach
@@ -114,7 +114,7 @@
             </td>
             <td class="price">
                 <?php $tableIpi = 'table_ipi_'.$value->id;?>
-                <select name="{{$tableIpi}}" id="{{$tableIpi}}" class='input-small' style="margin-bottom:0" {{$quote->close > 0 ? 'disabled' : ''}}>
+                <select name="{{$tableIpi}}" id="{{$tableIpi}}" class='input-small' style="margin-bottom:0" {{$quote->aprovado > 0 ? 'disabled' : ''}}>
                     @foreach($ipiLista as $keyIpi => $valueIpi)
                         <option value="{{$keyIpi}}" {{$keyIpi == $value->ipi ? "selected" : NULL}}>{{$valueIpi}}</option>
                     @endforeach
