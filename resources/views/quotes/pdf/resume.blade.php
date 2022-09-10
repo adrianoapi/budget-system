@@ -157,7 +157,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fff" style="border-style:solid;font-family: Arial, Verdana, sans-serif;font-size:12px; line-height:18px;">
 						<tr>
 							<td>
-								<span>Para</span><br>
+								<span>De</span><br>
                                 <strong>{{$quote->company->name}}</strong><br>
                                     {{$quote->company->endereco}}, {{$quote->company->numero}}, {{$quote->company->complemento}}<br>
                                     {{$quote->company->bairro}}, {{$quote->company->cidade}} - {{$quote->company->estado}},  {{$quote->company->cep}} <br>
