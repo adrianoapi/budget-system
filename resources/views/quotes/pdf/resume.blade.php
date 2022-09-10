@@ -157,6 +157,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fff" style="border-style:solid;font-family: Arial, Verdana, sans-serif;font-size:12px; line-height:18px;">
 						<tr>
 							<td>
+								<span>Para</span><br>
                                 <strong>{{$quote->company->name}}</strong><br>
                                     {{$quote->company->endereco}}, {{$quote->company->numero}}, {{$quote->company->complemento}}<br>
                                     {{$quote->company->bairro}}, {{$quote->company->cidade}} - {{$quote->company->estado}},  {{$quote->company->cep}} <br>
@@ -166,6 +167,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                                     <abbr title="Celular">Celular:</abbr> {{$quote->company->celular}}
                             </td>
 							<td>
+								<span>Para</span><br>
                                 <strong>{{$quote->client->name}}</strong><br>
                                     {{$quote->client->endereco}}, {{$quote->client->numero}} <br>
                                     {{$quote->client->bairro}}, {{$quote->client->cidade}}/{{$quote->client->estado}}, {{$quote->client->cep}} <br>
