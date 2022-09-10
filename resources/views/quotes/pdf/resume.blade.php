@@ -251,7 +251,14 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 
 			if($value->ipi == "7.5")
 			{
-				$ipi = $ipi + (($total_produto * 7.5) / 100);
+				$percentual_total_produto = $total_produto;
+
+				if($quote->percentual > 0)
+				{
+					$descontoPercentual       = ($total_produto * $quote->percentual / 100);
+					$percentual_total_produto = $total_produto - $descontoPercentual;
+				}
+				$ipi = $ipi + (($percentual_total_produto * 7.5) / 100);
 			}
 			?>
             <tr style="background-color: {{($i % 2) == 0 ? '#f9f9f9' : '#fff'}}; font-family: Arial, Verdana, sans-serif;">
@@ -286,16 +293,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 						<span class="light">Subtotal</span>
 						<span>R${{$total}}</span>
 					</p>
-	  
-					@if ($ipi > 0)
-					<p>
-						<span class="light">IPI</span>
-						<span class="totalprice">
-							{{$ipi}}
-						</span>
-					</p>
-					@endif
-	
+
 					@if ($quote->percentual > 0)
 					<p>
 						<span class="light">-{{$quote->percentual}}%</span>
@@ -305,6 +303,15 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 								$total = $total - $descontoPerccentual;
 							?>
 							R${{number_format($descontoPerccentual, 2, '.', ',')}}
+						</span>
+					</p>
+					@endif
+	  
+					@if ($ipi > 0)
+					<p>
+						<span class="light">IPI</span>
+						<span class="totalprice">
+							{{$ipi}}
 						</span>
 					</p>
 					@endif

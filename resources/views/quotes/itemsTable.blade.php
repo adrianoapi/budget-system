@@ -33,7 +33,14 @@
 
         if($value->ipi == "7.5")
         {
-            $ipi = $ipi + (($total_produto * 7.5) / 100);
+            $percentual_total_produto = $total_produto;
+
+            if($quote->percentual > 0)
+            {
+                $descontoPercentual       = ($total_produto * $quote->percentual / 100);
+                $percentual_total_produto = $total_produto - $descontoPercentual;
+            }
+            $ipi = $ipi + (($percentual_total_produto * 7.5) / 100);
         }
          ?>
         <tr>
@@ -136,15 +143,6 @@
                     <span class="light">Subtotal</span>
                     <span>R${{$total}}</span>
                 </p>
-  
-                @if ($ipi > 0)
-                <p>
-                    <span class="light">7.5%</span>
-                    <span class="totalprice">
-                        {{$ipi}}
-                    </span>
-                </p>
-                @endif
 
                 @if ($quote->percentual > 0)
                 <p>
@@ -155,6 +153,15 @@
                             $total = $total - $descontoPerccentual;
                         ?>
                         R${{number_format($descontoPerccentual, 2, '.', ',')}}
+                    </span>
+                </p>
+                @endif
+  
+                @if ($ipi > 0)
+                <p>
+                    <span class="light">7.5%</span>
+                    <span class="totalprice">
+                        {{$ipi}}
                     </span>
                 </p>
                 @endif
