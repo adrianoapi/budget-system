@@ -266,7 +266,13 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                 <td class="">{{$value->quantidade}}</td>
                 <td class="">{{$icmsLista[$value->icms]}}</td>
                 <td class="">{{$ipiLista[$value->ipi]}}</td>
-                <td class="">R${{($value->Product->valor - ($value->Product->valor * $quote->fator)) * $value->quantidade}}</td>
+                <td class="">
+					@if($value->fator > 0)
+					R${{($value->Product->valor * $value->fator) * $value->quantidade}}
+					@else
+					R${{$value->Product->valor * $value->quantidade}}
+					@endif
+				</td>
             </tr>
             @endforeach
             <tr style="background-color: #fff; font-family: Arial, Verdana, sans-serif;">
@@ -276,12 +282,12 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 						<span class="light">Subtotal</span>
 						<span>R${{$total}}</span>
 					</p>
-		
+	  
 					@if ($ipi > 0)
 					<p>
 						<span class="light">7.5%</span>
 						<span class="totalprice">
-							R${{number_format($ipi, 2, '.', ',')}}
+							{{$ipi}}
 						</span>
 					</p>
 					@endif
