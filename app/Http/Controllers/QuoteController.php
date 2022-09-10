@@ -239,20 +239,8 @@ class QuoteController extends UtilController
 
     public function nameGenerate($companyName, $clientUF, $quoteID, $clientName)
     {
-       $arrClient  = explode(" ", $clientName);
-       $clientName = NULL;
-       $i=0;
-       foreach($arrClient as $value):
-        
-        $i++;
-        $clientName .= "{$value} ";
-
-        if($i >= 3){
-            break;
-        }
-       endforeach;
-
        $companyName = substr($companyName, 0, 3);
+       $clientName  = substr($clientName, 0, 5);
        return "{$companyName} - {$clientUF} - {$quoteID} - {$clientName}";
     }
 
