@@ -38,7 +38,7 @@ class ItemController extends UtilController
     {
         $attributes = json_decode($request->data);
 
-        $last  = Item::where('quote_id', $attributes->cotacao)->orderBy('ordem', 'desc')->first();
+        $last  = Item::where('quote_id', $attributes->cotacao)->orderBy('ordem', 'asc')->first();
         $quote = Quote::find($attributes->cotacao);
 
         if(!empty($quote))
@@ -47,7 +47,7 @@ class ItemController extends UtilController
             $model->quote_id   = (int) $attributes->cotacao;
             $model->product_id = (int) $attributes->produto;
             $model->quantidade = (int) $attributes->quantidade;
-            $model->ordem      = !empty($last) ? ++$last->ordem : 1;
+            $model->ordem      = !empty($last) ? --$last->ordem : 1;
             $model->fator      = !empty($quote->fator) ? $quote->fator : '0.00';
             $model->icms       = !empty($quote->icms ) ? $quote->icms  : 'inclusivo';
             $model->ipi        = !empty($quote->ipi  ) ? $quote->ipi   : 'inclusivo';
