@@ -375,15 +375,25 @@ class QuoteController extends UtilController
         $model->ipi            = $quote->ipi;
         $model->icms           = $quote->icms;
         $model->fator          = $quote->fator;
-        $model->total          = $quote->total;
+        $model->total          = number_format($quote->total, 2 , ',', '.');
+        $model->frete          = number_format($quote->frete, 2 , ',', '.');
         $model->pagamento      = $quote->pagamento;
         $model->prazo          = $quote->prazo;
         $model->transportadora = $quote->transportadora;
         $model->representante  = $quote->representante;
-        $model->percentual     =  number_format($quote->percentual, 2 , ',', '.');
+        $model->percentual     = number_format($quote->percentual, 2 , ',', '.');
         $model->serial         = uniqid();
         
         if($model->save()){
+
+            # Update serial
+            $model->serial = $this->nameGenerate(
+                $model->Company->name,
+                $model->Client->estado,
+                $model->id,
+                $model->Client->name
+            );
+            $model->save();
 
             foreach($quote->Items as $value):
                 $item = new Item();
@@ -597,7 +607,7 @@ class QuoteController extends UtilController
             );
         }*/
 
-        $quote->fator = $request->fator;
+        $quote->fator = str_replace(",", ".", $request->fator);
         
         if($quote->save()){
 
@@ -713,10 +723,10 @@ class QuoteController extends UtilController
     {
         $this->autoridadeCheck($quote->Client->user_id);
 
-        if($quote->close){
+        if($quote->aprovado){
             return redirect()->route('cotacoes.edit', $quote->id)->with(
                 'quote_close',
-                'Cotações fechadas não podem ser excluídas!'
+                'Cotações APROVADAS não podem ser excluídas!'
             );
         }
 

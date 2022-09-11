@@ -103,7 +103,7 @@ class UtilController extends Controller
         return [
             'inclusivo' => 'inclusivo', 
             'isento'  => 'isento', 
-            '7.5' => '7.50%', 
+            '7.5' => '7,50%', 
         ];
     }
 

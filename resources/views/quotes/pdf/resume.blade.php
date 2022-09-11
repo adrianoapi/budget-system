@@ -277,7 +277,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                 <td class="">{{$value->quantidade}}</td>
                 <td class="">{{$icmsLista[$value->icms]}}</td>
                 <td class="">{{$ipiLista[$value->ipi]}}</td>
-                <td class="">
+                <td class="" align="right">
 					@if($value->fator > 0)
 					R$ {{number_format(($value->Product->valor * $value->fator) * $value->quantidade,2,',','.')}}
 					@else
@@ -321,7 +321,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 						<tr>
 							<td align="left" class="light">Desconto</td>
 							<td align="right" class="totalprice">
-								<?php $total = $total - $quote->total; ?>
+								<?php $total = ($total + $quote->frete + $ipi) - $quote->total; ?>
 								R$ {{number_format($total, 2, ",",".")}}
 							</td>
 						</tr>

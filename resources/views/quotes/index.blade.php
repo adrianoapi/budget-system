@@ -189,7 +189,7 @@
                                                 </a>
                                                 @endif
 
-                                                @if($value->close)
+                                                @if($value->aprovado)
                                                 <button type="button" class="btn" rel="tooltip" title="" data-original-title="Excluir" disabled="disabled">
                                                     <i class="icon-trash"></i>
                                                 </button>

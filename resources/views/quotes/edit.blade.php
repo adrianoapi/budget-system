@@ -516,7 +516,7 @@ function notification(color, content)
 (function( $ ) {
     $(function() {
         $('.money').mask('#.##0,00', {reverse: true});
-        $('.fator').mask('#.##', {reverse: true});
+        $('.fator').mask('#,##', {reverse: true});
     });
 })(jQuery);
 
