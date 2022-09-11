@@ -38,6 +38,9 @@
 					<li>
 						<a href="{{route('cotacoes.index')}}"><i class="glyphicon-shopping_bag"></i> COTAÇÕES</a>
 					<li>
+					<li>
+						<a href="{{route('relatorios.index')}}"><i class="glyphicon-stats"></i></i> RELATÓRIOS</a>
+					<li>
 				</ul>
 			</div>
 

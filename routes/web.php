@@ -77,8 +77,8 @@ Route::prefix('items')->group(function(){
     Route::get('novo',        'ItemController@create')->name('itens.create');
     Route::get('show',        'ItemController@show'  )->name('itens.show');
     Route::post('store',      'ItemController@store' )->name('itens.store');
-    Route::post('edit',        'ItemController@update')->name('itens.update');
-    Route::post('edit/order',        'ItemController@order')->name('itens.order');
+    Route::post('edit',       'ItemController@update')->name('itens.update');
+    Route::post('edit/order', 'ItemController@order')->name('itens.order');
     Route::get('edit/{item}', 'ItemController@edit'  )->name('itens.edit');
 
     Route::post('destroy', 'ItemController@destroy')->name('itens.destroy');
@@ -105,7 +105,12 @@ Route::prefix('cotacoes')->group(function(){
     Route::put('edit/{quote}/fator', 'QuoteController@updateFator')->name('cotacoes.update.fator');
     Route::put('edit/{quote}/icms',  'QuoteController@updateIcms')->name('cotacoes.update.icms');
     Route::put('edit/{quote}/ipi',   'QuoteController@updateIpi')->name('cotacoes.update.ipi');
+    Route::post('edit/total-report',   'QuoteController@updateTr')->name('cotacoes.update.total_report');
     Route::put('comercial/{quote}',   'QuoteController@updateComercial')->name('cotacoes.update.comercial');
 
     Route::delete('destroy/{quote}', 'QuoteController@destroy')->name('cotacoes.destroy');
+});
+
+Route::prefix('relatorios')->group(function(){
+    Route::get('/', 'ReportController@index' )->name('relatorios.index');
 });
