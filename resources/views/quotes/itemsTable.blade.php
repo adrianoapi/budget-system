@@ -228,8 +228,9 @@
 </table>
 
 <?php
-
+if(!$quote->close){
     $quote->total_report = ($quote->total > 0) ? $quote->total : str_replace(",", "", number_format($total, 2, ".",","));
     $quote->save();
+}
 
 ?>
