@@ -480,6 +480,12 @@
                             {{Form::text('linha', '', ['id' => 'linha','placeholder' => '...', 'class' => 'input-medium', 'disabled' => true])}}
                         </div>
                     </div>
+                    <div class="control-group">
+                        {{Form::label('caixa', 'Caixa', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('caixa', '', ['id' => 'caixa','placeholder' => '...', 'class' => 'input-medium', 'disabled' => true])}}
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-primary" value="Adicionar">
@@ -515,7 +521,7 @@ function notification(color, content)
 })(jQuery);
 
 
-const attributes = ['espessura', 'cobre', 'aco', 'valor', 'icms', 'ipi'];
+const attributes = ['espessura', 'cobre', 'aco', 'valor', 'linha', 'caixa'];
 
 $('#select-product').on('change', function () {
   //console.log('Changed option value ' + this.value);
@@ -532,7 +538,6 @@ $('#select-product').on('change', function () {
     dataType: 'json',
         success: function(data)
         {
-            console.log(data);
             for(var i = 0; i < attributes.length; i++)
             {
                 $("#"+attributes[i]).val(data[attributes[i]]);

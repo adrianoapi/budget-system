@@ -58,7 +58,13 @@
                                 <div class="control-group">
                                     {{Form::label('linha', 'Linha', array('class' => 'control-label'))}}
                                     <div class="controls">
-                                        {{Form::text('linha', $product->linha, ['id' => 'linha','placeholder' => '0.00', 'class' => 'input-medium', 'required' => true])}}
+                                        {{Form::text('linha', $product->linha, ['id' => 'linha','placeholder' => '...', 'class' => 'input-medium', 'required' => true])}}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    {{Form::label('caixa', 'Caixa', array('class' => 'control-label'))}}
+                                    <div class="controls">
+                                        {{Form::text('caixa', $product->caixa, ['id' => 'caixa','placeholder' => '...', 'class' => 'input-medium', 'required' => true])}}
                                     </div>
                                 </div>
                                 <div class="form-actions">

@@ -80,6 +80,7 @@ class ProductController extends UtilController
         $model->aco      = $request->aco;
         $model->valor     = str_replace(',', '.', str_replace('.', '', $request->valor));
         $model->linha     = $request->linha;
+        $model->caixa     = $request->caixa;
         $model->active    = true;
         
         if($model->save()){
@@ -135,6 +136,7 @@ class ProductController extends UtilController
         $product->aco       = $request->aco;
         $product->valor     = str_replace(',', '.', str_replace('.', '', $request->valor));
         $product->linha     = $request->linha;
+        $product->caixa     = $request->caixa;
         $product->active    = true;
 
         if($product->save()){
