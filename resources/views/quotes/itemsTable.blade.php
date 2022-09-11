@@ -170,7 +170,7 @@
                 <p>
                     <span class="light">Desconto</span>
                     <span class="totalprice">
-                        <?php $total = $total - $quote->total; ?>
+                        <?php $total = ($total+$quote->frete) - $quote->total; ?>
                         R${{number_format($total, 2, ",",".")}}
                     </span>
                 </p>
