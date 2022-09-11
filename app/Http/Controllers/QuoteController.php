@@ -291,7 +291,7 @@ class QuoteController extends UtilController
 
         $companies = Company::select('id','name')->where('active', true)->orderBy('name', 'asc')->get();
         $clients   = Client::select('id','name')->where('active', true)->where('user_id', Auth::user()->id)->orderBy('name', 'asc')->get();
-        $products  = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(1000);
+        $products  = Product::where('active', true)->orderBy('codigo', 'desc')->paginate(1000);
 
         return view('quotes.edit', [
             'title'      => $title,
