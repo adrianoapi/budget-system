@@ -50,19 +50,47 @@ class QuoteController extends UtilController
             $this->dtInicial = strlen($_GET['dt_inicio']) > 2 ? $this->dataSql($_GET['dt_inicio']) : $this->dtInicial;
             $this->dtFinal   = strlen($_GET['dt_fim'   ]) > 2 ? $this->dataSql($_GET['dt_fim'   ]) : $this->dtFinal;
 
-            $clients = Client::select('id')->where('name', 'like', '%' . $name . '%')
-            ->where('active', true)
-            ->where('responsavel', 'like', '%' . $responsavel . '%')
-            ->where('telefone', 'like', '%' . rtrim($telefone) . '%')
-            ->orderBy('name', 'asc')
-            ->paginate(10);
+            # Se for administrador
+            if(Auth::user()->level > 1)
+            {
+                $clients = Client::select('id')
+                ->where('name', 'like', '%' . $name . '%')
+                ->where('active', true)
+                ->where('responsavel', 'like', '%' . $responsavel . '%')
+                ->where('telefone', 'like', '%' . rtrim($telefone) . '%')
+                ->orderBy('name', 'asc')
+                ->get();
+            }else{
+                $clients = Client::select('id')
+                ->where('user_id', Auth::user()->id)
+                ->where('name', 'like', '%' . $name . '%')
+                ->where('active', true)
+                ->where('responsavel', 'like', '%' . $responsavel . '%')
+                ->where('telefone', 'like', '%' . rtrim($telefone) . '%')
+                ->orderBy('name', 'asc')
+                ->get();
+            }
 
             foreach($clients as $value):
                 array_push($ids, $value->id);
             endforeach;
 
         }else{
-            $clients = Client::select('id')->where('active', true)->orderBy('name', 'asc')->paginate(10);
+            # Se for administrador
+            if(Auth::user()->level > 1)
+            {
+                $clients = Client::select('id')
+                ->where('active', true)
+                ->orderBy('name', 'asc')
+                ->get();
+            }else{
+                $clients = Client::select('id')
+                ->where('user_id', Auth::user()->id)
+                ->where('active', true)
+                ->orderBy('name', 'asc')
+                ->get();
+            }
+            
             
             foreach($clients as $value):
                 array_push($ids, $value->id);

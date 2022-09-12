@@ -33,10 +33,10 @@
 					</li>
 					@endif
 					<li>
-						<a href="{{route('clientes.index')}}"><i class="glyphicon-bookmark"></i> CLIENTES</a>
+						<a href="{{route('clientes.index')}}"><i class="icon-briefcase"></i> CLIENTES</a>
 					<li>
 					<li>
-						<a href="{{route('cotacoes.index')}}"><i class="glyphicon-shopping_bag"></i> COTAÇÕES</a>
+						<a href="{{route('cotacoes.index')}}"><i class="icon-shopping-cart"></i> COTAÇÕES</a>
 					<li>
 					<li>
 						<a href="{{route('relatorios.index')}}"><i class="glyphicon-stats"></i></i> RELATÓRIOS</a>
