@@ -512,17 +512,6 @@ class QuoteController extends UtilController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function updateTr(Request $request)
-    {
-        dd($request->all());
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */

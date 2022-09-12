@@ -123,7 +123,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+                                    $total = 0;
+                                    ?>
                                 @foreach ($quotes as $value)
+                                <?php
+                                $total += $value->total_report;
+                                ?>
                                     <tr>
                                         <td>{{$value->Client->name}}</td>
                                         <td>{{$value->serial}}</td>
@@ -142,14 +148,14 @@
                                             @endif
                                         </td>
                                         <td colspan="2">{{$value->created_at}}</td>
-                                        <td>{{$value->total}}</td>
+                                        <td>{{number_format($value->total_report, 2, ".", ",")}}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td colspan="6"></td>
-                                        <td>total</td>
+                                        <td align="rigth">R$ {{number_format($total, 2, ".", ",")}}</td>
                                     </tr>
                                 </tfoot>
                             </table>

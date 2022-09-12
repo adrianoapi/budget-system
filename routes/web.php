@@ -105,7 +105,6 @@ Route::prefix('cotacoes')->group(function(){
     Route::put('edit/{quote}/fator', 'QuoteController@updateFator')->name('cotacoes.update.fator');
     Route::put('edit/{quote}/icms',  'QuoteController@updateIcms')->name('cotacoes.update.icms');
     Route::put('edit/{quote}/ipi',   'QuoteController@updateIpi')->name('cotacoes.update.ipi');
-    Route::post('edit/total-report',   'QuoteController@updateTr')->name('cotacoes.update.total_report');
     Route::put('comercial/{quote}',   'QuoteController@updateComercial')->name('cotacoes.update.comercial');
 
     Route::delete('destroy/{quote}', 'QuoteController@destroy')->name('cotacoes.destroy');
