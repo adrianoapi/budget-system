@@ -155,7 +155,7 @@
                                 <tfoot>
                                     <tr>
                                         <td colspan="6"></td>
-                                        <td align="rigth">R$ {{number_format($total, 2, ".", ",")}}</td>
+                                        <td align="rigth"><span class="label label-success">R$ {{number_format($total, 2, ".", ",")}}</span></td>
                                     </tr>
                                 </tfoot>
                             </table>
