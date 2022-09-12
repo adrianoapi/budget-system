@@ -48,59 +48,67 @@ class ReportController extends UtilController
             $this->dtInicial = strlen($_GET['dt_inicio']) > 2 ? $this->dataSql($_GET['dt_inicio']) : $this->dtInicial;
             $this->dtFinal   = strlen($_GET['dt_fim'   ]) > 2 ? $this->dataSql($_GET['dt_fim'   ]) : $this->dtFinal;
 
-            $clients = Client::select('id')->where('name', 'like', '%' . $name . '%')
-            ->where('active', true)
-            ->where('user_id', Auth::user()->id)
-            ->orderBy('name', 'asc')
-            ->get();
+            # Se for administrador
+            if(Auth::user()->level > 1)
+            {
+                $clients = Client::select('id')->where('name', 'like', '%' . $name . '%')
+                ->where('active', true)
+                ->orderBy('name', 'asc')
+                ->get();
+            }else{
+                $clients = Client::select('id')->where('name', 'like', '%' . $name . '%')
+                ->where('active', true)
+                ->where('user_id', Auth::user()->id)
+                ->orderBy('name', 'asc')
+                ->get();
+            }
 
             foreach($clients as $value):
                 array_push($ids, $value->id);
             endforeach;
 
         }else{
-            $clients = Client::select('id')->where('active', true)->orderBy('name', 'asc')->paginate(10);
-            
+            # Se for administrador
+            if(Auth::user()->level > 1)
+            {
+                $clients = Client::select('id')
+                ->where('active', true)
+                ->get();
+            }else{
+                $clients = Client::select('id')
+                ->where('active', true)
+                ->where('user_id', Auth::user()->id)
+                ->get();
+            }
+
             foreach($clients as $value):
                 array_push($ids, $value->id);
             endforeach;
+
         }
 
-        # Se for administrador
-        if(Auth::user()->level > 1)
+        if(!empty($close))
         {
+            $quotes = Quote::select('id')->whereIn('client_id', $ids)
+            ->where('active', true)
+            ->where('serial', 'like', '%' . rtrim($serial) . '%')
+            ->where('close', $close == "yes" ? true : false)
+            ->orderBy('id', 'desc')
+            ->get();
 
-        }else
-        {
-            # Se for usuário comum
-            if(!empty($close))
-            {
-                $quotes = Quote::select('id')->whereIn('client_id', $ids)
-                ->where('active', true)
-                ->where('serial', 'like', '%' . rtrim($serial) . '%')
-                ->where('close', $close == "yes" ? true : false)
-                ->where('user_id', Auth::user()->id)
-                ->orderBy('id', 'desc')
-                ->get();
+        }else{
+            $quotes = Quote::select('id')->whereIn('client_id', $ids)
+            ->where('active', true)
+            ->where('serial', 'like', '%' . rtrim($serial) . '%')
+            ->orderBy('id', 'desc')
+            ->get();
 
-                foreach($quotes as $value):
-                    array_push($quoteIds, $value->id);
-                endforeach;
-
-            }else{
-                $quotes = Quote::select('id')->whereIn('client_id', $ids)
-                ->where('active', true)
-                ->where('serial', 'like', '%' . rtrim($serial) . '%')
-                ->where('user_id', Auth::user()->id)
-                ->orderBy('id', 'desc')
-                ->get();
-
-                foreach($quotes as $value):
-                    array_push($quoteIds, $value->id);
-                endforeach;
-            }
         }
-
+    
+        foreach($quotes as $value):
+            array_push($quoteIds, $value->id);
+        endforeach;
+        
         if(!empty($aprovado))
         {
             $quotes = Quote::select('id')->whereIn('id', $quoteIds)
@@ -146,7 +154,7 @@ class ReportController extends UtilController
 
         $quotes = Quote::whereIn('id', $quoteIds)
         ->orderBy('id', 'desc')
-        ->paginate(100);
+        ->get();
         
         return view('reports.index', [
             'title'       => $title,
