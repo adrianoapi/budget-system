@@ -116,7 +116,7 @@
                     'disabled' => $quote->close > 0 ? true : false
                     ])}}
             </td>
-            <td><span title="{{$value->quantidade}}/{{$value->Product->caixa;}}">{{$caixa_produto}}</span></td>
+            <td><span title="{{$value->quantidade}}/{{$value->Product->caixa;}}">{{number_format($caixa_produto, 2, ".", ",")}}</span></td>
             <td class="price">
                 <?php $tableIcms = 'table_icms_'.$value->id;?>
                 <select name="{{$tableIcms}}" id="{{$tableIcms}}" class='input-small' style="margin-bottom:0" {{$quote->close > 0 ? 'disabled' : ''}}>
@@ -150,7 +150,7 @@
             <td> </td>
             <td> </td>
             <td align="right" colspan="2" class="taxes">
-                Total caixas <strong>{{$caixa_total}}<strong>
+                Total caixas <strong>{{number_format($caixa_total, 2, ".", ",")}}<strong>
             </td>
             <td colspan="2" class="taxes">
                 <p>
