@@ -78,7 +78,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($users as $value)
+                                @foreach ($clients as $value)
                                     <tr>
                                         <td>{{$value->name}}</td>
                                         <td>{{$value->responsavel}}</td>
@@ -112,6 +112,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            {{ $clients->links('layouts.pagination') }}
                         </div>
 
                     </div>

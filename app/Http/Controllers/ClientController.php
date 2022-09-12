@@ -51,14 +51,14 @@ class ClientController extends UtilController
 
         if(Auth::user()->level > 1)
         {
-            $clients = Client::whereIn('id', $ids)->where('active', true)->orderBy('name', 'asc')->paginate(100);
+            $clients = Client::whereIn('id', $ids)->where('active', true)->orderBy('name', 'asc')->paginate(50);
         }else{
-            $clients = Client::whereIn('id', $ids)->where('active', true)->orderBy('name', 'asc')->where('user_id', Auth::user()->id)->paginate(100);
+            $clients = Client::whereIn('id', $ids)->where('active', true)->orderBy('name', 'asc')->where('user_id', Auth::user()->id)->paginate(50);
         }
         
         return view('clients.index', [
             'title' => $title,
-            'users' => $clients,
+            'clients' => $clients,
             'name' => $name,
             'responsavel' => $responsavel,
             'telefone' => $telefone
