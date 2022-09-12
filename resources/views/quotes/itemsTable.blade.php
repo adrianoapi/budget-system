@@ -7,6 +7,7 @@
             <th>Fator</th>
             <th>Valor</th>
             <th>Qtd</th>
+            <th>Cx</th>
             <th>ICMS</th>
             <th>IPI</th>
             <th>Total</th>
@@ -17,6 +18,7 @@
             $total = 0;
             $ipi = 0;
             $i = 0;
+            $caixa_total = 0;
         ?>
         @foreach($quote->items as $value)
         <?php 
@@ -42,6 +44,9 @@
             }
             $ipi = $ipi + (($percentual_total_produto * 7.5) / 100);
         }
+
+        $caixa_produto = $value->quantidade/$value->Product->caixa;
+        $caixa_total   += $caixa_produto; 
          ?>
         <tr>
             <td>
@@ -111,6 +116,7 @@
                     'disabled' => $quote->close > 0 ? true : false
                     ])}}
             </td>
+            <td><span title="{{$value->quantidade}}/{{$value->Product->caixa;}}">{{$caixa_produto}}</span></td>
             <td class="price">
                 <?php $tableIcms = 'table_icms_'.$value->id;?>
                 <select name="{{$tableIcms}}" id="{{$tableIcms}}" class='input-small' style="margin-bottom:0" {{$quote->close > 0 ? 'disabled' : ''}}>
@@ -137,8 +143,16 @@
         </tr>
         @endforeach
         <tr>
-            <td colspan="8"></td>
-            <td class="taxes">
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td align="right" colspan="2" class="taxes">
+                Total caixas <strong>{{$caixa_total}}<strong>
+            </td>
+            <td colspan="2" class="taxes">
                 <p>
                     <span class="light">Subtotal</span>
                     <span>R$ {{number_format($total, 2, ",",".")}}</span>
