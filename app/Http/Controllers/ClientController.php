@@ -35,14 +35,14 @@ class ClientController extends UtilController
             ->where('responsavel', 'like', '%' . $responsavel . '%')
             ->where('telefone', 'like', '%' . rtrim($telefone) . '%')
             ->orderBy('name', 'asc')
-            ->paginate(10);
+            ->get();
 
             foreach($clients as $value):
                 array_push($ids, $value->id);
             endforeach;
 
         }else{
-            $clients = Client::select('id')->where('active', true)->orderBy('name', 'asc')->paginate(10);
+            $clients = Client::select('id')->where('active', true)->orderBy('name', 'asc')->get();
             
             foreach($clients as $value):
                 array_push($ids, $value->id);
@@ -51,9 +51,16 @@ class ClientController extends UtilController
 
         if(Auth::user()->level > 1)
         {
-            $clients = Client::whereIn('id', $ids)->where('active', true)->orderBy('name', 'asc')->paginate(50);
+            $clients = Client::whereIn('id', $ids)
+            ->where('active', true)
+            ->orderBy('name', 'asc')
+            ->paginate(20);
         }else{
-            $clients = Client::whereIn('id', $ids)->where('active', true)->orderBy('name', 'asc')->where('user_id', Auth::user()->id)->paginate(50);
+            $clients = Client::whereIn('id', $ids)
+            ->where('active', true)
+            ->orderBy('name', 'asc')
+            ->where('user_id', Auth::user()->id)
+            ->paginate(20);
         }
         
         return view('clients.index', [
