@@ -175,6 +175,12 @@
                                                         <input type="text" name="transportadora" id="transportadora" value="{{$quote->transportadora}}" placeholder="transportadora..." class="input-xlarge">
                                                     </div>
                                                 </div>
+                                                <div class="control-group">
+                                                    <label for="observacao" class="control-label">Observação:</label>
+                                                    <div class="controls">
+                                                        <textarea name="observacao" id="observacao" class="input-block-level" rows="10">{{$quote->observacao}}</textarea>
+                                                    </div>
+                                                </div>
                                                 <div class="form-actions">
                                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                                     <button type="button" class="btn">Cancel</button>

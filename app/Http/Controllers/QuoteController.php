@@ -409,6 +409,7 @@ class QuoteController extends UtilController
         $model->prazo          = $quote->prazo;
         $model->transportadora = $quote->transportadora;
         $model->representante  = $quote->representante;
+        $model->observacao     = $quote->observacao;
         $model->percentual     = number_format($quote->percentual, 2 , ',', '.');
         $model->serial         = uniqid();
         
@@ -734,6 +735,7 @@ class QuoteController extends UtilController
         $quote->prazo          = $request->prazo;
         $quote->transportadora = $request->transportadora;
         $quote->representante  = $request->representante;
+        $quote->observacao     = $request->observacao;
         
         if($quote->save())
         {
