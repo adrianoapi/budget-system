@@ -14,7 +14,7 @@ class AddColumnsToQuotes04 extends Migration
     public function up()
     {
         Schema::table('quotes', function (Blueprint $table) {
-            $table->text('observacao');
+            $table->text('observacao')->nullable(true);
         });
     }
 
