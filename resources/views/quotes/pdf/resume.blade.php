@@ -378,10 +378,11 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
         </tbody>
     </table>
 
-	<table border="0" cellpadding="2" cellspacing="2" width="250" bgcolor="#fff" style="font-family: Arial, Verdana, sans-serif; font-size:12px; line-height:18px;">
+	<table border="0" cellpadding="2" cellspacing="2" width="100%" bgcolor="#fff" style="font-family: Arial, Verdana, sans-serif; font-size:12px; line-height:18px;">
 		<thead>
 			<tr>
-				<th colspan="2" style="text-align: left;"><strong>Condições comerciais</strong></th>
+				<th style="width:130px;text-align: left;"><strong>Condições comerciais</strong></th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
