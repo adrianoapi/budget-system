@@ -404,7 +404,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 			</tr>
 			<tr style="background-color: #fff">
 				<td valign="top">Observação:</td>
-				<td>{{$quote->observacao}}</td>
+				<td>{!!$quote->observacao!!}</td>
 			</tr>
 		</tbody>
 	</table>

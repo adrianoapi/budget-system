@@ -3,6 +3,13 @@
 @section('title', 'Dashboard')
 
 @section('content')
+
+<script type="text/javascript">
+bkLib.onDomLoaded(function() {
+	new nicEditor({iconsPath : '{!! asset('nicEdit/nicEditorIcons.gif') !!}'}).panelInstance('observacao');
+});
+</script>
+
 <div class="container-fluid" id="content">
 
     @include('layouts.navigation')

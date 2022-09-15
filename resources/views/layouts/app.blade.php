@@ -66,6 +66,8 @@
         
         <script src="{!! asset('librarys/demo.js') !!}"></script>
 
+        <script src="{!! asset('nicEdit/nicEdit.js') !!}"></script>
+
         <!--[if lte IE 9]>
             <script src="{!! asset('flat-admin/js/plugins/placeholder/jquery.placeholder.min.js') !!}"></script>
             <script>
