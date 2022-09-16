@@ -70,7 +70,7 @@
                                 <div class="control-group">
                                     {{Form::label('unidade', 'Unidade', array('class' => 'control-label'))}}
                                     <div class="controls">
-                                        {{Form::text('unidade', $product->unidade, ['id' => 'caixa','placeholder' => '...', 'class' => 'input-medium', 'required' => true])}}
+                                        {{Form::text('unidade', $product->unidade, ['id' => 'unidade','placeholder' => '...', 'class' => 'input-medium', 'required' => true])}}
                                     </div>
                                 </div>
                                 <div class="form-actions">
