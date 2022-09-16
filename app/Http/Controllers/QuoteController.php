@@ -637,19 +637,19 @@ class QuoteController extends UtilController
      */
     public function updateFator(Request $request, Quote $quote)
     {
+        $quote->fator = str_replace(",", ".", $request->fator);
+
         if(Auth::user()->level <= 1)
         {
             $this->autoridadeCheck($quote->client->user_id);
+
+            if((float) $quote->fator < 0.6){
+                return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
+                    'quote_close',
+                    'Apenas o Administrador poderá aplicar FATOR menor que 0,60!'
+                );
+            }
         }
-
-        /*if($request->fator < 0 || $request->fator > 9){
-            return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
-                'quote_close',
-                'O campo Fator precisa ser um número entre 0.0 e 0.9!'
-            );
-        }*/
-
-        $quote->fator = str_replace(",", ".", $request->fator);
         
         if($quote->save()){
 

@@ -85,7 +85,7 @@
             </td>
             <td class="">{{$value->Product->descricao}}</td>
             <td class="">
-                {{number_format($value->Product->valor, 2, ",",".")}}
+                R${{number_format($value->Product->valor, 2, ",",".")}}
             </td>
             <td class="">
                 <?php $tableFator = 'table_fator_'.$value->id;?>
@@ -99,9 +99,9 @@
             </td>
             <td class="">
                 @if($value->fator > 0)
-                 {{number_format($value->Product->valor * $value->fator, 2, ",",".")}}
+                R${{number_format($value->Product->valor * $value->fator, 2, ",",".")}}
                 @else
-                 {{number_format($value->Product->valor, 2, ",",".")}}
+                R${{number_format($value->Product->valor, 2, ",",".")}}
                 @endif
             </td>
             <td class="">
@@ -154,7 +154,7 @@
             <td align="right" colspan="2" class="taxes">
                 Total caixas <strong>{{number_format($caixa_total, 2, ".", ",")}}<strong>
             </td>
-            <td colspan="2" class="taxes">
+            <td colspan="3" class="taxes">
                 <p>
                     <span class="light">Subtotal</span>
                     <span>R$ {{number_format($total, 2, ",",".")}}</span>
