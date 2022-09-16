@@ -246,6 +246,10 @@ class QuoteController extends UtilController
             $model->frete       = "0.00";
             $model->serial      = uniqid();
 
+            $totalQuotes = Quote::where('active', true)
+                    ->where('user_id', Auth::user()->id)
+                    ->count();
+
             if($model->save()){
 
                 # Update serial
@@ -253,7 +257,8 @@ class QuoteController extends UtilController
                     $model->Company->name,
                     $model->Client->estado,
                     $model->id,
-                    $model->Client->name
+                    $model->Client->name,
+                    $totalQuotes
                 );
                 $model->save();
 
@@ -265,11 +270,19 @@ class QuoteController extends UtilController
         }
     }
 
-    public function nameGenerate($companyName, $clientUF, $quoteID, $clientName)
+    public function nameGenerate($companyName, $clientUF, $quoteID, $clientName, $quantidade)
     {
        $companyName = substr($companyName, 0, 3);
        $clientName  = substr($clientName, 0, 5);
-       return "{$companyName} - {$clientUF} - {$quoteID} - {$clientName}";
+       $ramal       = "00";
+       $quantidade++;
+       
+        if(array_key_exists($clientUF, $this->getRamal()))
+        {
+            $ramal = $this->getRamal()[$clientUF];
+        }
+
+       return "{$companyName} - {$clientUF} - {$ramal}-{$quantidade} - {$clientName}";
     }
 
     /**

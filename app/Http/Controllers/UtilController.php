@@ -39,6 +39,39 @@ class UtilController extends Controller
         ];
     }
 
+    public function getRamal()
+    {
+        return [
+            'AC' => '68',
+            'AL' => '82',
+            'AP' => '96',
+            'AM' => '92',
+            'BA' => '71',
+            'CE' => '88',
+            'DF' => '61',
+            'ES' => '28',
+            'GO' => '62',
+            'MA' => '98',
+            'MT' => '65',
+            'MS' => '67',
+            'MG' => '31',
+            'PA' => '91',
+            'PB' => '83',
+            'PR' => '41',
+            'PE' => '87',
+            'PI' => '86',
+            'RJ' => '21',
+            'RN' => '84',
+            'RS' => '51',
+            'RO' => '69',
+            'RR' => '95',
+            'SC' => '47',
+            'SP' => '11',
+            'SE' => '79',
+            'TO' => '63',
+        ];
+    }
+
     public function getEstados()
     {
         return [
