@@ -67,6 +67,12 @@
                                         {{Form::text('caixa', '', ['id' => 'caixa','placeholder' => '...', 'class' => 'input-medium', 'required' => true])}}
                                     </div>
                                 </div>
+                                <div class="control-group">
+                                    {{Form::label('unidade', 'Unidade', array('class' => 'control-label'))}}
+                                    <div class="controls">
+                                        {{Form::text('unidade', '', ['id' => 'unidade','placeholder' => '...', 'class' => 'input-medium', 'required' => true])}}
+                                    </div>
+                                </div>
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-primary">Salvar</button>
                                     <a href="{{route('usuarios.index')}}" class="btn">Cancelar</a>

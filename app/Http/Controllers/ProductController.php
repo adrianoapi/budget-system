@@ -77,10 +77,11 @@ class ProductController extends UtilController
         $model->codigo    = $request->codigo;
         $model->espessura = $request->espessura;
         $model->cobre     = $request->cobre;
-        $model->aco      = $request->aco;
+        $model->aco       = $request->aco;
         $model->valor     = str_replace(',', '.', str_replace('.', '', $request->valor));
         $model->linha     = $request->linha;
         $model->caixa     = $request->caixa;
+        $model->unidade   = $request->unidade;
         $model->active    = true;
         
         if($model->save()){
@@ -137,6 +138,7 @@ class ProductController extends UtilController
         $product->valor     = str_replace(',', '.', str_replace('.', '', $request->valor));
         $product->linha     = $request->linha;
         $product->caixa     = $request->caixa;
+        $product->unidade   = $request->unidade;
         $product->active    = true;
 
         if($product->save()){
