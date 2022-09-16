@@ -498,6 +498,12 @@ bkLib.onDomLoaded(function() {
                             {{Form::text('caixa', '', ['id' => 'caixa','placeholder' => '...', 'class' => 'input-medium', 'disabled' => true])}}
                         </div>
                     </div>
+                    <div class="control-group">
+                        {{Form::label('unidade', 'Unidade', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('unidade', '', ['id' => 'unidade','placeholder' => '...', 'class' => 'input-medium', 'disabled' => true])}}
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-primary" value="Adicionar">
@@ -533,7 +539,7 @@ function notification(color, content)
 })(jQuery);
 
 
-const attributes = ['espessura', 'cobre', 'aco', 'valor', 'linha', 'caixa'];
+const attributes = ['espessura', 'cobre', 'aco', 'valor', 'linha', 'caixa', 'unidade'];
 
 $('#select-product').on('change', function () {
   //console.log('Changed option value ' + this.value);

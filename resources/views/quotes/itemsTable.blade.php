@@ -8,6 +8,7 @@
             <th>Valor</th>
             <th>Qtd</th>
             <th>Cx</th>
+            <th>Uni</th>
             <th>ICMS</th>
             <th>IPI</th>
             <th>Total</th>
@@ -117,6 +118,7 @@
                     ])}}
             </td>
             <td><span title="{{$value->quantidade}}/{{$value->Product->caixa;}}">{{number_format($caixa_produto, 2, ".", ",")}}</span></td>
+            <td>{{$value->Product->unidade}}</td>
             <td class="price">
                 <?php $tableIcms = 'table_icms_'.$value->id;?>
                 <select name="{{$tableIcms}}" id="{{$tableIcms}}" class='input-small' style="margin-bottom:0" {{$quote->close > 0 ? 'disabled' : ''}}>

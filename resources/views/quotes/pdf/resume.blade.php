@@ -215,7 +215,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
     <table border="1" cellpadding="5" cellspacing="2" width="100%" bgcolor="#fff" style="border-style:dotted;font-size:12px; line-height:18px;">
         <thead>
             <tr style="background-color: #eeeeee; font-family: Arial, Verdana, sans-serif;">
-                <th colspan="10">PRODUTOS</th>
+                <th colspan="11">PRODUTOS</th>
             </tr>
             <tr style="background-color: #eeeeee; font-family: Arial, Verdana, sans-serif;">
                 <th>Esp.</th>
@@ -224,6 +224,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                 <th>Código</th>
                 <th>Descrição</th>
                 <th>Preço</th>
+                <th>Uni</th>
                 <th>Qtd</th>
                 <th>ICMS</th>
                 <th>IPI</th>
@@ -267,13 +268,14 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                 <td class="">{{$value->Product->aco}}</td>
                 <td class="">{{$value->Product->codigo}}</td>
                 <td class="">{{$value->Product->descricao}}</td>
-                <td class="">
+                <td class="" align="right">
 					@if($value->fator > 0)
 						{{number_format($value->Product->valor * $value->fator,2,',','.')}}
 					@else
 						{{number_format($value->Product->valor,2,',','.')}}
 					@endif
                 </td>
+                <td class="">{{$value->Product->unidade}}</td>
                 <td class="">{{$value->quantidade}}</td>
                 <td class="">{{$icmsLista[$value->icms]}}</td>
                 <td class="">{{$ipiLista[$value->ipi]}}</td>
@@ -287,7 +289,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
             </tr>
             @endforeach
             <tr style="background-color: #fff; font-family: Arial, Verdana, sans-serif;">
-				<td colspan="7"></td>
+				<td colspan="8"></td>
 				<td colspan="3" class="taxes">
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fff" style="border-style:dotted;font-size:12px; line-height:18px;">
 						<tr>
