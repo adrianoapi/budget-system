@@ -144,7 +144,7 @@ class MessageController extends UtilController
      */
     public function showMail(Message $message)
     {
-        return view('messages.show', ['message' => $message]);
+        return view('messages.mail.show', ['message' => $message]);
     }
 
     /**
