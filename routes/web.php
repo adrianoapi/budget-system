@@ -92,6 +92,7 @@ Route::prefix('mensagens')->group(function(){
 
 Route::prefix('cotacoes')->group(function(){
     Route::get('/',              'QuoteController@index' )->name('cotacoes.index');
+    Route::get('/sendMail',      'QuoteController@sendMail' )->name('cotacoes.send.mail');
     Route::get('novo/check',     'QuoteController@check')->name('cotacoes.check');
     Route::get('novo/{client}',  'QuoteController@create')->name('cotacoes.create');
     Route::post('store',         'QuoteController@store' )->name('cotacoes.store');

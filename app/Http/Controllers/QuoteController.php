@@ -532,6 +532,8 @@ class QuoteController extends UtilController
                         $action->message_id = $message->id;
                         $action->save();
                     endforeach;
+                    
+                    $this->sendMail($message->id);
                 }
             }
                 
@@ -790,8 +792,24 @@ class QuoteController extends UtilController
 
     }
 
-    private function sendMail()
+    public function sendMail($id)
     {
+        $actions = \App\Models\Action::where('message_id', $id)
+                    ->where('executed', false)
+                    ->get();
 
+        foreach($actions as $values):
+
+            if($values->user->level > 1 && $values->user->send_message)
+            {
+                $details = [
+                    'body' => $values->message->body
+                ];
+
+                Mail::to($values->user->email)->send(new SendQuote($details));
+            }
+
+        endforeach;
+        
     }
 }

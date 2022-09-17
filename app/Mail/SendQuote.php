@@ -30,6 +30,6 @@ class SendQuote extends Mailable
      */
     public function build()
     {
-        return $this->from('contato@maniadeganhar.com.br')->subject("Orçamento Aprovado")->view('quotes.pdf.resume', $this->details);
+        return $this->from('contato@maniadeganhar.com.br')->subject("Orçamento Aprovado")->view('mail.quote');
     }
 }
