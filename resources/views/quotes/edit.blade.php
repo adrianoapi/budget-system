@@ -621,6 +621,15 @@ function excluir(id) {
 
 function update(id) {
 
+    @if(Auth::user()->level <= 1)
+    var fator = $("#table_fator_"+id).val();
+    fator = fator.replace(",",".");
+    if(fator < 0.6){
+        notification("red", 'Apenas o Administrador poderá aplicar FATOR menor que 0,60!');
+        return false;
+    }
+    @endif
+
     $.ajax({
         url: "{{route('itens.update')}}",
         type: "POST",

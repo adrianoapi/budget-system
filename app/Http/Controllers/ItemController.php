@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Quote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends UtilController
 {
@@ -95,6 +96,16 @@ class ItemController extends UtilController
         $item->fator      =  str_replace(",", ".", $request->fator);
         $item->icms       =  $request->icms;
         $item->ipi        =  $request->ipi;
+        
+        if(Auth::user()->level <= 1)
+        {
+            $this->autoridadeCheck($item->quote->client->user_id);
+            
+            if((float) $item->fator < 0.6){
+                return response()->json('Apenas o Administrador poderá aplicar FATOR menor que 0,60!', 403);
+            }
+        }
+
         return $item->save();
     }
 
