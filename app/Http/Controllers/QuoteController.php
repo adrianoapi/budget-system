@@ -246,10 +246,6 @@ class QuoteController extends UtilController
             $model->frete       = "0.00";
             $model->serial      = uniqid();
 
-            $totalQuotes = Quote::where('active', true)
-                    ->where('user_id', Auth::user()->id)
-                    ->count();
-
             if($model->save()){
 
                 # Update serial
@@ -258,7 +254,7 @@ class QuoteController extends UtilController
                     $model->Client->estado,
                     $model->id,
                     $model->Client->name,
-                    $totalQuotes
+                    $this->countQuotes()
                 );
                 $model->save();
 
@@ -283,6 +279,14 @@ class QuoteController extends UtilController
         }
 
        return "{$companyName} - {$clientUF} - {$ramal}-{$quantidade} - {$clientName}";
+    }
+
+    public function countQuotes()
+    {
+        return Quote::where('active', true)
+        ->where('aprovado', true)
+        ->where('user_id', Auth::user()->id)
+        ->count();
     }
 
     /**
@@ -433,7 +437,8 @@ class QuoteController extends UtilController
                 $model->Company->name,
                 $model->Client->estado,
                 $model->id,
-                $model->Client->name
+                $model->Client->name,
+                $this->countQuotes()
             );
             $model->save();
 
@@ -447,6 +452,11 @@ class QuoteController extends UtilController
                 $item->ipi        = $value->ipi;
                 $item->save();
             endforeach;
+
+            if(!$quote->aprovado)
+            {
+                $quote->delete();
+            }
 
             return redirect()->route('cotacoes.edit', ['quote' => $model->id]);
         }else{
@@ -612,7 +622,8 @@ class QuoteController extends UtilController
                     $quote->Company->name,
                     $quote->Client->estado,
                     $quote->id,
-                    $quote->Client->name
+                    $quote->Client->name,
+                    $this->countQuotes()
                 );
                 $quote->save();
 
