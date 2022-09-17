@@ -51,7 +51,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="2">
+                                        <th colspan="3">
                                             #
                                         </th>
                                         <th>
@@ -71,6 +71,7 @@
                                         <th>Usuário</th>
                                         <th>Título</th>
                                         <th>Corpo</th>
+                                        <th>created_at</th>
                                         <th>Executado</th>
                                         <th>Ações</th>
                                     </tr>
@@ -81,6 +82,7 @@
                                         <td>{{$value->actions->user->name}}</td>
                                         <td>{{$value->title}}</td>
                                         <td>{{$types[$value->type]}}</td>
+                                        <td>{{$value->created_at}}</td>
                                         <td>{{$value->actions->executed}}</td>
                                         <td>
                                             @if(!$value->actions->executed && $value->type == "email")
