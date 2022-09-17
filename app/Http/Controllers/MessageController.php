@@ -137,6 +137,17 @@ class MessageController extends UtilController
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Message  $message
+     * @return \Illuminate\Http\Response
+     */
+    public function showMail(Message $message)
+    {
+        return view('messages.show', ['message' => $message]);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Message  $message

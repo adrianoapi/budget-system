@@ -88,6 +88,7 @@ Route::prefix('mensagens')->group(function(){
     Route::get('/',             'MessageController@index' )->name('message.index');
     Route::get('show/{message}', 'MessageController@show'  )->name('message.show');
     Route::get('mail/{message}', 'MessageController@mail'  )->name('message.mail');
+    Route::get('show/{message}', 'MessageController@showMail'  )->name('show.mail');
 });
 
 Route::prefix('cotacoes')->group(function(){
