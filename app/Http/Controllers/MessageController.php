@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendQuote;
 
 class MessageController extends UtilController 
 {
@@ -106,7 +108,32 @@ class MessageController extends UtilController
      */
     public function mail(Message $message)
     {
-        return view('messages.mail', ['message' => $message]);
+        $actions = \App\Models\Action::where('message_id', $message->id)
+                    ->where('executed', false)
+                    ->get();
+
+        foreach($actions as $values):
+
+            if(
+                $values->user->level > 1 &&
+                $values->user->send_message &&
+                $values->message->type == "email"
+                )
+            {
+                $details = [
+                    'body' => $values->message->body
+                ];
+
+                Mail::to($values->user->email)->send(new SendQuote($details));
+
+                $values->executed = true;
+                $values->save();
+
+            }
+
+        endforeach;
+
+        return redirect()->route('message.index');
     }
 
     /**

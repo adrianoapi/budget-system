@@ -81,6 +81,15 @@
                                         <td>{{$types[$value->type]}}</td>
                                         <td>{{$value->actions->executed}}</td>
                                         <td>
+                                            @if(!$value->actions->executed && $value->type == "email")
+                                            <a href="{{route('message.mail', $value->id)}}" class="btn" rel="tooltip" title="" data-original-title="Executar">
+                                                <i class="icon-bolt"></i>
+                                            </a>
+                                            @else
+                                            <a href="javascript:void(0)" class="btn" rel="tooltip" title="" data-original-title="Executar" disabled>
+                                                <i class="icon-bolt"></i>
+                                            </a>
+                                            @endif
                                             <a href="{{route('message.show', $value->id)}}" class="btn" rel="tooltip" title="" data-original-title="Visualizar">
                                                 <i class="icon-search"></i>
                                             </a>

@@ -31,6 +31,12 @@
                                     </div>
                                 </div>
                                 <div class="control-group">
+                                    <label for="executed" class="control-label">Executed</label>
+                                    <div class="controls">
+                                        <input type="text" name="type" id="executed" value="{{$message->actions->executed}}" class="input-xlarge" disabled>
+                                    </div>
+                                </div>
+                                <div class="control-group">
                                     <label for="email" class="control-label">Corpo</label>
                                     <div class="controls">
                                         @if($message->type == 'alert')

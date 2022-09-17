@@ -10,7 +10,6 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\RecoverMail;
 use App\Mail\SendQuote;
 use PDF;
 
