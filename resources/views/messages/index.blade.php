@@ -51,7 +51,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th>
+                                        <th colspan="2">
                                             #
                                         </th>
                                         <th>
@@ -68,6 +68,7 @@
                                         </th>
                                     </tr>
                                     <tr>
+                                        <th>Usuário</th>
                                         <th>Título</th>
                                         <th>Corpo</th>
                                         <th>Executado</th>
@@ -77,6 +78,7 @@
                                 <tbody>
                                 @foreach ($messages as $value)
                                     <tr>
+                                        <td>{{$value->actions->user->name}}</td>
                                         <td>{{$value->title}}</td>
                                         <td>{{$types[$value->type]}}</td>
                                         <td>{{$value->actions->executed}}</td>
