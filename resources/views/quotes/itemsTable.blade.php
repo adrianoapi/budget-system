@@ -46,7 +46,7 @@
             $ipi = $ipi + (($percentual_total_produto * 7.5) / 100);
         }
 
-        $caixa_produto = $value->quantidade/$value->Product->caixa;
+        $caixa_produto = $value->Product->caixa > 0 ? $value->quantidade/$value->Product->caixa : 0;
         $caixa_total   += $caixa_produto; 
          ?>
         <tr>
