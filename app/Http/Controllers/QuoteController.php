@@ -806,6 +806,9 @@ class QuoteController extends UtilController
                 ];
 
                 Mail::to($values->user->email)->send(new SendQuote($details));
+
+                $values->executed = 1;
+                $values->save();
             }
 
         endforeach;
