@@ -125,10 +125,12 @@
                                 <tbody>
                                     <?php
                                     $total = 0;
+                                    $i = 0;
                                     ?>
                                 @foreach ($quotes as $value)
                                 <?php
                                 $total += $value->total_report;
+                                $i++;
                                 ?>
                                     <tr>
                                         <td>{{$value->Client->name}}</td>
@@ -154,7 +156,8 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="6"></td>
+                                        <td colspan="5"></td>
+                                        <td>Quantidade: <span class="label label-info">{{$i}}</span></td>
                                         <td align="rigth"><span class="label label-success">R$ {{number_format($total, 2, ".", ",")}}</span></td>
                                     </tr>
                                 </tfoot>
