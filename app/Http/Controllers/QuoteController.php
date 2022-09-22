@@ -277,7 +277,7 @@ class QuoteController extends UtilController
             $ramal = $this->getRamal()[$clientUF];
         }
 
-       return "{$companyName} - {$clientUF} - {$ramal}-{$quantidade} - {$clientName}";
+       return "{$companyName} - {$clientUF} - {$ramal}-{$quoteID} - {$clientName}";
     }
 
     public function countQuotes()
