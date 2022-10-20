@@ -62,12 +62,51 @@
                     </div>
                 </div>
 
+                <div class="row-fluid">
+                    <div class="span4">
+                        <div class="box box-color box-bordered">
+                            <div class="box-title">
+                                <h3>
+                                    <i class="icon-bar-chart"></i>
+                                    Cotações
+                                </h3>
+                            </div>
+                            <div class="box-content">
+                                <div class="statistic-big">
+                                   <div id="ajax-cart"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--span4-->
+                </div><!--row-fluid-->
+
             </div>
+
+
 
 
         </div>
     </div>
-
 </div>
+
+<script>
+    function showCart()
+    {
+        $.ajax({
+            url: "{{route('quotes.dash')}}",
+            type: "GET",
+            data: {
+                "_token": "{{csrf_token()}}"
+            },
+            dataType: 'json',
+                success: function(data){
+                    console.log(data['cart']);
+                    $("#ajax-cart").html(data['cart']);
+                }
+        });
+    }
+
+    showCart();
+  </script>
 
 @endsection

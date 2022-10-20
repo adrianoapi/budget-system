@@ -26,6 +26,7 @@ Route::prefix('login')->group(function(){
 
 Route::prefix('dashboard')->group(function(){
     Route::get('/', "DashboardController@index")->name('dashboard.index');
+    Route::get('/quotes', "DashboardController@getQuotes")->name('quotes.dash');
 });
 
 Route::prefix('usuarios')->group(function(){

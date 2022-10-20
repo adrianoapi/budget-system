@@ -68,6 +68,8 @@
 
         <script src="{!! asset('nicEdit/nicEdit.js') !!}"></script>
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
         <!--[if lte IE 9]>
             <script src="{!! asset('flat-admin/js/plugins/placeholder/jquery.placeholder.min.js') !!}"></script>
             <script>
