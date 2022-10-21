@@ -131,8 +131,8 @@ class DashboardController extends Controller
         
         return response()->json([
             'cart' => view('dashboard.chart.quote', [
-                'aprove' => $aprove,
-                'quote' => $quote
+                'aprove' => $aprove->reverse(),
+                'quote' => $quote->reverse()
                 ])->render(),
         ]);
     }
