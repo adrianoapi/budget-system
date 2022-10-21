@@ -94,6 +94,9 @@
                                             {{Form::label('ecepmail', 'CEP*', array('class' => 'control-label'))}}
                                             <div class="controls controls-row">
                                                 {{Form::text('cep', '', ['id' => 'cep','placeholder' => '00000000', 'class' => 'input-block-level', 'required' => true, 'max' => '9' ])}}
+                                                @error('cep')
+                                                <div class="alert-danger input-xlarge">{{$message}}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -110,6 +113,9 @@
                                             {{Form::label('numero', 'Número*', array('class' => 'control-label'))}}
                                             <div class="controls controls-row">
                                                 {{Form::text('numero', '', ['id' => 'numero','placeholder' => '123', 'class' => 'input-block-level', 'required' => true])}}
+                                                @error('numero')
+                                                <div class="alert-danger input-xlarge">{{$message}}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>

@@ -92,6 +92,11 @@ class ClientController extends UtilController
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'cep'     => 'required|max:9',
+            'numero'  => 'required|numeric',
+        ]);
+
         $model = new Client();
         $model->user_id       = Auth::id();
         $model->name          = $request->name;
