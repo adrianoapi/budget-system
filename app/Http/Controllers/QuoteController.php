@@ -334,7 +334,12 @@ class QuoteController extends UtilController
         $title = $this->title. " editar";
 
         $companies = Company::select('id','name')->where('active', true)->orderBy('name', 'asc')->get();
-        $clients   = Client::select('id','name')->where('active', true)->where('user_id', Auth::user()->id)->orderBy('name', 'asc')->get();
+        if(Auth::user()->level > 1)
+        {
+            $clients   = Client::select('id','name')->where('active', true)->orderBy('name', 'asc')->get();
+        }else{
+            $clients   = Client::select('id','name')->where('active', true)->where('user_id', Auth::user()->id)->orderBy('name', 'asc')->get();
+        }
         $products  = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(1000);
 
         return view('quotes.edit', [
