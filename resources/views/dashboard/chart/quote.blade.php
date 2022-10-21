@@ -53,8 +53,8 @@ foreach($dataD as $value):
     labels: labels,
     datasets: [{
       label: 'Finalizadas',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgb(102, 255, 102)',
+      borderColor: 'rgb(102, 255, 102)',
       data: [<?php echo $valor;?>],
     },
     {
