@@ -158,6 +158,11 @@ class ClientController extends UtilController
     {
         $client->updated_user_id = Auth::id();
 
+        $request->validate([
+            'cep'     => 'required|max:9',
+            'numero'  => 'required|numeric',
+        ]);
+
         $client->name          = $request->name;
         $client->responsavel   = $request->responsavel;
         $client->cpf_cnpj      = $request->cpf_cnpj;
