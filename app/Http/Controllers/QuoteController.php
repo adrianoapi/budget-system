@@ -364,11 +364,15 @@ class QuoteController extends UtilController
     {
         $this->autoridadeCheck($quote->Client->user_id);
 
+        $dt = explode(" ", $quote->created_at);
+		$dt = $this->dataBr($dt[0]);
+
         $pdf = PDF::loadView('quotes.pdf.resume', [
             'quote' => $quote,
             'quote' => $quote,
             'icmsLista' => $this->icmsLista(),
-            'ipiLista' => $this->ipiLista()
+            'ipiLista' => $this->ipiLista(),
+            'date' => $dt
         ]);
             #->setPaper('a4', 'landscape')
         $fileName = $quote->serial."_".time().".pdf";

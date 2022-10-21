@@ -203,6 +203,11 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 												Serial/Versão: {{$quote->serial}}
 											</p>
 										</td>
+										<td style="color:#333333 !important; font-size:20px; font-family: Arial, Verdana, sans-serif; padding-left:10px;" height="40">
+											<p style="font-size:12px; line-height:18px;">
+												Data: {{$date}}<br>
+											</p>
+										</td>
 									</tr>
 								</table>
 							</center>
@@ -215,9 +220,10 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
     <table border="1" cellpadding="5" cellspacing="2" width="100%" bgcolor="#fff" style="border-style:dotted;font-size:12px; line-height:18px;">
         <thead>
             <tr style="background-color: #eeeeee; font-family: Arial, Verdana, sans-serif;">
-                <th colspan="11">PRODUTOS</th>
+                <th colspan="12">PRODUTOS</th>
             </tr>
             <tr style="background-color: #eeeeee; font-family: Arial, Verdana, sans-serif;">
+                <th>#</th>
                 <th>Esp.</th>
                 <th>Cobre</th>
                 <th>Aço</th>
@@ -263,6 +269,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 			}
 			?>
             <tr style="background-color: {{($i % 2) == 0 ? '#f9f9f9' : '#fff'}}; font-family: Arial, Verdana, sans-serif;">
+                <td class="">{{$i}}</td>
                 <td class="">{{$value->Product->espessura}}</td>
                 <td class="">{{$value->Product->cobre}}</td>
                 <td class="">{{$value->Product->aco}}</td>
@@ -289,7 +296,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
             </tr>
             @endforeach
             <tr style="background-color: #fff; font-family: Arial, Verdana, sans-serif;">
-				<td colspan="8"></td>
+				<td colspan="9"></td>
 				<td colspan="3" class="taxes">
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fff" style="border-style:dotted;font-size:12px; line-height:18px;">
 						<tr>

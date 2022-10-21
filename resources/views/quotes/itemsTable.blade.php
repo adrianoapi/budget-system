@@ -1,6 +1,7 @@
 <table id="tb-cotacao" class="table table-striped table-hover table-invoice">
     <thead>
         <tr>
+            <th>#</th>
             <th>Ações</th>
             <th>Item</th>
             <th>Preço</th>
@@ -50,6 +51,7 @@
         $caixa_total   += $caixa_produto; 
          ?>
         <tr>
+            <td>{{$i}}</td>
             <td>
                 @if(!$quote->close)
                 <a href="javascript:void(0)" onclick="excluir({{$value->id}})" class="btn btn-danger" rel="tooltip" id="delete" title="" data-original-title="Excluir">
@@ -145,6 +147,7 @@
         </tr>
         @endforeach
         <tr>
+            <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
