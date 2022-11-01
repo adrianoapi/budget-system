@@ -35,7 +35,7 @@
             $total = $total + $total_produto;
         }
 
-        if($value->ipi == "7.5")
+        if($value->ipi == "6.5")
         {
             $percentual_total_produto = $total_produto;
 
@@ -44,7 +44,7 @@
                 $descontoPercentual       = ($total_produto * $quote->percentual / 100);
                 $percentual_total_produto = $total_produto - $descontoPercentual;
             }
-            $ipi = $ipi + (($percentual_total_produto * 7.5) / 100);
+            $ipi = $ipi + (($percentual_total_produto * 6.5) / 100);
         }
 
         $caixa_produto = $value->Product->caixa > 0 ? $value->quantidade/$value->Product->caixa : 0;
@@ -178,7 +178,7 @@
   
                 @if ($ipi > 0)
                 <p>
-                    <span class="light">7.5%</span>
+                    <span class="light">6.5%</span>
                     <span class="totalprice">
                         {{number_format($ipi, 2, ",",".")}}
                     </span>
