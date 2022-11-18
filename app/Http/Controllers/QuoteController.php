@@ -498,6 +498,9 @@ class QuoteController extends UtilController
 
         if($quote->save()){
 
+            $dt = explode(" ", $quote->created_at);
+		    $dt = $this->dataBr($dt[0]);
+
             #Após salvar envia mensagem
             if($quote->aprovado == true)
             {
@@ -528,6 +531,7 @@ class QuoteController extends UtilController
                 $message->type  = "email";
                 $message->body  = view('quotes.pdf.resume', [
                                         'quote' => $quote,
+                                        'date' => $dt,
                                         'icmsLista' => $this->icmsLista(),
                                         'ipiLista' => $this->ipiLista()
                                     ])
