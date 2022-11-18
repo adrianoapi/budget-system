@@ -48,12 +48,24 @@ class ItemController extends UtilController
             $model->quote_id   = (int) $attributes->cotacao;
             $model->product_id = (int) $attributes->produto;
             $model->quantidade = (int) $attributes->quantidade;
-            $model->ordem      = !empty($last) ? --$last->ordem : 1;
+            $model->ordem      = !empty($last) ? $last->ordem : 1;
             $model->fator      = !empty($quote->fator) ? $quote->fator : '0.00';
             $model->icms       = !empty($quote->icms ) ? $quote->icms  : 'inclusivo';
             $model->ipi        = !empty($quote->ipi  ) ? $quote->ipi   : 'inclusivo';
 
             if($model->save()){
+
+                # Reordena os outro itens, caso tenham
+                $items = Item::where('quote_id', $attributes->cotacao)
+                ->orderBy('ordem', 'desc')->get();
+                foreach($items as $up):
+                    if($up->id != $model->id)
+                    {
+                        $up->ordem = ++$up->ordem;
+                        $up->save();
+                    }
+                endforeach;
+
                 return true;
             } 
         }
@@ -114,15 +126,21 @@ class ItemController extends UtilController
         $item = Item::find($request->id);
 
         if($request->ordem == "up"){
+            $oldNumber = $item->ordem;
             $item->ordem =  ++$item->ordem;
-            $old = Item::where('ordem', $item->ordem)->first();
+            $old = Item::where('quote_id', $item->quote_id)
+            ->where('ordem', $item->ordem)
+            ->first();
             if(!empty($old)){
-                $old->ordem = --$old->ordem;
+                $old->ordem = $oldNumber;
                 $old->save();
             }
         }else{
+            #down
             $item->ordem = --$item->ordem;
-            $old = Item::where('ordem', $item->ordem)->first();
+            $old = Item::where('quote_id', $item->quote_id)
+            ->where('ordem', $item->ordem)
+            ->first();
             if(!empty($old)){
                 $old->ordem = ++$old->ordem;
                 $old->save();
