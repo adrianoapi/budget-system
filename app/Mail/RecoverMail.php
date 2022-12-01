@@ -30,6 +30,6 @@ class RecoverMail extends Mailable
      */
     public function build()
     {
-        return $this->from('contato@maniadeganhar.com.br')->subject("Send Password Recover")->view('mail.passwordRecover');
+        return $this->from(getenv('MAIL_FROM_ADDRESS'))->subject("Send Password Recover")->view('mail.passwordRecover');
     }
 }

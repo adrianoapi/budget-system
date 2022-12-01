@@ -4,6 +4,12 @@
 
     <h2>Autenticação</h2>
     <form action="{{route('login.auth')}}" method='POST' class='form-validate' id="test">
+        @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ $error }}
+        </div>
+        @endforeach
         @csrf
         <div class="control-group">
             <div class="email controls">
