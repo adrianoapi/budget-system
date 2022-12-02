@@ -3,6 +3,41 @@
     <a href="{{route('dashboard.index')}}" id="brand">DRY AIR TEC</a>
         <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation"><i class="icon-reorder"></i></a>
 
+        <ul class='main-nav'>
+            @if(Auth::user()->level > 1)
+                <li>
+                    <a href="{{route('dashboard.index')}}"><i class="icon-desktop"></i> DASHBOARD</a>
+                </li>
+                <li>
+                    <a href="{{route('usuarios.index')}}"><i class="icon-user"></i> USUÁRIOS</a>
+                </li>
+                <li>
+                    <a href="{{route('produtos.index')}}"><i class="icon-tags"></i> PRODUTOS</a>
+                </li>
+                <li>
+                    <a href="{{route('empresas.index')}}"><i class="glyphicon-building"></i> EMPRESAS</a>
+                </li>
+                <li>
+                    <a href="{{route('cotacoes.index')}}"><i class="icon-shopping-cart"></i> COTAÇÕES</a>
+                </li>
+                <li>
+                    <a href="{{route('relatorios.index')}}"><i class="glyphicon-stats"></i></i> RELATÓRIOS</a>
+                </li>
+            @else
+                <li>
+                    <a href="{{route('dashboard.index')}}"><i class="icon-desktop"></i> DASHBOARD</a>
+                </li>
+                <li>
+                    <a href="{{route('clientes.index')}}"><i class="icon-briefcase"></i> CLIENTES</a>
+                <li>
+                <li>
+                    <a href="{{route('cotacoes.index')}}"><i class="icon-shopping-cart"></i> COTAÇÕES</a>
+                <li>
+                <li>
+                    <a href="{{route('relatorios.index')}}"><i class="glyphicon-stats"></i></i> RELATÓRIOS</a>
+                <li>
+            @endif
+        </ul>
         <div class="user">
             <ul class="icon-nav">
 
