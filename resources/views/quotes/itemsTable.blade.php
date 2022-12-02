@@ -54,6 +54,23 @@
             <td>{{$i}}</td>
             <td>
                 @if(!$quote->close)
+                <div class="btn-group">
+                    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="javascript:void(0)" onclick="editModal({{$value->Product->id}}, {{$value->id}}, {{$value->quantidade}})">
+                                <i class="icon-edit"></i>
+                                Editar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" onclick="excluir({{$value->id}})">
+                                <i class="icon-trash"></i>
+                                Excluir
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <a href="javascript:void(0)" onclick="excluir({{$value->id}})" class="btn btn-danger" rel="tooltip" id="delete" title="" data-original-title="Excluir">
                     <i class="icon-trash"></i>
                 </a>

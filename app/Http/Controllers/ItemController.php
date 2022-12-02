@@ -121,6 +121,27 @@ class ItemController extends UtilController
         return $item->save();
     }
 
+    /**
+     * Cahnge the specified resource in storage.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function change(Request $request)
+    {
+        $attributes = json_decode($request->data);
+        $oldItem = Item::where('id', $attributes->quoteItem)->first();
+
+        if(!empty($oldItem))
+        {
+            $oldItem->product_id = (int) $attributes->produto;
+            $oldItem->quantidade = (int) $attributes->quantidade;
+
+            return $oldItem->save();
+        }
+        
+    }
+
     public function order(Request $request)
     {
         $item = Item::find($request->id);

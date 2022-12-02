@@ -4,11 +4,13 @@
 
 @section('content')
 
+@if($quote->close)
 <script type="text/javascript">
 bkLib.onDomLoaded(function() {
 	new nicEditor({iconsPath : '{!! asset('nicEdit/nicEditorIcons.gif') !!}'}).panelInstance('observacao');
 });
 </script>
+@endif
 
 <div class="container-fluid" id="content">
 
@@ -435,7 +437,7 @@ bkLib.onDomLoaded(function() {
             </div>
         </div>
 
-        <!--Modal-->
+        <!--Modal Adicionar-->
         <div id="new-task" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -447,7 +449,7 @@ bkLib.onDomLoaded(function() {
                         {{Form::label('codigo', 'Código*', array('class' => 'control-label'))}}
                         <div class="controls">
                             <div class="input-xlarge">
-                                <select name="produto" id="select-product" onselect="showDynamic(this.id)" class='chosen-select' required="true">
+                                <select name="produto" id="select-product" class='chosen-select' required="true">
                                     <option value="">Selecione...</option>
                                     @foreach($products as $value)
                                     <option value="{{$value->id}}">{{$value->codigo}} - {{$value->descricao}}</option>
@@ -457,7 +459,7 @@ bkLib.onDomLoaded(function() {
                         </div>
                     </div>
                     <div class="control-group">
-                        {{Form::label('espessura', 'Quantidade', array('class' => 'control-label'))}}
+                        {{Form::label('quantidade', 'Quantidade', array('class' => 'control-label'))}}
                         <div class="controls">
                             {{Form::text('quantidade', '', ['id' => 'quantidade','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
                         </div>
@@ -511,6 +513,84 @@ bkLib.onDomLoaded(function() {
             </form>
     
         </div>
+
+        <!--Modal Editar-->
+        <div id="produto-edit" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Editando Produto</h3>
+            </div>
+            <form action="#" onsubmit="return false;" name="upItem" id="upItem" class='new-task-form form-horizontal form-bordered'>
+                <div class="">
+                    <div class="control-group">
+                        {{Form::label('codigo', 'Código*', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            <div class="input-xlarge">
+                                <select name="edit-produto" id="edit-select-product" class='chosen-select' required="true">
+                                    <option value="">Selecione...</option>
+                                    @foreach($products as $value)
+                                    <option value="{{$value->id}}">{{$value->codigo}} - {{$value->descricao}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('edit-quantidade', 'Quantidade', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('edit-quantidade', '', ['id' => 'edit-quantidade','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('edit-espessura', 'Espessura', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('edit-espessura', '', ['id' => 'edit-espessura','placeholder' => '0', 'class' => 'input-medium', 'disabled' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('edit-cobre', 'Cobre', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('edit-cobre', '', ['id' => 'edit-cobre','placeholder' => '0', 'class' => 'input-medium', 'disabled' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('edit-aco', 'Aço', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('edit-aco', '', ['id' => 'edit-aco','placeholder' => '0', 'class' => 'input-medium', 'disabled' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('edit-valor', 'Valor', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('edit-valor', '', ['id' => 'edit-valor','placeholder' => '0.00', 'class' => 'money input-medium', 'disabled' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('edit-linha', 'Linha', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('edit-linha', '', ['id' => 'edit-linha','placeholder' => '...', 'class' => 'input-medium', 'disabled' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('edit-caixa', 'Caixa', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('edit-caixa', '', ['id' => 'edit-caixa','placeholder' => '...', 'class' => 'input-medium', 'disabled' => true])}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{Form::label('edit-unidade', 'Unidade', array('class' => 'control-label'))}}
+                        <div class="controls">
+                            {{Form::text('edit-unidade', '', ['id' => 'edit-unidade','placeholder' => '...', 'class' => 'input-medium', 'disabled' => true])}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {{Form::hidden('edit-item-id', '', ['id' => 'edit-item-id'])}}
+                    <input type="submit" class="btn btn-primary" value="Salvar Alteração">
+                </div>
+            </form>
+    
+        </div>
                     
 
         </div>
@@ -538,37 +618,77 @@ function notification(color, content)
     });
 })(jQuery);
 
-
+//Atributos dos inputs que serão trabalhados
 const attributes = ['espessura', 'cobre', 'aco', 'valor', 'linha', 'caixa', 'unidade'];
 
-$('#select-product').on('change', function () {
-  //console.log('Changed option value ' + this.value);
-  //console.log('Changed option text ' + $(this).find('option').filter(':selected').text());
-  clear();
+function editModal(produto, item, quantidade)
+{
+    //Limpa o formulário
+    clear("edit");
 
-  $.ajax({
+    //Abre o modal
+    $('#produto-edit').modal('show');
+
+    //Busca dados do produto
+    $("#edit-select-product").val(produto).change();
+
+    //Atualiza a api de select
+    $('#edit-select-product').trigger("liszt:updated");
+    //Atualiza a api de select
+
+    $('#edit-quantidade').val(quantidade);
+
+    //Adiciona o id que será editado
+    $('#edit-item-id').val(item);
+}
+
+$('#select-product').on('change', function () {
+    getAttributesProdutos(this, '');
+});
+
+$('#edit-select-product').on('change', function () {
+    getAttributesProdutos(this, 'edit');
+});
+
+function getAttributesProdutos(_this, _action)
+{
+    //console.log('Changed option value ' + this.value);
+    //console.log('Changed option text ' + $(this).find('option').filter(':selected').text());
+    clear(_action);
+
+    $.ajax({
     url: "{{route('produtos.show')}}",
     type: "GET",
     data: {
         "_token": "{{csrf_token()}}",
-        "id": this.value
+        "id": _this.value
     },
     dataType: 'json',
         success: function(data)
         {
             for(var i = 0; i < attributes.length; i++)
             {
-                $("#"+attributes[i]).val(data[attributes[i]]);
+                if(_action == 'edit')
+                {
+                    $("#edit-"+attributes[i]).val(data[attributes[i]]);
+                }else{
+                    $("#"+attributes[i]).val(data[attributes[i]]);
+                }
             }
         }
     });
-});
+}
 
-function clear()
+function clear(_action)
 {
     for(var i = 0; i < attributes.length; i++)
     {
-        $("#"+attributes[i]).val("");
+        if(_action == 'edit')
+        {
+            $("#edit-"+attributes[i]).val("");
+        }else{
+            $("#"+attributes[i]).val("");
+        }
     }
 }
 
@@ -592,6 +712,34 @@ $("#addItem").submit(function() {
         success: function(data)
         {
             getTable("green", "Produto adicionado!");
+        }
+    });
+});
+
+$("#upItem").submit(function()
+{
+    const obj = {
+        produto: $("#edit-select-product").val(),
+        quantidade: $("#edit-quantidade").val(),
+        cotacao: {{$quote->id}},
+        quoteItem: $("#edit-item-id").val()
+    };
+
+    $.ajax({
+        url: "{{route('itens.change')}}",
+        type: "POST",
+        cache: false,
+        datatype: "JSON",
+        data: {
+            "_token": "{{csrf_token()}}",
+            "data": JSON.stringify(obj)
+        },
+        dataType: 'json',
+        success: function(data)
+        {
+            getTable("green", "Produto alterado!");
+            //Fecha o modal
+            $('#produto-edit').modal('toggle');
         }
     });
 });
