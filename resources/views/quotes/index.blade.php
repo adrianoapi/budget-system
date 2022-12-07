@@ -47,7 +47,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th>
+                                        <th class="hidden-1024">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -56,7 +56,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th>
+                                        <th class="hidden-1024">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -100,7 +100,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th>
+                                        <th class="hidden-1024">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -109,7 +109,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th>
+                                        <th class="hidden-1024">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -133,12 +133,12 @@
                                     </tr>
                                     <tr>
                                         <th>Nome</th>
-                                        <th>Responsável</th>
-                                        <th>Telefone</th>
+                                        <th class="hidden-1024">Responsável</th>
+                                        <th class="hidden-1024">Telefone</th>
                                         <th>Serial</th>
                                         <th>Fechada</th>
                                         <th>Aprovado</th>
-                                        <th colspan="2">Data</th>
+                                        <th colspan="2" class="hidden-1024">Data</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -146,8 +146,8 @@
                                 @foreach ($quotes as $value)
                                     <tr>
                                         <td>{{$value->Client->name}}</td>
-                                        <td>{{$value->Client->responsavel}}</td>
-                                        <td>
+                                        <td class="hidden-1024">{{$value->Client->responsavel}}</td>
+                                        <td class="hidden-1024">
                                             @if(!empty($value->Client->telefone))
                                                 {{$value->Client->telefone}} |
                                             @endif
@@ -173,8 +173,8 @@
                                                 <span class="btn btn-default">Não</span>
                                             @endif
                                         </td>
-                                        <td colspan="2">{{$value->created_at}}</td>
-                                        <td class='hidden-1024'>
+                                        <td colspan="2" class="hidden-1024">{{$value->created_at}}</td>
+                                        <td class=''>
                                             {{ Form::open(['route' => ['cotacoes.destroy', $value->id],  'method' => 'POST', "onSubmit" => "return confirm('Deseja excluir?');", 'style' => 'margin: 0;padding:0;']) }}
                                                 @csrf
                                                 @method('delete')
