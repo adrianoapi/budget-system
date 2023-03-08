@@ -419,14 +419,11 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 	</table>
 	
 	<p style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;"><strong>Observações Gerais:</strong></p>
-	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- PRAZO DE ENTREGA: produto em estoque. Após confirmação do pedido, embarque em até 48h úteis mais prazo da transportadora (a confirmar).</span><br> 
 	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- Os serviços de mão de obra necessários para a montagem não estão incluídos nos preços acima.</span><br>
-	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- VALIDADE: 10 DIAS</span><br>
-	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- Empresa optante pelo Simples Nacional</span><br>
+	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- VALIDADE: 5 DIAS</span><br>
 	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- Mercadoria não configura uso em auto peças.</span><br>
 	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- Diferencial de alíquota sera recolhido ao Estado de destino pelo comprador.</span><br>
 	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- Valor sem ST, Se aplicável, será de responsabilidade do comprador d☺e acordo com as regras e legislação aplicável.</span><br>
-	<span style="font-family: Arial, Verdana, sans-serif; font-size:12px; color:#000; line-height:18px;">- Valor do ICMS @ 4% (base de cálculo) e IPI incluso no Preço</span><br>
 <br>
 	<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#368ee0">
 		<tr>
