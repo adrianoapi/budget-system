@@ -73,6 +73,16 @@ Route::prefix('produtos')->group(function(){
     Route::delete('destroy/{product}', 'ProductController@destroy')->name('produtos.destroy');
 });
 
+Route::prefix('estoque')->group(function(){
+    Route::get('/',              'StockController@index' )->name('estoques.index');
+    Route::get('novo',           'StockController@create')->name('estoques.create');
+    Route::get('show',           'StockController@show'  )->name('estoques.show');
+    Route::post('store',         'StockController@store' )->name('estoques.store');
+    Route::put('edit/{product}', 'StockController@update')->name('estoques.update');
+
+    Route::delete('destroy/{product}', 'ProductController@destroy')->name('estoques.destroy');
+});
+
 Route::prefix('items')->group(function(){
     Route::get('/',           'ItemController@index' )->name('itens.index');
     Route::get('novo',        'ItemController@create')->name('itens.create');
