@@ -18,6 +18,10 @@
 					<li>
 						<a href="{{route('empresas.index')}}"><i class="glyphicon-building"></i> EMPRESAS</a>
 					</li>
+					</li>
+					<li>
+						<a href="{{route('estoques.index')}}"><i class="icon-truck"></i> ESOTQUES</a>
+					</li>
 				</ul>
                 @endif
 			</div>
