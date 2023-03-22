@@ -24,8 +24,25 @@ class StockController extends UtilController
     public function atualizar()
     {
         $stocks = Stock::where('deleted_at', NULL)
-        ->where('dt_lancamento', '<=', date('Y/m/d'))
+        ->where('dt_lancamento', '<=', date('Y-m-d'))
+        ->where('inserido', false)
         ->orderBy('id', 'desc')->paginate(20);
+
+        foreach($stocks as $stock):
+
+            # Atualiza a quantidade do produto
+            $produto = Product::findOrFail($stock->product_id);
+            $produto->quantidade = $produto->quantidade + $stock->quantidade;
+            
+            if($produto->save())
+            {
+                # Marca como estoque inserido
+                $stock->inserido = true;
+            }
+
+            $stock->save();
+
+        endforeach;
 
         return response()->json($stocks);
     }

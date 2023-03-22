@@ -18,7 +18,7 @@ class StockController extends UtilController
      */
     public function index()
     {
-        $stocks = Stock::orderBy('id', 'desc')->paginate(20);
+        $stocks = Stock::where('deleted_at', NULL)->orderBy('id', 'desc')->paginate(20);
 
         return view('stocks.index', [
             'title' => $this->title,
@@ -105,6 +105,18 @@ class StockController extends UtilController
      */
     public function destroy(Stock $stock)
     {
-        //
+        $this->levelCheck();
+        if($stock->delete()){
+
+
+            # Subtrai a quantidade do produto
+            $produto = Product::findOrFail($stock->product_id);
+            $produto->quantidade = $produto->quantidade - $stock->quantidade;
+            $produto->save();
+
+            return redirect()->route('estoques.index');
+        }else{
+            die('Erro ao excluir o Lançamento');
+        }
     }
 }

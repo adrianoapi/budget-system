@@ -78,9 +78,9 @@ Route::prefix('estoque')->group(function(){
     Route::get('novo',           'StockController@create')->name('estoques.create');
     Route::get('show',           'StockController@show'  )->name('estoques.show');
     Route::post('store',         'StockController@store' )->name('estoques.store');
-    Route::put('edit/{product}', 'StockController@update')->name('estoques.update');
+    Route::put('edit/{stock}', 'StockController@update')->name('estoques.update');
 
-    Route::delete('destroy/{product}', 'ProductController@destroy')->name('estoques.destroy');
+    Route::delete('destroy/{stock}', 'StockController@destroy')->name('estoques.destroy');
 });
 
 Route::prefix('items')->group(function(){
