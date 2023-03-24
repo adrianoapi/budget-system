@@ -117,6 +117,7 @@ Route::prefix('cotacoes')->group(function(){
     Route::get('items/export/{quote}',  'QuoteController@export' )->name('cotacoes.export');
     Route::put('edit/{quote}',   'QuoteController@update')->name('cotacoes.update');
     Route::put('edit/{quote}/fator', 'QuoteController@updateFator')->name('cotacoes.update.fator');
+    Route::put('edit/{quote}/nota-fiscal', 'QuoteController@updateNF')->name('cotacoes.update.nf');
     Route::put('edit/{quote}/icms',  'QuoteController@updateIcms')->name('cotacoes.update.icms');
     Route::put('edit/{quote}/ipi',   'QuoteController@updateIpi')->name('cotacoes.update.ipi');
     Route::put('comercial/{quote}',   'QuoteController@updateComercial')->name('cotacoes.update.comercial');

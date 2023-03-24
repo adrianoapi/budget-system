@@ -694,6 +694,46 @@ class QuoteController extends UtilController
      * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
+    public function updateNF(Request $request, Quote $quote)
+    {
+        if(Auth::user()->level <= 1)
+        {
+
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id])->with(
+                'quote_close',
+                'Apenas o Administrador pode alterar a Nota Fiscal!'
+            );
+        }
+
+        if(empty($quote->numero_nf))
+        {
+            # Aplica lógica de abatimento no estoque
+            foreach($quote->Items as $item):
+                
+                $product = Product::where('active', true)
+                ->where('id', $item->product_id)
+                ->firstOrFail();
+
+                $product->quantidade = $product->quantidade - $item->quantidade;
+                $product->save();
+
+            endforeach;
+        }
+
+        $quote->numero_nf = $request->numero_nf;
+        
+        if($quote->save()){
+            return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
     public function updateIcms(Request $request, Quote $quote)
     {
         if(Auth::user()->level <= 1)

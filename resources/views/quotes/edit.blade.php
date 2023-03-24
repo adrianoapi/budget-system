@@ -50,6 +50,11 @@ bkLib.onDomLoaded(function() {
                                 <li>
                                     <a href="#five" data-toggle='tab'><i class="icon-fire"></i> IPI</a>
                                 </li>
+                                @if($quote->aprovado)
+                                <li>
+                                    <a href="#six" data-toggle='tab'><i class="glyphicon-barcode"></i> Nota Fiscal</a>
+                                </li>
+                                @endif
                             </ul>
                         </div>
                         
@@ -431,6 +436,52 @@ bkLib.onDomLoaded(function() {
                                     </div>
                                 </form>
                             </div><!--Tab 5-->
+                            @if($quote->aprovado)
+                            <div class="tab-pane" id="six">
+
+                                @if(empty($quote->numero_nf))
+                                <div class="row-fluid margin-top">
+                                    <div class="span12">
+                                        <div class="alert alert-waning">
+                                            Atenção: Será abatida do estoque as respectivas quantidades de produtos constantes no orçamento ao registrar o número da Nota Fiscal!
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+
+                                {{ Form::open(['route' => ['cotacoes.update.nf', $quote->id], 'class' => 'form']) }}    
+                                    @csrf 
+                                    @method('PUT')
+    
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                {{Form::label('numero_nf', 'Número da Nota Fiscal', array('class' => 'control-label'))}}
+                                                <div class="controls">
+                                                    {{Form::text('numero_nf', $quote->numero_nf,
+                                                    [
+                                                        'id' => 'numero_nf',
+                                                        'class' => 'input-large',
+                                                        'style' => 'margin-bottom:0',
+                                                        'required' => true
+                                                    ])}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+    
+                                    <div class="row-fluid">
+                                        <div class="form-actions">
+                                            {{Form::button('Salvar', [
+                                                    'type' => 'submit',
+                                                    'class'=> 'btn btn-primary',
+                                            ])}}
+                                        </div>
+                                    </div>
+                                </form>
+                            </div><!--Tab 6-->
+                            @endif
                         </div>
                     </div>
                 </div>
