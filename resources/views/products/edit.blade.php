@@ -73,6 +73,13 @@
                                         {{Form::text('unidade', $product->unidade, ['id' => 'unidade','placeholder' => '...', 'class' => 'input-medium', 'required' => true])}}
                                     </div>
                                 </div>
+                                <div class="control-group">
+                                    {{Form::label('quantidade', 'Quantidade', array('class' => 'control-label'))}}
+                                    <div class="controls">
+                                        {{Form::text('quantidade', $product->quantidade, ['id' => 'quantidade','placeholder' => '...', 'class' => 'input-medium', 'disabled' => true])}}
+                                        <small>Para alterar a quantidade, deve-se inserir mais produtos no estoque!</small>
+                                    </div>
+                                </div>
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-primary">Salvar</button>
                                     <a href="{{route('usuarios.index')}}" class="btn">Cancelar</a>

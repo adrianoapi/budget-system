@@ -18,11 +18,47 @@ class StockController extends UtilController
      */
     public function index()
     {
-        $stocks = Stock::where('deleted_at', NULL)->orderBy('id', 'desc')->paginate(20);
+        $ids = [];
+        $inserido = 'todos';
+
+        if(array_key_exists('filtro',$_GET))
+        {
+            if(strlen($_GET['inserido']))
+            {
+                $inserido = $_GET['inserido'];
+
+                if($inserido == 'sim')
+                {
+                    $stoks = Stock::where('deleted_at', NULL)
+                    ->where('inserido', true)
+                    ->get();
+                }elseif($inserido == 'nao'){
+                    $stoks = Stock::where('deleted_at', NULL)->where('inserido', false)->get();
+                }else{
+                    $stoks = Stock::where('deleted_at', NULL)->get();
+                }
+                
+
+                $ids = [];
+                foreach($stoks as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+
+            $stocks = Stock::whereIn('id', $ids)
+            ->where('deleted_at', NULL)
+            ->orderBy('dt_lancamento', 'desc')->paginate(20);
+
+        }else
+        {
+            $stocks = Stock::where('deleted_at', NULL)->orderBy('dt_lancamento', 'desc')->paginate(20);
+        }
+
 
         return view('stocks.index', [
             'title' => $this->title,
-            'stocks' => $stocks
+            'stocks' => $stocks,
+            'inserido' => $inserido,
         ]);
     }
 
@@ -56,8 +92,31 @@ class StockController extends UtilController
         $model->quantidade = $request->quantidade;
         $model->dt_lancamento = $request->dt_lancamento;
 
-        if($model->save()){
+        if($model->save())
+        {
+            $atual = date('Y-m-d');
+
+            $date = str_replace('/', '-', $request->dt_lancamento);
+            $dtLanca = date("Y-m-d", strtotime($date));
+
+            $dtAtual = strtotime($atual);
+            $dtLanca = strtotime($dtLanca);
+
+            if($dtLanca <= $dtAtual)
+            {
+                $produto = Product::findOrFail($model->product_id);
+                $produto->quantidade = $produto->quantidade + $model->quantidade;
+
+                if($produto->save())
+                {
+                    # Marca como estoque inserido
+                    $model->inserido = true;
+                    $model->save();
+                }
+            }
+
             return redirect()->route('estoques.index');
+
         }else{
             echo 'Erro ao adicionar produto ao estoque!';
         }

@@ -34,16 +34,35 @@
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input id="descricao" placeholder="Descrição" type="text" name="descricao" value="" class="input-block-level">
                                                     </div>
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="2">
+                                        <th>
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input id="codigo" placeholder="Código" type="text" name="codigo" value="" class="input-block-level">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <select name="inserido" id="inserido" class='input-block-level'>
+                                                            <option value="todos" {{$inserido == 'todos' ? 'selected':''}}>Lançado?</option>
+                                                            <option value="sim" {{($inserido == 'sim')  ? 'selected':''}}>Sim</option>
+                                                            <option value="nao" {{($inserido == 'nao') ? 'selected':''}}>Não</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
                                                     </div>
                                                 </div>
                                             </div>
@@ -64,6 +83,7 @@
                                     <tr>
                                         <th>Descrição</th>
                                         <th>Quantidade</th>
+                                        <th>Lançado</th>
                                         <th class='hidden-350'>Lançamento</th>
                                         <th>Ações</th>
                                     </tr>
@@ -73,6 +93,13 @@
                                     <tr>
                                         <td>{{$value->produto->descricao}}</td>
                                         <td>{{$value->quantidade}}</td>
+                                        <td>
+                                            @if($value->inserido)
+                                                SIM
+                                            @else
+                                                NAO
+                                            @endif
+                                        </td>
                                         <td>{{$value->dt_lancamento}}</td>
                                         <td class='hidden-1024'>
                                             {{ Form::open(['route' => ['estoques.destroy', $value->id], 
