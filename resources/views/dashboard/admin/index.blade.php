@@ -78,6 +78,22 @@
                             </div>
                         </div>
                     </div><!--span4-->
+             
+                    <div class="span8">
+                        <div class="box box-color box-bordered">
+                            <div class="box-title">
+                                <h3>
+                                    <i class="icon-bar-chart"></i>
+                                    Cotações
+                                </h3>
+                            </div>
+                            <div class="box-content">
+                                <div class="statistic-big">
+                                   <div id="stock-rank"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--span4-->
                 </div><!--row-fluid-->
 
             </div>
@@ -100,13 +116,29 @@
             },
             dataType: 'json',
                 success: function(data){
-                    console.log(data['cart']);
                     $("#ajax-cart").html(data['cart']);
                 }
         });
     }
 
+    function stockRank()
+    {
+        $.ajax({
+            url: "{{route('estoques.rank')}}",
+            type: "GET",
+            data: {
+                "_token": "{{csrf_token()}}"
+            },
+            dataType: 'json',
+                success: function(data){
+                    console.log(data);
+                    $("#stock-rank").html(data['rank']);
+                }
+        });
+    }
+
     showCart();
+    stockRank();
   </script>
 
 @endsection

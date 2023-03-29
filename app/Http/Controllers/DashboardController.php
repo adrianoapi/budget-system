@@ -136,4 +136,18 @@ class DashboardController extends Controller
                 ])->render(),
         ]);
     }
+
+    public function getStockRank()
+    {
+        $products = Product::where('active', true)
+        ->orderBy('quantidade', 'asc')
+        ->limit(10)
+        ->get();
+
+        return response()->json([
+            'rank' => view('dashboard.chart.stock', [
+                'produtos' => $products,
+                ])->render(),
+        ]);
+    }
 }
