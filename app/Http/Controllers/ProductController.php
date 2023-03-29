@@ -99,6 +99,7 @@ class ProductController extends UtilController
     public function show(Request $request)
     {
         $product = Product::where('active', true)->where('id', $request->id)->firstOrFail();
+        $product->quantidade_estoque = $product->quantidade;
         if(!empty($product))
         {
             return response()->json($product);

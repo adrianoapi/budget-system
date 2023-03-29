@@ -162,6 +162,41 @@
                 @endif
             </td>
         </tr>
+        <!--Linha de quantidade insuficiente-->
+        @if($value->quantidade > $value->Product->quantidade)
+            <tr>
+                <td colspan="12">
+                    <div class="alert-danger input-xxxlarge">
+                        A quantidade de <strong>{{$value->quantidade}}</strong> é maior que a do estoque <strong>{{$value->Product->quantidade}}</strong>!
+                    </div>
+                    
+                    <?php
+                    $stockProds = \App\Models\Stock::where('deleted_at', NULL)
+                    ->where('product_id', $value->Product->id)
+                    ->where('inserido', false)
+                    ->orderBy('dt_lancamento', 'asc')
+                    ->limit(5)
+                    ->get();
+
+                    if(count($stockProds) < 1)
+                    {
+                        echo '<div class="alert-danger input-xxxlarge">';
+                        echo "<br>Não existem previsões de entrega!";
+                        echo '</div>';
+                    }else{
+                        echo '<div class="alert-success input-xxxlarge">';
+                        echo "<ul>";
+                            foreach($stockProds as $value):
+                                echo "<li>Previsão de mais <strong>{$value->quantidade}</strong> produtos no estoque em <strong>{$value->dt_lancamento}</strong></li>";
+                            endforeach;
+                        echo "</ul>";
+                        echo '</div>';
+                    }
+                        ?>
+                    </div>
+                </td>
+            </tr>
+        @endif
         @endforeach
         <tr>
             <td> </td>

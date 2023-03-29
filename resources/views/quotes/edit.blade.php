@@ -513,6 +513,7 @@ bkLib.onDomLoaded(function() {
                         {{Form::label('quantidade', 'Quantidade', array('class' => 'control-label'))}}
                         <div class="controls">
                             {{Form::text('quantidade', '', ['id' => 'quantidade','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                            Quantidade em estoque:<span id="quantidade_estoque"></span>
                         </div>
                     </div>
                     <div class="control-group">
@@ -590,6 +591,7 @@ bkLib.onDomLoaded(function() {
                         {{Form::label('edit-quantidade', 'Quantidade', array('class' => 'control-label'))}}
                         <div class="controls">
                             {{Form::text('edit-quantidade', '', ['id' => 'edit-quantidade','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                            Quantidade em estoque:<span id="edit-quantidade_estoque"></span>
                         </div>
                     </div>
                     <div class="control-group">
@@ -670,7 +672,7 @@ function notification(color, content)
 })(jQuery);
 
 //Atributos dos inputs que serão trabalhados
-const attributes = ['espessura', 'cobre', 'aco', 'valor', 'linha', 'caixa', 'unidade'];
+const attributes = ['espessura', 'cobre', 'aco', 'valor', 'linha', 'caixa', 'unidade', 'quantidade_estoque'];
 
 function editModal(produto, item, quantidade)
 {
@@ -721,9 +723,19 @@ function getAttributesProdutos(_this, _action)
             {
                 if(_action == 'edit')
                 {
-                    $("#edit-"+attributes[i]).val(data[attributes[i]]);
+                    // Precisa saber sé é uma div ou um input
+                    if(attributes[i] == 'quantidade_estoque'){
+                        $("#edit-"+attributes[i]).html(data[attributes[i]]);
+                    }else{
+                        $("#edit-"+attributes[i]).val(data[attributes[i]]);
+                    }
                 }else{
-                    $("#"+attributes[i]).val(data[attributes[i]]);
+                    // Precisa saber sé é uma div ou um input
+                    if(attributes[i] == 'quantidade_estoque'){
+                        $("#"+attributes[i]).html(data[attributes[i]]);
+                    }else{
+                        $("#"+attributes[i]).val(data[attributes[i]]);
+                    }
                 }
             }
         }
