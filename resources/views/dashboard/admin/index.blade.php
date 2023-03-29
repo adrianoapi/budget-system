@@ -83,8 +83,8 @@
                         <div class="box box-color box-bordered">
                             <div class="box-title">
                                 <h3>
-                                    <i class="icon-bar-chart"></i>
-                                    Cotações
+                                    <i class="icon-tags"></i>
+                                    Menor Quantidade
                                 </h3>
                             </div>
                             <div class="box-content">

@@ -29,6 +29,8 @@
                                 <thead>
                                     <tr>
                                         <th>
+                                        </th>
+                                        <th>
                                             <form action="" method="GET" class="span12" style="margin: 0;padding:0;">
                                             <input type="hidden" name="filtro" id="filtro" value="pesquisa">
                                             <div class="span12">
@@ -62,6 +64,7 @@
                                         </th>
                                     </tr>
                                     <tr>
+                                        <th>Quantidade</th>
                                         <th>Descrição</th>
                                         <th>Código</th>
                                         <th class='hidden-350'>Valor</th>
@@ -71,7 +74,23 @@
                                 <tbody>
                                 @foreach ($products as $value)
                                     <tr>
-                                        <td>{{$value->descricao}}</td>
+                                        <td>{{$value->quantidade}}</td>
+                                        <td>
+                                            {{$value->descricao}}
+                                            <?php
+
+                                            $stockProds = \App\Models\Stock::where('deleted_at', NULL)
+                                                            ->where('product_id', $value->id)
+                                                            ->where('inserido', false)
+                                                            ->orderBy('dt_lancamento', 'asc')
+                                                            ->limit(5)
+                                                            ->get();
+                                    
+                                              foreach($stockProds as $stock):
+                                                  echo "<li>Previsão de mais <strong>{$stock->quantidade}</strong> produtos no estoque em <strong>{$stock->dt_lancamento}</strong></li>";
+                                              endforeach;
+                                            ?>
+                                        </td>
                                         <td>{{$value->codigo}}</td>
                                         <td>{{$value->valor}}</td>
                                         <td class='hidden-1024'>
