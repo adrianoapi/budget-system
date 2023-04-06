@@ -51,16 +51,7 @@
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input id="responsavel" placeholder="Responsável" type="text" name="responsavel" value="{{$responsavel}}" class="input-block-level">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </th>
-                                        <th class="hidden-1024">
-                                            <div class="span12">
-                                                <div class="control-group">
-                                                    <div class="controls controls-row">
-                                                        <input id="telefone" placeholder="Telefone" type="text" name="telefone" value="{{$telefone}}" class="input-block-level">
+                                                        <input id="numero_nf" placeholder="Nota Fiscal" type="text" name="numero_nf" value="{{$numero_nf}}" class="input-block-level">
                                                     </div>
                                                 </div>
                                             </div>
@@ -133,8 +124,7 @@
                                     </tr>
                                     <tr>
                                         <th>Nome</th>
-                                        <th class="hidden-1024">Responsável</th>
-                                        <th class="hidden-1024">Telefone</th>
+                                        <th class="hidden-1024">NF</th>
                                         <th>Serial</th>
                                         <th>Fechada</th>
                                         <th>Aprovado</th>
@@ -146,18 +136,7 @@
                                 @foreach ($quotes as $value)
                                     <tr>
                                         <td>{{$value->Client->name}}</td>
-                                        <td class="hidden-1024">{{$value->Client->responsavel}}</td>
-                                        <td class="hidden-1024">
-                                            @if(!empty($value->Client->telefone))
-                                                {{$value->Client->telefone}} |
-                                            @endif
-                                            @if(!empty($value->Client->telefone_com))
-                                                {{$value->Client->telefone_com}} |
-                                            @endif
-                                            @if(!empty($value->Client->celular))
-                                                {{$value->Client->celular}}
-                                            @endif
-                                        </td>
+                                        <td class="hidden-1024">{{$value->numero_nf}}</td>
                                         <td>{{$value->serial}}</td>
                                         <td>
                                             @if($value->close)

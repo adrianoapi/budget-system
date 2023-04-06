@@ -31,20 +31,22 @@ class QuoteController extends UtilController
         $ids          = [];
         $quoteIds     = [];
         $name         = NULL;
-        $responsavel  = NULL;
-        $telefone     = NULL;
+        #$responsavel  = NULL;
+        #$telefone     = NULL;
         $close        = NULL;
         $aprovado     = NULL;
         $serial       = NULL;
+        $numero_nf    = NULL;
 
         if(array_key_exists('filtro', $_GET))
         {
             $name        = $_GET['name'       ];
-            $responsavel = $_GET['responsavel'];
-            $telefone    = $_GET['telefone'   ];
+            #$responsavel = $_GET['responsavel'];
+            #$telefone    = $_GET['telefone'   ];
             $close       = $_GET['close'      ];
             $aprovado    = $_GET['aprovado'   ];
             $serial      = $_GET['serial'     ];
+            $numero_nf   = $_GET['numero_nf'  ];
 
             $this->dtInicial = strlen($_GET['dt_inicio']) > 2 ? $this->dataSql($_GET['dt_inicio']) : $this->dtInicial;
             $this->dtFinal   = strlen($_GET['dt_fim'   ]) > 2 ? $this->dataSql($_GET['dt_fim'   ]) : $this->dtFinal;
@@ -55,8 +57,8 @@ class QuoteController extends UtilController
                 $clients = Client::select('id')
                 ->where('name', 'like', '%' . $name . '%')
                 ->where('active', true)
-                ->where('responsavel', 'like', '%' . $responsavel . '%')
-                ->where('telefone', 'like', '%' . rtrim($telefone) . '%')
+                #->where('responsavel', 'like', '%' . $responsavel . '%')
+                #->where('telefone', 'like', '%' . rtrim($telefone) . '%')
                 ->orderBy('name', 'asc')
                 ->get();
             }else{
@@ -64,8 +66,8 @@ class QuoteController extends UtilController
                 ->where('user_id', Auth::user()->id)
                 ->where('name', 'like', '%' . $name . '%')
                 ->where('active', true)
-                ->where('responsavel', 'like', '%' . $responsavel . '%')
-                ->where('telefone', 'like', '%' . rtrim($telefone) . '%')
+                #->where('responsavel', 'like', '%' . $responsavel . '%')
+                #->where('telefone', 'like', '%' . rtrim($telefone) . '%')
                 ->orderBy('name', 'asc')
                 ->get();
             }
@@ -159,7 +161,19 @@ class QuoteController extends UtilController
         {
             $quotes = Quote::select('id')->whereIn('id', $quoteIds)
             ->where('aprovado', $aprovado == "yes" ? true : false)
-            ->orderBy('id', 'desc')
+            ->get();
+
+            $quoteIds = [];
+            foreach($quotes as $value):
+                array_push($quoteIds, $value->id);
+            endforeach;
+
+        }
+
+        if(!empty($numero_nf))
+        {
+            $quotes = Quote::select('id')->whereIn('id', $quoteIds)
+            ->where('numero_nf', 'like', '%' . $numero_nf . '%')
             ->get();
 
             $quoteIds = [];
@@ -201,11 +215,12 @@ class QuoteController extends UtilController
             'title'       => $title,
             'quotes'      => $quotes,
             'name'        => $name,
-            'responsavel' => $responsavel,
-            'telefone'    => $telefone,
+            #'responsavel' => $responsavel,
+            #'telefone'    => $telefone,
             'close'       => $close,
             'aprovado'    => $aprovado,
             'serial'      => $serial,
+            'numero_nf'   => $numero_nf,
             'dt_inicio'   => !empty($this->dtInicial) ? $this->dataBr($this->dtInicial) : NULL,
             'dt_fim'      => !empty($this->dtFinal  ) ? $this->dataBr($this->dtFinal  ) : NULL
         ]);
