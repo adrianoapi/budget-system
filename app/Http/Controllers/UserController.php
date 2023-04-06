@@ -171,6 +171,18 @@ class UserController extends UtilController
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function clientsList(Request $request)
+    {
+        $model = \App\Models\Client::where('user_id', $request->id)->get();
+        return response()->json($model);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

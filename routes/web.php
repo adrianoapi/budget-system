@@ -37,6 +37,8 @@ Route::prefix('usuarios')->group(function(){
     Route::post('store',      'UserController@store'    )->name('usuarios.store');
     Route::get('edit/{user}', 'UserController@edit'     )->name('usuarios.edit');
     Route::put('edit/{user}', 'UserController@update'   )->name('usuarios.update');
+
+    Route::get('client/list', 'UserController@clientsList')->name('usuarios.clients.list');
     
     Route::put('perfil/{user}', 'UserController@upProfile')->name('usuarios.update.profile');
 

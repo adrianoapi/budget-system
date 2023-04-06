@@ -165,6 +165,33 @@ bkLib.onDomLoaded(function() {
                                         <div class="box-content nopadding">
                                             {{ Form::open(['route' => ['cotacoes.update.comercial', $quote->id],  'method' => 'POST', 'class' =>'form-horizontal form-bordered']) }}
                                                 @method('PUT')
+                                                <!--Se administrador-->
+                                                @if(Auth::user()->level > 1)
+                                                <div class="control-group">
+                                                    <label for="user_id" class="control-label">Representante Responsável</label>
+                                                    <div class="controls">
+                                                        <select name="user_id" id="user_id" class='input-block-level'>
+                                                            <option value="">Representante</option>
+                                                            @foreach($users as $value)
+                                                                <option value="{{$value->id}}" {{$quote->user_id == $value->id ? "selected" : NULL}}>{{$value->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label for="user_client_id" class="control-label">Representante Cliente</label>
+                                                    <div class="controls">
+                                                        <select name="user_client_id" id="user_client_id" class='input-block-level'>
+                                                            <option value="">Cliente</option>
+                                                            @foreach($clients as $value)
+                                                                @if($value->user_id == $quote->user_id)
+                                                                    <option value="{{$value->id}}" {{$quote->client_id == $value->id ? "selected" : NULL}}>{{$value->name}}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                @endif
                                                 <div class="control-group">
                                                     <label for="representante" class="control-label">Representante</label>
                                                     <div class="controls">
@@ -695,6 +722,10 @@ function editModal(produto, item, quantidade)
     $('#edit-item-id').val(item);
 }
 
+$('#user_id').on('change', function () {
+    getAttributesClients(this);
+});
+
 $('#select-product').on('change', function () {
     getAttributesProdutos(this, '');
 });
@@ -702,6 +733,32 @@ $('#select-product').on('change', function () {
 $('#edit-select-product').on('change', function () {
     getAttributesProdutos(this, 'edit');
 });
+
+
+function getAttributesClients(_this)
+{
+    //console.log('Changed option value ' + _this.value);
+    $('#user_client_id').empty();
+
+    $.ajax({
+    url: "{{route('usuarios.clients.list')}}",
+    type: "GET",
+    data: {
+        "_token": "{{csrf_token()}}",
+        "id": _this.value
+    },
+    dataType: 'json',
+        success: function(data)
+        {
+            var $select = $('#user_client_id');
+
+            for(var i = 0; i < data.length; i++)
+            {
+                $select.append($('<option />', { value: data[i].id, text: data[i].name }));
+            }
+        }
+    });
+}
 
 function getAttributesProdutos(_this, _action)
 {

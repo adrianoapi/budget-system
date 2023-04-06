@@ -351,11 +351,12 @@ class QuoteController extends UtilController
         $companies = Company::select('id','name')->where('active', true)->orderBy('name', 'asc')->get();
         if(Auth::user()->level > 1)
         {
-            $clients   = Client::select('id','name')->where('active', true)->orderBy('name', 'asc')->get();
+            $clients   = Client::select('id','name', 'user_id')->where('active', true)->orderBy('name', 'asc')->get();
         }else{
-            $clients   = Client::select('id','name')->where('active', true)->where('user_id', Auth::user()->id)->orderBy('name', 'asc')->get();
+            $clients   = Client::select('id','name', 'user_id')->where('active', true)->where('user_id', Auth::user()->id)->orderBy('name', 'asc')->get();
         }
         $products  = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(1000);
+        $users     = \App\Models\User::where('active', true)->orderBy('name', 'asc')->get();
 
         return view('quotes.edit', [
             'title'      => $title,
@@ -363,6 +364,7 @@ class QuoteController extends UtilController
             'products'   => $products,
             'companies'  => $companies,
             'clients'    => $clients,
+            'users'      => $users,
             'fatorLista' => $this->fatorLista(),
             'icmsLista'  => $this->icmsLista(),
             'ipiLista'   => $this->ipiLista()
@@ -822,6 +824,13 @@ class QuoteController extends UtilController
         if(Auth::user()->level <= 1)
         {
             $this->autoridadeCheck($quote->client->user_id);
+        }else
+        {
+            if(!empty($request->user_id) && !empty($request->user_client_id))
+            {
+                $quote->user_id   = $request->user_id;
+                $quote->client_id = $request->user_client_id;
+            }
         }
 
         $quote->pagamento      = $request->pagamento;
