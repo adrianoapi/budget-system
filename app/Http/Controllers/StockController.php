@@ -167,7 +167,6 @@ class StockController extends UtilController
         $this->levelCheck();
         if($stock->delete()){
 
-
             if($stock->inserido)
             {
                 # Subtrai a quantidade do produto
@@ -175,7 +174,6 @@ class StockController extends UtilController
                 $produto->quantidade = $produto->quantidade - $stock->quantidade;
                 $produto->save();
             }
-            
 
             return redirect()->route('estoques.index');
         }else{
