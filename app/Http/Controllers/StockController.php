@@ -168,10 +168,14 @@ class StockController extends UtilController
         if($stock->delete()){
 
 
-            # Subtrai a quantidade do produto
-            $produto = Product::findOrFail($stock->product_id);
-            $produto->quantidade = $produto->quantidade - $stock->quantidade;
-            $produto->save();
+            if($stock->inserido)
+            {
+                # Subtrai a quantidade do produto
+                $produto = Product::findOrFail($stock->product_id);
+                $produto->quantidade = $produto->quantidade - $stock->quantidade;
+                $produto->save();
+            }
+            
 
             return redirect()->route('estoques.index');
         }else{
