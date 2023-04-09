@@ -69,6 +69,7 @@ Route::prefix('produtos')->group(function(){
     Route::get('/',              'ProductController@index' )->name('produtos.index');
     Route::get('novo',           'ProductController@create')->name('produtos.create');
     Route::get('show',           'ProductController@show'  )->name('produtos.show');
+    Route::get('exportar',       'ProductController@export')->name('produtos.export');
     Route::post('store',         'ProductController@store' )->name('produtos.store');
     Route::get('edit/{product}', 'ProductController@edit'  )->name('produtos.edit');
     Route::put('edit/{product}', 'ProductController@update')->name('produtos.update');

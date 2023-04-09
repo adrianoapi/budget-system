@@ -19,6 +19,8 @@
                                 {{$title}}
                             </h3>
                             <span class="tabs">
+                                <a href="{{route('produtos.export')}}" class="btn btn-primary">
+                                    <i class="icon-reorder"></i> Exportar</a>
                                 <a href="{{route('produtos.create')}}" class="btn btn-primary">
                                 <i class="icon-reorder"></i> Novo</a>
                             </span>

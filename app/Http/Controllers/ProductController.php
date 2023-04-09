@@ -91,6 +91,18 @@ class ProductController extends UtilController
         }
     }
 
+    public function export()
+    {
+        header("Content-type: application/vnd.ms-excel");
+        header("Content-type: application/force-download");
+        header("Content-Disposition: attachment; filename=produtos_".time().".xls");
+        header("Pragma: no-cache");
+
+        $products = Product::where('active', true)->orderBy('descricao', 'asc')->get();
+
+        return view('products.excel.prod', ['products' => $products]);
+    }
+
     /**
      * Display the specified resource.
      *
