@@ -83,6 +83,8 @@ class ProductController extends UtilController
         $model->caixa     = $request->caixa;
         $model->unidade   = $request->unidade;
         $model->active    = true;
+
+        $model->quantidade = 0;
         
         if($model->save()){
             return redirect()->route('produtos.index');
