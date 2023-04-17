@@ -47,6 +47,15 @@
                                                 </div>
                                             </div>
                                         </th>
+                                        <th class="hidden-1024">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="numero_nf" placeholder="Nota Fiscal" type="text" name="numero_nf" value="{{$numero_nf}}" class="input-block-level">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
                                         <th>
                                             <div class="span12">
                                                 <div class="control-group">
@@ -115,6 +124,7 @@
                                     </tr>
                                     <tr>
                                         <th>Nome</th>
+                                        <th>NF</th>
                                         <th>Serial</th>
                                         <th>Fechada</th>
                                         <th>Aprovado</th>
@@ -134,6 +144,7 @@
                                 ?>
                                     <tr>
                                         <td>{{$value->Client->name}}</td>
+                                        <td class="hidden-1024">{{$value->numero_nf}}</td>
                                         <td>{{$value->serial}}</td>
                                         <td>
                                             @if($value->close)

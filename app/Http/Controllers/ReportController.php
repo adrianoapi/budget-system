@@ -37,6 +37,7 @@ class ReportController extends UtilController
         $close        = NULL;
         $aprovado     = NULL;
         $serial       = NULL;
+        $numero_nf    = NULL;
 
         if(array_key_exists('filtro', $_GET))
         {
@@ -44,9 +45,23 @@ class ReportController extends UtilController
             $close       = $_GET['close'      ];
             $aprovado    = $_GET['aprovado'   ];
             $serial      = $_GET['serial'     ];
+            $numero_nf   = $_GET['numero_nf'  ];
 
             $this->dtInicial = strlen($_GET['dt_inicio']) > 2 ? $this->dataSql($_GET['dt_inicio']) : $this->dtInicial;
             $this->dtFinal   = strlen($_GET['dt_fim'   ]) > 2 ? $this->dataSql($_GET['dt_fim'   ]) : $this->dtFinal;
+
+            if(!empty($numero_nf))
+            {
+                $quotes = Quote::select('id')->whereIn('id', $quoteIds)
+                ->where('numero_nf', 'like', '%' . $numero_nf . '%')
+                ->get();
+                dd($quotes);
+
+                $quoteIds = [];
+                foreach($quotes as $value):
+                    array_push($quoteIds, $value->id);
+                endforeach;
+            }
 
             # Se for administrador
             if(Auth::user()->level > 1)
@@ -123,6 +138,19 @@ class ReportController extends UtilController
 
         }
 
+        if(!empty($aprovado))
+        {
+            $quotes = Quote::select('id')->whereIn('id', $quoteIds)
+            ->where('aprovado', $aprovado == "yes" ? true : false)
+            ->get();
+
+            $quoteIds = [];
+            foreach($quotes as $value):
+                array_push($quoteIds, $value->id);
+            endforeach;
+
+        }
+
         if(!empty($this->dtInicial) && !empty($this->dtFinal))
         {
             if($this->dtInicial > $this->dtFinal)
@@ -162,6 +190,7 @@ class ReportController extends UtilController
             'name'        => $name,
             'close'       => $close,
             'aprovado'    => $aprovado,
+            'numero_nf'   => $numero_nf,
             'serial'      => $serial,
             'dt_inicio'   => !empty($this->dtInicial) ? $this->dataBr($this->dtInicial) : NULL,
             'dt_fim'      => !empty($this->dtFinal  ) ? $this->dataBr($this->dtFinal  ) : NULL
