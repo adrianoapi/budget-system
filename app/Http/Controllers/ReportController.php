@@ -50,18 +50,6 @@ class ReportController extends UtilController
             $this->dtInicial = strlen($_GET['dt_inicio']) > 2 ? $this->dataSql($_GET['dt_inicio']) : $this->dtInicial;
             $this->dtFinal   = strlen($_GET['dt_fim'   ]) > 2 ? $this->dataSql($_GET['dt_fim'   ]) : $this->dtFinal;
 
-            if(!empty($numero_nf))
-            {
-                $quotes = Quote::select('id')->whereIn('id', $quoteIds)
-                ->where('numero_nf', 'like', '%' . $numero_nf . '%')
-                ->get();
-
-                $quoteIds = [];
-                foreach($quotes as $value):
-                    array_push($quoteIds, $value->id);
-                endforeach;
-            }
-
             # Se for administrador
             if(Auth::user()->level > 1)
             {
@@ -180,6 +168,7 @@ class ReportController extends UtilController
             
 
         $quotes = Quote::whereIn('id', $quoteIds)
+        ->where('numero_nf', 'like', '%' . $numero_nf . '%')
         ->orderBy('id', 'desc')
         ->get();
         
