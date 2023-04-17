@@ -55,7 +55,6 @@ class ReportController extends UtilController
                 $quotes = Quote::select('id')->whereIn('id', $quoteIds)
                 ->where('numero_nf', 'like', '%' . $numero_nf . '%')
                 ->get();
-                dd($quotes);
 
                 $quoteIds = [];
                 foreach($quotes as $value):
