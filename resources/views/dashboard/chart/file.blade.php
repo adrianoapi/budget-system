@@ -13,7 +13,7 @@
   labels: ["Espaço livre",  "Espaço usado"],
   datasets: [{
     label: 'Espaço em uso',
-    data: [{{number_format(100*10 - $size/1000000, 2)}}, {{number_format($size/1000000, 2)}}],
+    data: [{{number_format(100*10 - $size/1000000, 2, ",", "")}}, {{number_format($size/1000000, 2,  ",", "")}}],
   
     hoverOffset: 2
   }]
