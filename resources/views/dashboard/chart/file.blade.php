@@ -12,7 +12,6 @@
  var data4 = {
   labels: ["Espaço livre",  "Espaço usado"],
   datasets: [{
-    label: 'Espaço em uso',
     data: [
       {{str_replace(",","",number_format(100*10 - $size/1000000, 2))}},
       {{str_replace(",","",number_format($size/1000000, 2))}}],
