@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
     use HasFactory;
+
+    public function Quote()
+    {
+        return $this->hasOne(Quote::class, 'id', 'quote_id');
+    }
 }

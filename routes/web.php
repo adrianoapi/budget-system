@@ -132,6 +132,9 @@ Route::prefix('cotacoes')->group(function(){
 Route::prefix('arquivos')->group(function(){
     Route::get('/', 'FileController@create' )->name('arquivos.create');
     Route::post('/upload-file', 'FileController@store')->name('arquivos.store');
+    Route::get('/show-file/{file}', 'FileController@show')->name('arquivos.show');
+
+    Route::delete('destroy/{file}', 'FileController@destroy')->name('arquivos.destroy');
 });
 
 Route::prefix('relatorios')->group(function(){

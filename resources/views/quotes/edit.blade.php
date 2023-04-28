@@ -55,6 +55,9 @@ bkLib.onDomLoaded(function() {
                                     <a href="#six" data-toggle='tab'><i class="glyphicon-barcode"></i> Nota Fiscal</a>
                                 </li>
                                 @endif
+                                <li>
+                                    <a href="#seven" data-toggle='tab'><i class="icon-download-alt"></i> Arquivos</a>
+                                </li>
                             </ul>
                         </div>
                         
@@ -509,6 +512,76 @@ bkLib.onDomLoaded(function() {
                                 </form>
                             </div><!--Tab 6-->
                             @endif
+                            <div class="tab-pane" id="seven">
+                                @if(Auth::user()->level > 1)
+                                    <form action="{{route('arquivos.store')}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        @if ($message = Session::get('success'))
+                                        <div class="alert alert-success">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                        @endif
+                                        @if (count($errors) > 0)
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @endif
+
+                                        @if ($message = Session::get('success_file'))
+                                        <div class="alert alert-success">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                        @endif
+                                        
+                                        <div class="custom-file">
+                                            <input type="file" name="file" class="custom-file-input" id="chooseFile">
+                                            <label class="custom-file-label" for="chooseFile">Selecione um arquivo!</label>
+                                            <input type="hidden" name="quote_id" value="{{$quote->id}}">
+                                        </div>
+                                        <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
+                                            Subir arquivo!
+                                        </button>
+                                    </form>
+                                  @endif
+                                  <table class="table">
+                                    <thead>
+                                        <th>Arquivo</th>
+                                        <th>Ttamanho</th>
+                                        <th>Tipo</th>
+                                        <th>Ação</th>
+                                    </thead>
+                                    @foreach($quote->files as $value)
+                                    <tr>
+                                        <td>{{$value->name}}</td>
+                                        <td>{{$value->size}}</td>
+                                        <td>{{$value->type}}</td>
+                                        <td>
+                                            {{ Form::open(['route' => ['arquivos.destroy', $value->id],  'method' => 'POST', "onSubmit" => "return confirm('Deseja excluir?');", 'style' => 'margin: 0;padding:0;']) }}
+                                                @csrf
+                                                @method('delete')
+                                             
+                                                <a href="{{route('arquivos.show', $value->id)}}" class="btn" rel="tooltip" title="" data-original-title="Download">
+                                                    <i class="icon-download"></i>
+                                                </a>
+
+                                                @if(Auth::user()->level > 1)
+                                                <button type="submit" class="btn" rel="tooltip" title="" data-original-title="Excluir">
+                                                    <i class="icon-trash"></i>
+                                                </button>
+                                                @endif
+
+                                            {{ Form::close() }}
+
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                  </table>
+
+                            </div><!--Arquivos/Files-->
                         </div>
                     </div>
                 </div>

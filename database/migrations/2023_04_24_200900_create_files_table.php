@@ -18,7 +18,8 @@ class CreateFilesTable extends Migration
             $table->unsignedBigInteger('quote_id');
             $table->string('name')->nullable(true);
             $table->string('type')->nullable(true);
-            $table->decimal('size', 10, 2)->default(0);
+            $table->integer('size')->default(0);
+            $table->timestamps();
 
             $table->foreign('quote_id')->references('id')->on('quotes')->onDelete('CASCADE');
         });

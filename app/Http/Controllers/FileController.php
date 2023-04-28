@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use Illuminate\Support\Facades\File as FileBase;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
@@ -40,14 +41,32 @@ class FileController extends Controller
             'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpg,jpeg,png|max:4196'
         ]);
 
-        //dd(getenv('UPLOAD_DIRECTORY'));
-
-
         if($request->file())
         {
+            $model = new File();
+            $model->quote_id = $request->quote_id;
+            $model->type     = $request->file->getMimeType();
+            $model->size     = $request->file->getSize();
+
             $fileName = time().'_'.$request->file->getClientOriginalName();
             $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
-            $request->file->move('./'.getenv('UPLOAD_DIRECTORY'), $fileName);
+            if($request->file->move('./'.getenv('UPLOAD_DIRECTORY'), $fileName))
+            {
+                $model->name = $fileName;
+                if($model->save())
+                {
+                    return redirect()->route('cotacoes.edit', ['quote' => $request->quote_id])->with(
+                        'success_file',
+                        'Arquivo enviado com sucesso!'
+                    );
+                    
+                }else{
+                    return redirect()->route('cotacoes.edit', ['quote' => $request->quote_id]);
+                }
+
+            }else{
+                echo 'Falha ao subir o arquivo!';
+            }
         }
 
     
@@ -62,7 +81,14 @@ class FileController extends Controller
      */
     public function show(File $file)
     {
-        //
+        $file = './'.getenv('UPLOAD_DIRECTORY').'/'.$file->name;
+
+        header("Content-Description: File Transfer"); 
+        header("Content-Type: application/octet-stream"); 
+        header("Content-Disposition: attachment; filename=\"". basename($file) ."\""); 
+
+        readfile ($file);
+        exit(); 
     }
 
     /**
@@ -96,6 +122,20 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        //
+        if(FileBase::delete('./'.getenv('UPLOAD_DIRECTORY').'/'.$file->name))
+        {
+            if($file->delete())
+            {
+                return redirect()->route('cotacoes.edit', ['quote' => $file->quote_id])->with(
+                    'success_file',
+                    'Arquivo excluído com sucesso!'
+                );
+
+            }else{
+                die('Erro ao excluir o Arquivo!');
+            }
+        }else{
+            echo 'Arquivo não encontrado!';
+        }
     }
 }
