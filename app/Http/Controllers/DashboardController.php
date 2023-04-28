@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Quote;
 use App\Models\Client;
+use App\Models\File;
 use App\Models\Product;
 use App\Models\User;
 
@@ -147,6 +148,19 @@ class DashboardController extends Controller
         return response()->json([
             'rank' => view('dashboard.chart.stock', [
                 'produtos' => $products,
+                ])->render(),
+        ]);
+    }
+
+    public function getFiles()
+    {
+        $file = File::count();
+        $size = File::sum('size');
+
+        return response()->json([
+            'rank' => view('dashboard.chart.file', [
+                'file' => $file,
+                'size' => $size,
                 ])->render(),
         ]);
     }

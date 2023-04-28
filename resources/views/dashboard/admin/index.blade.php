@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="row-fluid">
-                    <div class="span4">
+                    <div class="span6">
                         <div class="box box-color box-bordered">
                             <div class="box-title">
                                 <h3>
@@ -78,8 +78,26 @@
                             </div>
                         </div>
                     </div><!--span4-->
-             
-                    <div class="span8">
+
+                    <div class="span6">
+                        <div class="box box-color box-bordered">
+                            <div class="box-title">
+                                <h3>
+                                    <i class="glyphicon-pie_chart"></i>
+                                    Armazenamento de Arquivos
+                                </h3>
+                            </div>
+                            <div class="box-content">
+                                <div class="statistic-big">
+                                   <div id="quote-file"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--span4-->
+                </div><!--row-fluid-->
+
+                <div class="row-fluid">
+                    <div class="span12">
                         <div class="box box-color box-bordered">
                             <div class="box-title">
                                 <h3>
@@ -133,6 +151,23 @@
                 success: function(data){
                     console.log(data);
                     $("#stock-rank").html(data['rank']);
+                    quoteFile();
+                }
+        });
+    }
+
+    function quoteFile()
+    {
+        $.ajax({
+            url: "{{route('quotes.files')}}",
+            type: "GET",
+            data: {
+                "_token": "{{csrf_token()}}"
+            },
+            dataType: 'json',
+                success: function(data){
+                    console.log(data);
+                    $("#quote-file").html(data['rank']);
                 }
         });
     }
