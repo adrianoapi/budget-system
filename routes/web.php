@@ -129,6 +129,11 @@ Route::prefix('cotacoes')->group(function(){
     Route::delete('destroy/{quote}', 'QuoteController@destroy')->name('cotacoes.destroy');
 });
 
+Route::prefix('arquivos')->group(function(){
+    Route::get('/', 'FileController@create' )->name('arquivos.create');
+    Route::post('/upload-file', 'FileController@store')->name('arquivos.store');
+});
+
 Route::prefix('relatorios')->group(function(){
     Route::get('/', 'ReportController@index' )->name('relatorios.index');
 });
