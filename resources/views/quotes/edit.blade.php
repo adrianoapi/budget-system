@@ -152,7 +152,7 @@ bkLib.onDomLoaded(function() {
                                 </div>
                                 @else 
                                 <div class="invoice-payment">
-                                    {{ Form::open(['route' => ['cotacoes.clone', $quote->id],  'method' => 'POST']) }}
+                                    {{ Form::open(['route' => ['cotacoes.back.edit', $quote->id],  'method' => 'POST']) }}
                                     {!! Form::button('<i class="icon-copy"></i> '.$quote->aprovado > 0 ? 'Clonar Cotação' : 'Editar Cotação', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
                                     {{ Form::close() }}
                                 </div>

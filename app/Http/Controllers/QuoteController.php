@@ -432,6 +432,22 @@ class QuoteController extends UtilController
      * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
+    public function backEdit(Quote $quote)
+    {
+        $this->autoridadeCheck($quote->Client->user_id);
+        $quote->close = 0;
+        $quote->save();
+
+        return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
     public function clone(Quote $quote)
     {
         $this->autoridadeCheck($quote->Client->user_id);
