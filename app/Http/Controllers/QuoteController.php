@@ -435,7 +435,15 @@ class QuoteController extends UtilController
     public function backEdit(Quote $quote)
     {
         $this->autoridadeCheck($quote->Client->user_id);
+        $quote->version = $quote->version + 1;
         $quote->close = 0;
+        $quote->serial = $this->nameGenerate(
+            $quote->Company->name,
+            $quote->Client->estado,
+            $quote->id.'-'.$quote->version,
+            $quote->Client->name,
+            $this->countQuotes()
+        );
         $quote->save();
 
         return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
