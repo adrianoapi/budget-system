@@ -588,6 +588,29 @@ class QuoteController extends UtilController
                     
                     $this->sendMail($message->id);
                 }
+            }else{
+
+                # Quando for desaprovar o pedido,
+                # realizara as 2 tarefas a seguir
+
+                # 1. Apagar o campo de Nota Fiscal
+                $quote->numero_nf = NULL;
+
+                # 2. Repor quanidade em estoque
+                # Aplica lógica de ressarcimento no estoque
+                foreach($quote->Items as $item):
+                    
+                    $product = Product::where('active', true)
+                    ->where('id', $item->product_id)
+                    ->firstOrFail();
+
+                    $product->quantidade = $product->quantidade + $item->quantidade;
+                    $product->save();
+
+                endforeach;
+
+                $quote->save();
+
             }
                 
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
