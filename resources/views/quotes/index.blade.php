@@ -128,7 +128,8 @@
                                         <th>Serial</th>
                                         <th>Fechada</th>
                                         <th>Aprovado</th>
-                                        <th colspan="2" class="hidden-1024">Data</th>
+                                        <th class="hidden-1024">Data</th>
+                                        <th>Total</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -152,7 +153,8 @@
                                                 <span class="btn btn-default">Não</span>
                                             @endif
                                         </td>
-                                        <td colspan="2" class="hidden-1024">{{$value->created_at}}</td>
+                                        <td class="hidden-1024">{{substr($value->created_at, 0, 10)}}</td>
+                                        <td><strong>{{number_format($value->total_report, 2, ".", ",")}}</strong></td>
                                         <td class=''>
                                             {{ Form::open(['route' => ['cotacoes.destroy', $value->id],  'method' => 'POST', "onSubmit" => "return confirm('Deseja excluir?');", 'style' => 'margin: 0;padding:0;']) }}
                                                 @csrf
