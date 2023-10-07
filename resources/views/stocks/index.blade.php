@@ -108,6 +108,10 @@
                                             "style" => 'margin: 0;padding:0;']) }}
                                                 @csrf
                                                 @method('delete')
+
+                                                <a href="{{route('estoques.edit', $value->id)}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
+                                                    <i class="icon-edit"></i>
+                                                </a>
                                               
                                                 <button type="submit" class="btn" rel="tooltip" title="" data-original-title="Excluir">
                                                     <i class="icon-trash"></i>

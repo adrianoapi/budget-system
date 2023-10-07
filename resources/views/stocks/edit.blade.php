@@ -17,14 +17,14 @@
                             <h3><i class="icon-th-list"></i> {{$title}}</h3>
                         </div>
                         <div class="box-content nopadding">
-                            {{ Form::open(array('route' => 'estoques.store',  'method' => 'post', 'class' => 'form-horizontal form-bordered')) }}
+                            {{ Form::open(array('route' => ['estoques.update', $stock->id],  'method' => 'put', 'class' => 'form-horizontal form-bordered')) }}
                             @csrf
                                 <div class="control-group">
                                     <label for="level" class="control-label">Produto</label>
                                     <div class="controls">
-                                        <select name="produto_id" id="produto_id" class='select2-me input-block-level' required>
+                                        <select name="produto_id" id="produto_id" class='select2-me input-block-level' disabled>
                                             @foreach($produtos as $value)
-                                            <option value="{{$value->id}}">{{$value->codigo}} - {{$value->descricao}}</option>
+                                            <option value="{{$value->id}}" {{$value->id == $stock->product_id ? 'selected' : NULL}}>{{$value->codigo}} - {{$value->descricao}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -32,19 +32,19 @@
                                 <div class="control-group">
                                     {{Form::label('quantidade', 'Quantidade', array('class' => 'control-label'))}}
                                     <div class="controls">
-                                        {{Form::text('quantidade', '', ['id' => 'quantidade','placeholder' => '0', 'class' => 'input-medium', 'required' => true])}}
+                                        {{Form::text('quantidade', $stock->quantidade, ['id' => 'quantidade','placeholder' => '0', 'class' => 'input-medium', 'disabled' => true])}}
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     {{Form::label('cobre', 'Lançamento', array('class' => 'control-label'))}}
                                     <div class="controls">
-                                        {{Form::text('dt_lancamento', date('d/m/Y'), ['id' => 'dt_lancamento','placeholder' => "00/00/0000", 'class' => 'input-medium datepick', 'required' => true])}}
+                                        {{Form::text('dt_lancamento', date('d/m/Y'), ['id' => 'dt_lancamento','placeholder' => "00/00/0000", 'class' => 'input-medium datepick', 'disabled' => true])}}
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     {{Form::label('nota_fiscal', 'Nota Fiscal', array('class' => 'control-label'))}}
                                     <div class="controls controls-row">
-                                        {{Form::text('nota_fiscal', '', ['id' => 'nota_fiscal','placeholder' => 'Insira uma nota ou descrição', 'class' => 'input-block-level', 'required' => false])}}
+                                        {{Form::text('nota_fiscal', $stock->nota_fiscal, ['id' => 'nota_fiscal','placeholder' => 'Insira uma nota ou descrição', 'class' => 'input-block-level', 'required' => false])}}
                                     </div>
                                 </div>
                                 <div class="form-actions">

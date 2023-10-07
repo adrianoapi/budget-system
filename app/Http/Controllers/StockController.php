@@ -87,10 +87,11 @@ class StockController extends UtilController
     {
         $this->levelCheck();
         $model = new Stock();
-        $model->user_id    = Auth::id();
-        $model->product_id = $request->produto_id;
-        $model->quantidade = $request->quantidade;
+        $model->user_id       = Auth::id();
+        $model->product_id    = $request->produto_id;
+        $model->quantidade    = $request->quantidade;
         $model->dt_lancamento = $request->dt_lancamento;
+        $model->nota_fiscal   = $request->nota_fiscal;
 
         if($model->save())
         {
@@ -141,7 +142,12 @@ class StockController extends UtilController
      */
     public function edit(Stock $stock)
     {
-        //
+        $this->levelCheck();
+        $products = Product::
+        #where('active', true)
+        orderBy('descricao', 'asc')->get();
+        $title = $this->title. " alterar";
+        return view('stocks.edit', ['title' => $title, 'stock' => $stock, 'produtos' => $products]);
     }
 
     /**
@@ -153,7 +159,14 @@ class StockController extends UtilController
      */
     public function update(Request $request, Stock $stock)
     {
-        //
+        $this->levelCheck();
+        $stock->nota_fiscal = $request->nota_fiscal;
+
+        if($stock->save()){
+            return redirect()->route('estoques.index');
+        }else{
+            echo 'Erro ao atualizar o produto!';
+        }
     }
 
     /**
