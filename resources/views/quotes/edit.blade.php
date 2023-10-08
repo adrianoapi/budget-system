@@ -513,7 +513,7 @@ bkLib.onDomLoaded(function() {
                             </div><!--Tab 6-->
                             @endif
                             <div class="tab-pane" id="seven">
-                                @if(Auth::user()->level > 1)
+                                
                                     <form action="{{route('arquivos.store')}}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         @if ($message = Session::get('success'))
@@ -546,7 +546,7 @@ bkLib.onDomLoaded(function() {
                                             Subir arquivo!
                                         </button>
                                     </form>
-                                  @endif
+                                    
                                   <table class="table">
                                     <thead>
                                         <th>Arquivo</th>

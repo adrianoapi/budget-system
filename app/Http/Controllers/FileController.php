@@ -122,6 +122,7 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
+        $this->levelCheck();
         if(FileBase::delete('./'.getenv('UPLOAD_DIRECTORY').'/'.$file->name))
         {
             if($file->delete())
