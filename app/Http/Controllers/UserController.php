@@ -230,9 +230,11 @@ class UserController extends UtilController
             $model->type     = $request->file->getMimeType();
             $model->size     = $request->file->getSize();
 
+            $ext = explode('/', $model->type);
+
             $modelUser = User::where('id', Auth::user()->id)->firstOrFail();
 
-            $fileName = 'logo_'.$modelUser->id;
+            $fileName = 'logo_'.$modelUser->id.end($ext);
             $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
             
 
