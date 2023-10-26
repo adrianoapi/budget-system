@@ -75,6 +75,9 @@
                                             <button type="submit" class="btn btn-primary">Salvar</button>
                                             <a href="{{route('dashboard.index')}}" class="btn">Cancelar</a>
                                         </div>
+
+                                        {{$user->logo}}
+
                                     </form>
 
                                 </div><!--Tab 1-->
