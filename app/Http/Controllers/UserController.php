@@ -278,9 +278,8 @@ class UserController extends UtilController
 
         $ext = explode('.', $request->logo);
 
-        header("Content-Description: File Transfer"); 
         header("Content-Type: image/".end($ext)); 
-        header("Content-Disposition: attachment; filename=\"". basename($file) ."\""); 
+        header("X-Sendfile: $file");
 
         readfile ($file);
         exit(); 
