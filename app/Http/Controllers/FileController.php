@@ -83,11 +83,13 @@ class FileController extends Controller
     {
         $file = './'.getenv('UPLOAD_DIRECTORY').'/'.$file->name;
 
-        header("Content-Description: File Transfer"); 
+        #header("Content-Description: File Transfer"); 
         header("Content-Type: application/octet-stream"); 
-        header("Content-Disposition: attachment; filename=\"". basename($file) ."\""); 
+        header("X-Sendfile: $file");
+        #header("Content-Disposition: attachment; filename=\"". basename($file) ."\""); 
+        
 
-        readfile ($file);
+        #readfile ($file);
         exit(); 
     }
 
