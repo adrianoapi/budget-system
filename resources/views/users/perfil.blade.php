@@ -76,8 +76,6 @@
                                             <a href="{{route('dashboard.index')}}" class="btn">Cancelar</a>
                                         </div>
 
-                                        <img src="{{route('usuarios.image.show', ['logo' => $user->logo])}}" alt="logo">
-
                                     </form>
 
                                 </div><!--Tab 1-->
@@ -115,6 +113,8 @@
                                             Subir arquivo!
                                         </button>
                                     </form>
+                                    
+                                    <img src="{{route('usuarios.image.show', ['logo' => $user->logo])}}" alt="logo" width="500">
 
                                 </div><!--Tab second-->
 
