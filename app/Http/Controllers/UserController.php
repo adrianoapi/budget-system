@@ -292,13 +292,13 @@ class UserController extends UtilController
         if(FileBase::delete('./'.getenv('UPLOAD_DIRECTORY').'/'.$user->logo))
         {
             return redirect()->route('usuarios.profile')->with(
-                'success_delete_file',
+                'success_file',
                 'Arquivo excluido com sucesso!'
             );
             
         }else{
             return redirect()->route('usuarios.profile')->with(
-                'failure_delete_file',
+                'failure_file',
                 'Erro ao excluir o arquivo!'
             );
         }
