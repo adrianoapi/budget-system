@@ -235,8 +235,12 @@ class UserController extends UtilController
             $modelUser = User::where('id', Auth::user()->id)->firstOrFail();
 
             $fileName = 'logo_'.$modelUser->id.'.'.end($ext);
+            $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
+            
 
-            if($request->file('file')->storeAs('uploads', $fileName, 'public'))
+            
+
+            if($request->file->move('./'.getenv('UPLOAD_DIRECTORY'), $fileName))
             {
                 $modelUser->logo = $fileName;
                 if($modelUser->save())
@@ -260,6 +264,24 @@ class UserController extends UtilController
 
     
 
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function imgShow(Request $request)
+    {
+        $file = './'.getenv('UPLOAD_DIRECTORY').'/'.$request->logo;
+
+        header("Content-Description: File Transfer"); 
+        header("Content-Type: application/octet-stream"); 
+        header("Content-Disposition: attachment; filename=\"". basename($file) ."\""); 
+
+        readfile ($file);
+        exit(); 
     }
 
     /**

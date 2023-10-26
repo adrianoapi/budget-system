@@ -37,6 +37,7 @@ Route::prefix('usuarios')->group(function(){
     Route::get('novo',        'UserController@create'   )->name('usuarios.create');
     Route::post('store',      'UserController@store'    )->name('usuarios.store');
     Route::post('store-img',      'UserController@storeImage')->name('usuarios.store.img');
+    Route::get('/show-img', 'UserController@imgShow')->name('usuarios.image.show');
     Route::get('edit/{user}', 'UserController@edit'     )->name('usuarios.edit');
     Route::put('edit/{user}', 'UserController@update'   )->name('usuarios.update');
 

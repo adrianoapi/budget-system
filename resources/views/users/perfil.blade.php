@@ -76,7 +76,7 @@
                                             <a href="{{route('dashboard.index')}}" class="btn">Cancelar</a>
                                         </div>
 
-                                        <img src="{{getenv('UPLOAD_DIRECTORY')}}/{{$user->logo}}" alt="logo">
+                                        <img src="{{route('usuarios.image.show', ['logo' => $user->logo])}}" alt="logo">
 
                                     </form>
 
