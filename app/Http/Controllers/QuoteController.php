@@ -389,7 +389,8 @@ class QuoteController extends UtilController
             'quote' => $quote,
             'icmsLista' => $this->icmsLista(),
             'ipiLista' => $this->ipiLista(),
-            'date' => $dt
+            'date' => $dt,
+            'logo' => $quote->User->logo,
         ]);
             #->setPaper('a4', 'landscape')
         $fileName = $quote->serial."_".time().".pdf";

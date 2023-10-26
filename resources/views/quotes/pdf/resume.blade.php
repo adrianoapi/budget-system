@@ -134,7 +134,11 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 								&nbsp;
                             </td>
 							<td style="">
-								<a href="http://www.dryairtec.com.br" style="color:#333333 !important; font-size:16px; font-family: Arial, Verdana, sans-serif; padding-left:10px;">www.dryairtec.com.br</a>
+								@if(!empty($user->logo))
+									<img src="{{route('usuarios.image.show', ['logo' => $user->logo])}}" alt="logo" width="320" height="60">
+								@else
+									<a href="http://www.dryairtec.com.br" style="color:#333333 !important; font-size:16px; font-family: Arial, Verdana, sans-serif; padding-left:10px;">www.dryairtec.com.br</a>
+								@endif
                             </td>
 						</tr>
 					</table>
