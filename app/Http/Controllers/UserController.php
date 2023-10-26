@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\File;
+use Illuminate\Support\Facades\File as FileBase;
+use Illuminate\Http\Request;
 
 class UserController extends UtilController
 {
@@ -206,6 +209,59 @@ class UserController extends UtilController
         $user->save();
 
         return redirect()->route('usuarios.index');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeImage(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:jpg,jpeg,png|max:4196'
+        ]);
+
+        if($request->file())
+        {
+            $model = new File();
+            $model->quote_id = $request->quote_id;
+            $model->type     = $request->file->getMimeType();
+            $model->size     = $request->file->getSize();
+
+            $modelUser = User::where('id', Auth::user()->id)->firstOrFail();
+
+            $fileName = 'logo_'.$modelUser->id;
+            $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
+            
+
+            
+
+            if($request->file->move('./'.getenv('UPLOAD_DIRECTORY'), $fileName))
+            {
+                $modelUser->logo = $fileName;
+                if($modelUser->save())
+                {
+                    return redirect()->route('usuarios.profile')->with(
+                        'success_file',
+                        'Arquivo enviado com sucesso!'
+                    );
+                    
+                }else{
+                    return redirect()->route('usuarios.profile')->with(
+                        'failure_file',
+                        'Erro ao enviar o arquivo!'
+                    );
+                }
+
+            }else{
+                echo 'Falha ao subir o arquivo!';
+            }
+        }
+
+    
+
     }
 
     /**
