@@ -276,8 +276,10 @@ class UserController extends UtilController
     {
         $file = './'.getenv('UPLOAD_DIRECTORY').'/'.$request->logo;
 
+        $ext = explode('.', $request->logo);
+
         header("Content-Description: File Transfer"); 
-        header("Content-Type: application/octet-stream"); 
+        header("Content-Type: image/".end($ext)); 
         header("Content-Disposition: attachment; filename=\"". basename($file) ."\""); 
 
         readfile ($file);
