@@ -286,6 +286,24 @@ class UserController extends UtilController
         exit(); 
     }
 
+    public function destroyImage()
+    {
+        $user = User::where('id', Auth::user()->id)->firstOrFail();
+        if(FileBase::delete('./'.getenv('UPLOAD_DIRECTORY').'/'.$user->logo))
+        {
+            return redirect()->route('usuarios.profile')->with(
+                'success_delete_file',
+                'Arquivo excluido com sucesso!'
+            );
+            
+        }else{
+            return redirect()->route('usuarios.profile')->with(
+                'failure_delete_file',
+                'Erro ao excluir o arquivo!'
+            );
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *

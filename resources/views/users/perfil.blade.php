@@ -113,7 +113,7 @@
                                             Subir arquivo!
                                         </button>
                                     </form>
-                                    
+                                    <p><a href="{{route('usuarios.destroy.img')}}">Excluir imagem!</a></p>
                                     <img src="{{route('usuarios.image.show', ['logo' => $user->logo])}}" alt="logo" width="500">
 
                                 </div><!--Tab second-->
