@@ -291,6 +291,9 @@ class UserController extends UtilController
         $user = User::where('id', Auth::user()->id)->firstOrFail();
         if(FileBase::delete('./'.getenv('UPLOAD_DIRECTORY').'/'.$user->logo))
         {
+            $user->logo = NULL;
+            $user->save();
+            
             return redirect()->route('usuarios.profile')->with(
                 'success_file',
                 'Arquivo excluido com sucesso!'
