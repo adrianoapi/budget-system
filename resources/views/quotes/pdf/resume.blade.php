@@ -135,7 +135,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                             </td>
 							<td style="">
 								@if(!empty($logo))
-									<img src="{{route('usuarios.image.show', ['logo' => $logo])}}" alt="logo" width="320" height="60">
+									<img src="{{route('usuarios.image.show', ['logo' => $logo])}}" alt="logo" width="300px" height="60px">
 								@else
 									<a href="http://www.dryairtec.com.br" style="color:#333333 !important; font-size:16px; font-family: Arial, Verdana, sans-serif; padding-left:10px;">www.dryairtec.com.br</a>
 								@endif

@@ -379,6 +379,7 @@ class QuoteController extends UtilController
      */
     public function export(Quote $quote)
     {
+        dd($quote->User->logo);
         $this->autoridadeCheck($quote->Client->user_id);
 
         $dt = explode(" ", $quote->created_at);
