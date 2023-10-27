@@ -236,7 +236,7 @@ class UserController extends UtilController
 
             $fileName = 'logo_'.$modelUser->id.'.'.end($ext);
 
-            if($request->file('file')->storeAs('uploads', $fileName, './../../public'))
+            if($request->file('file')->storeAs('uploads', $fileName, '../../public'))
             {
                 $modelUser->logo = $fileName;
                 if($modelUser->save())
