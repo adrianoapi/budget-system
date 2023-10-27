@@ -288,7 +288,7 @@ class UserController extends UtilController
     public function destroyImage()
     {
         $user = User::where('id', Auth::user()->id)->firstOrFail();
-        if(FileBase::delete('./'.getenv('UPLOAD_DIRECTORY').'/'.$user->logo))
+        if(FileBase::delete('./../public'.$user->logo))
         {
             $user->logo = NULL;
             $user->save();
