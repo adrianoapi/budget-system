@@ -137,8 +137,9 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 							{{$logo}}
 								@if(!empty($logo))
 								<?php 
-								$imgsrc = '@'.base64_encode(route('usuarios.image.show', ['logo' => $logo])); 
-								echo $html = '<img src="data:image/png;base64,'.$imgsrc.'" width="300" height="60" border="0" />';
+								#$imgsrc = '@'.base64_encode(route('usuarios.image.show', ['logo' => $logo])); 
+								$file = './'.getenv('UPLOAD_DIRECTORY').'/'.$file->name;
+								echo $html = '<img src="'.$file.'" />';
 								?>
 								@else
 									<a href="http://www.dryairtec.com.br" style="color:#333333 !important; font-size:16px; font-family: Arial, Verdana, sans-serif; padding-left:10px;">www.dryairtec.com.br</a>
