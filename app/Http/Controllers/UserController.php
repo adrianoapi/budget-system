@@ -240,7 +240,7 @@ class UserController extends UtilController
 
             
 
-            if($request->file->move('./../../public', $fileName))
+            if($request->file->move('./../public', $fileName))
             {
                 $modelUser->logo = $fileName;
                 if($modelUser->save())
