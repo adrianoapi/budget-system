@@ -116,7 +116,7 @@
                                     @if(!empty($user->logo))
                                     <p><a href="{{route('usuarios.destroy.img')}}">Excluir imagem!</a></p>
                                     <!--<img src="{{route('usuarios.image.show', ['logo' => $user->logo])}}" alt="logo" width="500">-->
-                                    <img src="./../public/{{$user->logo}}" alt="logo" width="300px" height="60px">
+                                    <img src="./../{{$user->logo}}" alt="logo" width="300px" height="60px">
                                     @endif
 
                                 </div><!--Tab second-->
