@@ -135,7 +135,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                             </td>
 							<td style="">
 								@if(!empty($logo))
-									<img src="./../public/{{$logo}}" alt="logo" width="300px">
+									<img src="./../public/{{$logo}}" alt="logo" width="300px" height="120px">
 								@else
 									<a href="http://www.dryairtec.com.br" style="color:#333333 !important; font-size:16px; font-family: Arial, Verdana, sans-serif; padding-left:10px;">www.dryairtec.com.br</a>
 								@endif
