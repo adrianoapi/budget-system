@@ -136,12 +136,10 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 							<td style="">
 							{{$logo}}
 								@if(!empty($logo))
-
-								<?php
-								$htmlImage = file_get_contents(route('usuarios.image.show', ['logo' => $logo]));
+								<?php 
+								$imgsrc = '@'.base64_encode(route('usuarios.image.show', ['logo' => $logo])); 
+								echo $html = '<img src="'.$imgsrc.'" width="300" height="60" border="0" />';
 								?>
-									
-									<img src="{{'data:image/png;base64,' . base64_encode($html)}}" alt="image" >
 								@else
 									<a href="http://www.dryairtec.com.br" style="color:#333333 !important; font-size:16px; font-family: Arial, Verdana, sans-serif; padding-left:10px;">www.dryairtec.com.br</a>
 								@endif
