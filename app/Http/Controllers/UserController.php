@@ -235,12 +235,8 @@ class UserController extends UtilController
             $modelUser = User::where('id', Auth::user()->id)->firstOrFail();
 
             $fileName = 'logo_'.$modelUser->id.'.'.end($ext);
-            $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
-            
 
-            
-
-            if($request->file->move('./'.getenv('UPLOAD_DIRECTORY'), $fileName))
+            if($request->file('file')->storeAs('uploads', $fileName, '../../../public'))
             {
                 $modelUser->logo = $fileName;
                 if($modelUser->save())
