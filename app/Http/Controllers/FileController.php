@@ -49,8 +49,7 @@ class FileController extends Controller
             $model->size     = $request->file->getSize();
 
             $fileName = time().'_'.$request->file->getClientOriginalName();
-            $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
-            if($request->file->move('./'.getenv('UPLOAD_DIRECTORY'), $fileName))
+            if($request->file('file')->storeAs('uploads', $fileName, '../../../public'))
             {
                 $model->name = $fileName;
                 if($model->save())
