@@ -138,7 +138,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
 								@if(!empty($logo))
 								<?php 
 								#$imgsrc = '@'.base64_encode(route('usuarios.image.show', ['logo' => $logo]));
-								$path = $logo;
+								$path = route('usuarios.image.show', ['logo' => $logo]);
 								$type = pathinfo($logo, PATHINFO_EXTENSION);
 								$data = file_get_contents($path);
 								$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
