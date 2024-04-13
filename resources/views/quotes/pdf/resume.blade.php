@@ -168,7 +168,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                                     CNPJ: {{$quote->company->cpf_cnpj}}, IE: {{$quote->company->ie}}<br>
 									<abbr title="Telefone">Telefone:</abbr> {{$quote->company->telefone}} -
                                     <abbr title="Comercial">Comercial:</abbr> {{$quote->company->telefone_com}} <br>
-                                    <abbr title="Celular">Celular:</abbr> {{$quote->company->celular}}
+                                    <abbr title="Celular">Celular:</abbr> {{$quote->company->email}}
                             </td>
 							<td>
 								<span>Para</span><br>
@@ -186,7 +186,7 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
                                     @if(!empty($quote->client->celular))
                                         {{$quote->client->celular}}
                                     @endif<br>
-                                    Contato: {{$quote->client->responsavel}} <abbr title="E-mail">E-mail:</abbr> {{$quote->client->celular}}<br>
+                                    Contato: {{$quote->client->responsavel}} <abbr title="E-mail">E-mail:</abbr> {{$quote->client->email}}<br>
                             </td>
 						</tr>
 					</table>

@@ -100,7 +100,7 @@ bkLib.onDomLoaded(function() {
                                             @if(!empty($quote->client->celular))
                                                 {{$quote->client->celular}}
                                             @endif<br>
-                                            <abbr title="E-mail">E-mail:</abbr> {{$quote->client->celular}}
+                                            <abbr title="E-mail">E-mail:</abbr> {{$quote->client->email}}
                                         </address>
                                     </div>
                                     <div class="invoice-infos">
