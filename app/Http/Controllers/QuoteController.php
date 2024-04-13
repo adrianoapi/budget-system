@@ -421,6 +421,7 @@ class QuoteController extends UtilController
         }
 
         $quote->close  = true;
+        $quote->created_at = date('Y-m-d H:i:s');
 
         if($quote->save()){
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
