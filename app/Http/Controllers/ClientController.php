@@ -81,7 +81,27 @@ class ClientController extends UtilController
     {
         $title = $this->title. " cadastar";
 
-        return view('clients.add', ['title' => $title, 'estados' => $this->getEstados()]);
+        $users = [];
+
+        # Se for administrador
+        if(Auth::user()->level > 1)
+        {
+            $usersModel = \App\Models\User::select('id', 'name')
+            ->where('active', true)
+            ->orderBy('name')
+            ->get();
+
+            foreach($usersModel as $value):
+                $users[$value->id] = $value->name;
+            endforeach;
+        }
+
+        return view('clients.add', [
+            'title' => $title, 
+            'estados' => $this->getEstados(),
+            'users' => $users
+            ]
+        );
     }
 
     /**
@@ -99,6 +119,12 @@ class ClientController extends UtilController
 
         $model = new Client();
         $model->user_id       = Auth::id();
+
+        if(Auth::user()->level > 1)
+        {
+            $model->user_id       = $request->user_id;
+        }
+
         $model->name          = $request->name;
         $model->responsavel   = $request->responsavel;
         $model->cpf_cnpj      = $request->cpf_cnpj;
@@ -144,7 +170,29 @@ class ClientController extends UtilController
     {
         $this->autoridadeCheck($client->user_id);
         $title = $this->title. " alterar";
-        return view('clients.edit', ['title' => $title, 'client' => $client, 'estados' => $this->getEstados()]);
+
+        $users = [];
+
+        # Se for administrador
+        if(Auth::user()->level > 1)
+        {
+            $usersModel = \App\Models\User::select('id', 'name')
+            ->where('active', true)
+            ->orderBy('name')
+            ->get();
+
+            foreach($usersModel as $value):
+                $users[$value->id] = $value->name;
+            endforeach;
+        }
+
+        return view('clients.edit', [
+            'title' => $title,
+            'client' => $client,
+            'estados' => $this->getEstados(),
+            'users' => $users
+            ]
+        );
     }
 
     /**
@@ -163,6 +211,10 @@ class ClientController extends UtilController
             'numero'  => 'required|numeric',
         ]);
 
+        if(Auth::user()->level > 1)
+        {
+            $client->user_id       = $request->user_id;
+        }
         $client->name          = $request->name;
         $client->responsavel   = $request->responsavel;
         $client->cpf_cnpj      = $request->cpf_cnpj;

@@ -148,6 +148,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if(Auth::user()->level > 1)
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            {{Form::label('user_id', 'Representante', array('class' => 'control-label'))}}
+                                            <div class="controls controls-row">
+                                                {{Form::select('user_id', $users, $client->user_id, ['class' => 'select2-me input-block-level'])}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-primary">Salvar</button>
                                     <a href="{{route('clientes.index')}}" class="btn">Cancelar</a>
