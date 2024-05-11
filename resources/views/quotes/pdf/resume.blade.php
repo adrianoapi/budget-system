@@ -391,6 +391,84 @@ style="float:right;margin-top:-80px;margin-right:-45px;z-index:-1;" />
         </tbody>
     </table>
 
+	@if($exibirVolume == true)
+
+	<?php
+		$peso = 0;
+		$peso_total  = 0;
+
+		$volume = 0;
+		$volume_total = 0;
+		$volume_total_fatura = 0;
+
+		$modelVolume = new \App\Models\Volume();
+
+		$volumeCount = 0;
+	?>
+		<table border="1" cellpadding="5" cellspacing="2" width="100%" bgcolor="#fff" style="border-style:dotted;font-size:12px; line-height:18px;">
+			<thead>
+				<tr>
+					<th style="width:130px;text-align: left;" colspan="7"><strong>Quantidade de Volume</strong></th>
+				</tr>
+				<tr style="background-color: #eeeeee; font-family: Arial, Verdana, sans-serif;">
+					<th class="span-5"></th>
+					<th class="span-1">Volume</th>
+					<th class="span-1" colspan="3">Dimensions ( CM )</th>
+					<th class="span-1">Volume M3</th>
+					<th class="span-1">Volume Total  M3</th>
+					<th class="span-2">PESO KG</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				@foreach($quote->volumes as $value)
+
+					@if($value->volume > 0)
+				
+						<?php
+							$volumeCount++;
+
+							$peso = $value->volume * $modelVolume->pesoFixo;
+							$peso_total += $peso;
+						
+							$volume = ($value->dimensao_a * $value->dimensao_b * $value->dimensao_c) / 1000000;
+							$volume_total = $volume * $value->volume;
+						
+							$volume_total_fatura += $volume_total;
+						?>
+						<tr style="background-color: {{($volumeCount % 2) == 0 ? '#f9f9f9' : '#fff'}}; font-family: Arial, Verdana, sans-serif;">
+								<td>{{$value->nome}}</td>
+								<td>{{$value->volume}}</td>
+								<td>{{$value->dimensao_a}}</td>
+								<td>{{$value->dimensao_b}}</td>
+								<td>{{$value->dimensao_c}}</td>
+								<td>
+									<?php $tableQtd = 'table_volume_m3_'.$value->id;?>
+										<?php echo $volume; ?>
+									</td>
+								<td>
+									<?php $tableQtd = 'table_volume_m3_'.$value->id;?>
+										<?php echo $volume_total; ?>
+									</td>
+								</td>
+								<td colspan="2"><?php echo $peso; ?></td>
+							</tr>
+
+						@endif
+					@endforeach
+
+			</tbody>
+			<tfoot>
+				<tr>
+					<td>Total</td>
+					<td colspan="5"></td>
+					<td><strong>{{$volume_total_fatura}}</strong></td>
+					<td  colspan="2"><strong><?php echo $peso_total; ?></strong></td>
+				</tr>
+			</tfoot>
+		</table>				
+	@endif
+
 	<table border="0" cellpadding="2" cellspacing="2" width="100%" bgcolor="#fff" style="font-family: Arial, Verdana, sans-serif; font-size:12px; line-height:18px;">
 		<thead>
 			<tr>

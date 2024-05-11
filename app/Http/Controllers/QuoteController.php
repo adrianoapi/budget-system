@@ -391,7 +391,8 @@ class QuoteController extends UtilController
             'icmsLista' => $this->icmsLista(),
             'ipiLista' => $this->ipiLista(),
             'date' => $dt,
-            'logo' => $quote->User->logo
+            'logo' => $quote->User->logo,
+            'exibirVolume' => $this->volumeMairQueZero($quote)
         ]);
             #->setPaper('a4', 'landscape')
         $fileName = $quote->serial."_".time().".pdf";
@@ -604,7 +605,10 @@ class QuoteController extends UtilController
                                         'quote' => $quote,
                                         'date' => $dt,
                                         'icmsLista' => $this->icmsLista(),
-                                        'ipiLista' => $this->ipiLista()
+                                        'ipiLista' => $this->ipiLista(),
+                                        'date' => $dt,
+                                        'logo' => $quote->User->logo,
+                                        'exibirVolume' => $this->volumeMairQueZero($quote)
                                     ])
                                     ->render();
                 if($message->save())
@@ -681,6 +685,26 @@ class QuoteController extends UtilController
                 'quote' => $quote
                 ])->render()
         ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Quote  $quote
+     * @return boolean
+     */
+    public function volumeMairQueZero(Quote $quote)
+    {
+        $show = false;
+
+        foreach($quote->volumes as $value):
+            if($value->volume > 0){
+                $show = true;
+                break;
+            }
+        endforeach;
+
+        return $show;
     }
 
     /**
