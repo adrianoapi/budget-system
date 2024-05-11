@@ -105,6 +105,10 @@ Route::prefix('items')->group(function(){
     Route::post('destroy', 'ItemController@destroy')->name('itens.destroy');
 });
 
+Route::prefix('volumes')->group(function(){
+    Route::post('edit',       'VolumeController@update')->name('volumes.update');
+});
+
 Route::prefix('mensagens')->group(function(){
     Route::get('/',             'MessageController@index' )->name('message.index');
     Route::get('show/{message}', 'MessageController@show'  )->name('message.show');
@@ -125,6 +129,7 @@ Route::prefix('cotacoes')->group(function(){
     Route::get('approve/{quote}', 'QuoteController@approve' )->name('cotacoes.approve');
     Route::get('items/{quote}',  'QuoteController@items' )->name('cotacoes.items');
     Route::get('items/export/{quote}',  'QuoteController@export' )->name('cotacoes.export');
+    Route::get('volumes/{quote}',  'QuoteController@volumes' )->name('cotacoes.volumes');
     Route::put('edit/{quote}',   'QuoteController@update')->name('cotacoes.update');
     Route::put('edit/{quote}/fator', 'QuoteController@updateFator')->name('cotacoes.update.fator');
     Route::put('edit/{quote}/nota-fiscal', 'QuoteController@updateNF')->name('cotacoes.update.nf');

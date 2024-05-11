@@ -159,6 +159,23 @@ bkLib.onDomLoaded(function() {
                                 @endif
 
                                 @if($quote->close)
+
+                                <!--Form calculo begin-->
+                                <div class="row-fluid">
+                                    <div class="box box-bordered">
+                                        <div class="box-title">
+                                            <h3><i class="icon-th-list"></i> Quantidade de Volume</h3>
+                                        </div>
+                                        <div class="box-content nopadding">
+                                            {{ Form::open(['route' => ['cotacoes.update.comercial', $quote->id],  'method' => 'POST', 'class' =>'form-horizontal form-bordered']) }}
+                                                @method('PUT')
+                                                <div id="dinamic-volume-table">Carregando...</div>
+                                            {{ Form::close() }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Form calculo end-->
+
                                 <!--Form comercail begin-->
                                 <div class="row-fluid">
                                     <div class="box box-bordered">
@@ -992,6 +1009,29 @@ function update(id) {
     });
 }
 
+function updateVolume(id) {
+
+    $.ajax({
+        url: "{{route('volumes.update')}}",
+        type: "POST",
+        cache: false,
+        datatype: "JSON",
+        data: {
+            "_token": "{{csrf_token()}}",
+            "volume": $("#table_volume_"+id).val(),
+            "dimensao_a": $("#table_dimensao_a_"+id).val(),
+            "dimensao_b": $("#table_dimensao_b_"+id).val(),
+            "dimensao_c": $("#table_dimensao_c_"+id).val(),
+            "id": id
+        },
+        dataType: 'json',
+        success: function(data)
+        {
+            getTable("green", "Volume atualizado!");
+        }
+    });
+}
+
 function order(id, ordem) {
 
     $.ajax({
@@ -1028,12 +1068,37 @@ function getTable(color, message)
             {
                 notification(color, message);
             }
+
+            // Inicializa a tabela de Volume
+            getVolumeTable("", "");
         }
     });
 }
 
 getTable("", "");
-</script>
 
+
+function getVolumeTable(color, message)
+{
+    $.ajax({
+    url: "{{route('cotacoes.volumes', $quote->id)}}",
+    type: "GET",
+    data: {
+        "_token": "{{csrf_token()}}",
+    },
+    dataType: 'json',
+        success: function(data)
+        {
+            $("#dinamic-volume-table").html(data['table']);
+            if(message != '')
+            {
+                notification(color, message);
+            }
+        }
+    });
+
+}
+
+</script>
     
 @endsection

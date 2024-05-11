@@ -19,6 +19,12 @@ class Quote extends Model
         return $this->hasMany(Item::class, 'quote_id', 'id')->orderBy('ordem', 'desc');
     }
 
+
+    public function Volumes()
+    {
+        return $this->hasMany(Volume::class, 'quote_id', 'id')->orderBy('id', 'asc');
+    }
+
     public function Files()
     {
         return $this->hasMany(File::class, 'quote_id', 'id')->orderBy('id', 'desc');

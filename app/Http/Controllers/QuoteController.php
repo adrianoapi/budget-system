@@ -424,9 +424,36 @@ class QuoteController extends UtilController
         $quote->created_at = date('Y-m-d H:i:s');
 
         if($quote->save()){
+
+            // Checa se possui Volumes relacionados
+            $volume = new \App\Models\Volume();
+            if(!$volume::where('quote_id', $quote->id)->exists())
+            {
+
+                // Registar valotes padrões pré definidos
+                foreach($volume->volumeDefaultArray() as $value):
+                    $this->registrarVolume($quote->id, $value);
+                endforeach;
+                
+            }
+
             return redirect()->route('cotacoes.edit', ['quote' => $quote->id]);
         }
 
+    }
+
+    public function registrarVolume(int $id, array $data)
+    {
+        $model = new \App\Models\Volume();
+        $model->quote_id = $id;
+        $model->nome = $data['nome'];
+        $model->dimensao_a = $data['dimensao_a'];
+        $model->dimensao_b = $data['dimensao_b'];
+        $model->dimensao_c = $data['dimensao_c'];
+        $model->edit_dimensao_a = $data['edit_dimensao_a'];
+        $model->edit_dimensao_b = $data['edit_dimensao_b'];
+        $model->edit_dimensao_c = $data['edit_dimensao_c'];
+        $model->save();
     }
 
     /**
@@ -637,6 +664,21 @@ class QuoteController extends UtilController
                 'fatorLista' => $this->fatorLista(),
                 'icmsLista' => $this->icmsLista(),
                 'ipiLista' => $this->ipiLista()
+                ])->render()
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
+    public function volumes(Quote $quote)
+    {
+        return response()->json([
+            'table'   => view('quotes.volumesTable', [
+                'quote' => $quote
                 ])->render()
         ]);
     }
