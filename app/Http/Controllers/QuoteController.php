@@ -551,6 +551,65 @@ class QuoteController extends UtilController
      * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
+    public function copy(Quote $quote)
+    {
+        $this->autoridadeCheck($quote->Client->user_id);
+
+        $quote->close  = false;
+        $model = new Quote();
+        $model->user_id        = $quote->user_id;
+        $model->client_id      = $quote->client_id;
+        $model->company_id     = $quote->company_id;
+        $model->name           = $quote->name;
+        $model->ipi            = $quote->ipi;
+        $model->icms           = $quote->icms;
+        $model->fator          = $quote->fator;
+        $model->total          = number_format($quote->total, 2 , ',', '.');
+        $model->frete          = number_format($quote->frete, 2 , ',', '.');
+        $model->pagamento      = $quote->pagamento;
+        $model->prazo          = $quote->prazo;
+        $model->transportadora = $quote->transportadora;
+        $model->representante  = $quote->representante;
+        $model->observacao     = $quote->observacao;
+        $model->percentual     = number_format($quote->percentual, 2 , ',', '.');
+        $model->serial         = uniqid();
+        
+        if($model->save()){
+
+            # Update serial
+            $model->serial = $this->nameGenerate(
+                $model->Company->name,
+                $model->Client->estado,
+                $model->id,
+                $model->Client->name,
+                $this->countQuotes()
+            );
+            $model->save();
+
+            foreach($quote->Items as $value):
+                $item = new Item();
+                $item->quote_id   = $model->id;
+                $item->product_id = $value->product_id;
+                $item->quantidade = $value->quantidade;
+                $item->fator      = $value->fator;
+                $item->icms       = $value->icms;
+                $item->ipi        = $value->ipi;
+                $item->save();
+            endforeach;
+
+            return redirect()->route('cotacoes.edit', ['quote' => $model->id]);
+        }else{
+            die('Erro ao clonar a cotação!');
+        }
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Quote  $quote
+     * @return \Illuminate\Http\Response
+     */
     public function approve(Quote $quote)
     {
         if(Auth::user()->level <= 1)

@@ -36,7 +36,7 @@
                             <table class="table table-hover table-nomargin table-colored-header">
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th class="span2">
                                             <form action="" method="GET" class="span12" style="margin: 0;padding:0;">
                                             <input type="hidden" name="filtro" id="filtro" value="pesquisa">
                                             <div class="span12">
@@ -47,7 +47,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th class="hidden-1024">
+                                        <th  class="span2" class="hidden-1024">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -56,7 +56,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th>
+                                        <th  class="span2">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -65,7 +65,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th>
+                                        <th  class="span2">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -78,7 +78,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th>
+                                        <th  class="span2">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -91,7 +91,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th class="hidden-1024">
+                                        <th  class="span2" class="hidden-1024">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -100,7 +100,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th class="hidden-1024">
+                                        <th  class="span2" class="hidden-1024">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -109,7 +109,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th>
+                                        <th  class="span2">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -163,6 +163,9 @@
                                                 @if($value->close)
                                                 <a href="{{route('cotacoes.edit', $value->id)}}" class="btn" rel="tooltip" title="" data-original-title="Visualizar">
                                                     <i class="icon-eye-open"></i>
+                                                </a>
+                                                <a href="{{route('cotacoes.copy', $value->id)}}" class="btn" rel="tooltip" title="" data-original-title="Copiar" onclick="return confirm('Deseja realmente fazer uma cópia deste orçamento?')">
+                                                    <i class="icon-copy"></i>
                                                 </a>
                                                 @else
                                                 <a href="{{route('cotacoes.edit', $value->id)}}" class="btn" rel="tooltip" title="" data-original-title="Editar">

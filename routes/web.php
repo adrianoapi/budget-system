@@ -125,6 +125,7 @@ Route::prefix('cotacoes')->group(function(){
     Route::get('edit/{quote}',   'QuoteController@edit'  )->name('cotacoes.edit');
     Route::post('close/{quote}', 'QuoteController@close' )->name('cotacoes.close');
     Route::post('clone/{quote}', 'QuoteController@clone' )->name('cotacoes.clone');
+    Route::get('copy/{quote}',  'QuoteController@copy' )->name('cotacoes.copy');
     Route::post('back-edit/{quote}', 'QuoteController@backEdit' )->name('cotacoes.back.edit');
     Route::get('approve/{quote}', 'QuoteController@approve' )->name('cotacoes.approve');
     Route::get('items/{quote}',  'QuoteController@items' )->name('cotacoes.items');
