@@ -39,10 +39,13 @@
         {
             $percentual_total_produto = $total_produto;
 
+            //Se o desconto percentual for maior que zero
             if($quote->percentual > 0)
             {
-                $descontoPercentual       = ($total_produto * $quote->percentual / 100);
-                $percentual_total_produto = $total_produto - $descontoPercentual;
+                //2024-05-15
+                //IPI passa a ser aplicado antes do desconto do produto, por isso o calculo abaixo foi descontinuado
+                //$descontoPercentual       = ($total_produto * $quote->percentual / 100);
+                //$percentual_total_produto = $total_produto - $descontoPercentual;
             }
             $ipi = $ipi + (($percentual_total_produto * 6.5) / 100);
         }
