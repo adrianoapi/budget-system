@@ -208,6 +208,7 @@ class QuoteController extends UtilController
             
 
         $quotes = Quote::whereIn('id', $quoteIds)
+        ->where('parent_id','')
         ->orderBy('id', 'desc')
         ->paginate(100);
         
@@ -358,6 +359,9 @@ class QuoteController extends UtilController
         $products  = Product::where('active', true)->orderBy('descricao', 'asc')->paginate(1000);
         $users     = \App\Models\User::where('active', true)->orderBy('name', 'asc')->get();
 
+        #selec versões
+        $versions = Quote::where('parent_id', $quote->id)->orderBy('version', 'desc')->get();
+
         return view('quotes.edit', [
             'title'      => $title,
             'quote'      => $quote,
@@ -365,6 +369,7 @@ class QuoteController extends UtilController
             'companies'  => $companies,
             'clients'    => $clients,
             'users'      => $users,
+            'versions'   => $versions,
             'fatorLista' => $this->fatorLista(),
             'icmsLista'  => $this->icmsLista(),
             'ipiLista'   => $this->ipiLista()
@@ -466,6 +471,24 @@ class QuoteController extends UtilController
     public function backEdit(Quote $quote)
     {
         $this->autoridadeCheck($quote->Client->user_id);
+
+        //Clona a cotação original
+        $new = $quote->replicate();
+        $new->parent_id = $quote->id;
+        $new->save();
+
+        //Clona os itens da cotação
+        foreach($quote->Items as $value):
+            $item = new Item();
+            $item->quote_id   = $new->id;
+            $item->product_id = $value->product_id;
+            $item->quantidade = $value->quantidade;
+            $item->fator      = $value->fator;
+            $item->icms       = $value->icms;
+            $item->ipi        = $value->ipi;
+            $item->save();
+        endforeach;
+
         $quote->version = $quote->version + 1;
         $quote->close = 0;
         $quote->serial = $this->nameGenerate(

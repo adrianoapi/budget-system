@@ -58,6 +58,9 @@ bkLib.onDomLoaded(function() {
                                 <li>
                                     <a href="#seven" data-toggle='tab'><i class="icon-download-alt"></i> Arquivos</a>
                                 </li>
+                                <li>
+                                    <a href="#eight" data-toggle='tab'><i class="glyphicon-history"></i> Versões</a>
+                                </li>
                             </ul>
                         </div>
                         
@@ -599,6 +602,26 @@ bkLib.onDomLoaded(function() {
                                   </table>
 
                             </div><!--Arquivos/Files-->
+                            <div class="tab-pane" id="eight">
+
+                                <table class="table">
+                                    <thead>
+                                        <th>Nome</th>
+                                        <th>Versão</th>
+                                        <th>Data</th>
+                                        <th>Total</th>
+                                    </thead>
+                                    @foreach($versions as $version)
+                                    <tr>
+                                    <td>{{$version->Client->name}}</td>
+                                    <td>{{$version->version}}</td>
+                                    <td class="hidden-1024">{{substr($version->created_at, 0, 10)}}</td>
+                                    <td><strong>{{number_format($version->total_report, 2, ".", ",")}}</strong></td>
+                                    </tr>
+                                    @endforeach
+                                </table>
+
+                            </div><!--Versões-->
                         </div>
                     </div>
                 </div>
