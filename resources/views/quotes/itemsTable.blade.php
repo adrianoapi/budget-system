@@ -56,48 +56,48 @@
         <tr>
             <td>{{$i}}</td>
             <td>
-                @if(!$quote->close)
-                <div class="btn-group">
-                    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="javascript:void(0)" onclick="editModal({{$value->Product->id}}, {{$value->id}}, {{$value->quantidade}})">
-                                <i class="icon-edit"></i>
-                                Editar
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" onclick="excluir({{$value->id}})">
-                                <i class="icon-trash"></i>
-                                Excluir
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <a href="javascript:void(0)" onclick="excluir({{$value->id}})" class="btn btn-danger" rel="tooltip" id="delete" title="" data-original-title="Excluir">
-                    <i class="icon-trash"></i>
-                </a>
-                <a href="javascript:void(0)" onclick="update({{$value->id}})" class="btn btn-lime" rel="tooltip" title="" data-original-title="Excluir">
-                    <i class="icon-undo"></i>
-                </a>
-                @if($i > 1)
-                <a href="javascript:void(0)" onclick="order({{$value->id}}, 'up')" class="btn btn-default" rel="tooltip" title="" data-original-title="Excluir">
-                    <i class="glyphicon-up_arrow"></i>
-                </a>
-                @else
-                <a href="javascript:void(0)" class="btn btn-default" disabled rel="tooltip" title="" data-original-title="Excluir">
-                    <i class="glyphicon-up_arrow"></i>
-                </a>
-                @endif
-                @if($i < $quote->items->count())
-                <a href="javascript:void(0)" onclick="order({{$value->id}}, 'down')" class="btn btn-default" rel="tooltip" title="" data-original-title="Excluir">
-                    <i class="glyphicon-down_arrow"></i>
-                </a>
-                @else
-                <a href="javascript:void(0)" class="btn btn-default" disabled rel="tooltip" title="" data-original-title="Excluir">
-                    <i class="glyphicon-down_arrow"></i>
-                </a>
-                @endif
+                @if(!$quote->close || $value->parent_id > 0)
+                    <div class="btn-group">
+                        <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="javascript:void(0)" onclick="editModal({{$value->Product->id}}, {{$value->id}}, {{$value->quantidade}})">
+                                    <i class="icon-edit"></i>
+                                    Editar
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" onclick="excluir({{$value->id}})">
+                                    <i class="icon-trash"></i>
+                                    Excluir
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="javascript:void(0)" onclick="excluir({{$value->id}})" class="btn btn-danger" rel="tooltip" id="delete" title="" data-original-title="Excluir">
+                        <i class="icon-trash"></i>
+                    </a>
+                    <a href="javascript:void(0)" onclick="update({{$value->id}})" class="btn btn-lime" rel="tooltip" title="" data-original-title="Excluir">
+                        <i class="icon-undo"></i>
+                    </a>
+                    @if($i > 1)
+                    <a href="javascript:void(0)" onclick="order({{$value->id}}, 'up')" class="btn btn-default" rel="tooltip" title="" data-original-title="Excluir">
+                        <i class="glyphicon-up_arrow"></i>
+                    </a>
+                    @else
+                    <a href="javascript:void(0)" class="btn btn-default" disabled rel="tooltip" title="" data-original-title="Excluir">
+                        <i class="glyphicon-up_arrow"></i>
+                    </a>
+                    @endif
+                    @if($i < $quote->items->count())
+                    <a href="javascript:void(0)" onclick="order({{$value->id}}, 'down')" class="btn btn-default" rel="tooltip" title="" data-original-title="Excluir">
+                        <i class="glyphicon-down_arrow"></i>
+                    </a>
+                    @else
+                    <a href="javascript:void(0)" class="btn btn-default" disabled rel="tooltip" title="" data-original-title="Excluir">
+                        <i class="glyphicon-down_arrow"></i>
+                    </a>
+                    @endif
                 
                 @else
                 <a href="javascript:void(0)" class="btn btn-default" rel="tooltip" title="" data-original-title="Excluir" disabled="disabled">

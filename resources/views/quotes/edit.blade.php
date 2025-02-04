@@ -131,15 +131,17 @@ bkLib.onDomLoaded(function() {
                                 <div class="row-fluid">
                                     <div class="span12">
                                         <div class="basic-margin" style="float:right;">
-                                            @if(!$quote->close)
-                                            <a href="#new-task" data-toggle="modal" class="btn btn-primary"><i class="icon-plus-sign"></i> Adicionar Produto</a>
-                                            @else
-                                            <a href="javascript:void(0)" class="btn btn-default" disabled="disabled"><i class="icon-plus-sign"></i> Adicionar Produto</a>
-                                            <a href="{{route('cotacoes.export', $quote->id)}}" class="btn btn-lightred" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
-                                                @if(!$quote->aprovado)
-                                                    <a href="{{route('cotacoes.approve', $quote->id)}}" class="btn btn-satgreen" style=""  onclick="return confirm('Deseja aprovar este orçamento?')"><i class="glyphicon-unchecked"></i> Aprovar</a>
+                                            @if($quote->parent_id <= 0)
+                                                @if(!$quote->close)
+                                                <a href="#new-task" data-toggle="modal" class="btn btn-primary"><i class="icon-plus-sign"></i> Adicionar Produto</a>
                                                 @else
-                                                    <a href="{{ Auth::user()->level > 1 ? route('cotacoes.approve', $quote->id) : 'javascript:void(0)'}}" class="btn btn-satgreen" {{ Auth::user()->level > 1 ? '': 'disabled'}}><i class="glyphicon-check"></i> Aprovado</a>
+                                                <a href="javascript:void(0)" class="btn btn-default" disabled="disabled"><i class="icon-plus-sign"></i> Adicionar Produto</a>
+                                                <a href="{{route('cotacoes.export', $quote->id)}}" class="btn btn-lightred" style=""><i class="icon-file-alt"></i> Exportar PDF</a>
+                                                    @if(!$quote->aprovado)
+                                                        <a href="{{route('cotacoes.approve', $quote->id)}}" class="btn btn-satgreen" style=""  onclick="return confirm('Deseja aprovar este orçamento?')"><i class="glyphicon-unchecked"></i> Aprovar</a>
+                                                    @else
+                                                        <a href="{{ Auth::user()->level > 1 ? route('cotacoes.approve', $quote->id) : 'javascript:void(0)'}}" class="btn btn-satgreen" {{ Auth::user()->level > 1 ? '': 'disabled'}}><i class="glyphicon-check"></i> Aprovado</a>
+                                                    @endif
                                                 @endif
                                             @endif
                                         </div>
@@ -147,18 +149,20 @@ bkLib.onDomLoaded(function() {
                                 </div>
                                 
                                 <div id="dinamic-table">Carregando...</div>
-                                @if(!$quote->close)
-                                <div class="invoice-payment">
-                                    {{ Form::open(['route' => ['cotacoes.close', $quote->id],  'method' => 'POST']) }}
-                                    {!! Form::button('<i class="icon-folder-close-alt"></i> Fechar Cotação', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
-                                    {{ Form::close() }}
-                                </div>
-                                @else 
-                                <div class="invoice-payment">
-                                    {{ Form::open(['route' => ['cotacoes.back.edit', $quote->id],  'method' => 'POST']) }}
-                                    {!! Form::button('<i class="icon-copy"></i> '.$quote->aprovado > 0 ? 'Clonar Cotação' : 'Editar Cotação', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
-                                    {{ Form::close() }}
-                                </div>
+                                @if($quote->parent_id <= 0)
+                                    @if(!$quote->close)
+                                    <div class="invoice-payment">
+                                        {{ Form::open(['route' => ['cotacoes.close', $quote->id],  'method' => 'POST']) }}
+                                        {!! Form::button('<i class="icon-folder-close-alt"></i> Fechar Cotação', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
+                                        {{ Form::close() }}
+                                    </div>
+                                    @else 
+                                    <div class="invoice-payment">
+                                        {{ Form::open(['route' => ['cotacoes.back.edit', $quote->id],  'method' => 'POST']) }}
+                                        {!! Form::button('<i class="icon-copy"></i> '.$quote->aprovado > 0 ? 'Clonar Cotação' : 'Editar Cotação', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
+                                        {{ Form::close() }}
+                                    </div>
+                                    @endif
                                 @endif
 
                                 @if($quote->close)
@@ -245,9 +249,11 @@ bkLib.onDomLoaded(function() {
                                                         <textarea name="observacao" id="observacao" class="input-block-level" rows="5">{{$quote->observacao}}</textarea>
                                                     </div>
                                                 </div>
+                                                @if($quote->parent_id <= 0)
                                                 <div class="form-actions">
                                                     <button type="submit" class="btn btn-primary">Salvar</button>
                                                 </div>
+                                                @endif
                                             {{ Form::close() }}
                                         </div>
                                     </div>
@@ -379,11 +385,13 @@ bkLib.onDomLoaded(function() {
     
                                     <div class="row-fluid">
                                         <div class="form-actions">
+                                        @if($quote->parent_id <= 0)
                                             {{Form::button('Salvar', [
                                                     'type' => 'submit',
                                                     'class'=> 'btn btn-primary',
                                                     'disabled' => $quote->close > 0 ? true : false
                                             ])}}
+                                            @endif
                                         </div>
                                     </div>
                                 </form>
@@ -413,11 +421,13 @@ bkLib.onDomLoaded(function() {
     
                                     <div class="row-fluid">
                                         <div class="form-actions">
+                                        @if($quote->parent_id <= 0)
                                             {{Form::button('Salvar', [
                                                     'type' => 'submit',
                                                     'class'=> 'btn btn-primary',
                                                     'disabled' => $quote->close > 0 ? true : false
                                             ])}}
+                                        @endif
                                         </div>
                                     </div>
                                 </form>
@@ -445,11 +455,13 @@ bkLib.onDomLoaded(function() {
     
                                     <div class="row-fluid">
                                         <div class="form-actions">
+                                        @if($quote->parent_id <= 0)
                                             {{Form::button('Salvar', [
                                                     'type' => 'submit',
                                                     'class'=> 'btn btn-primary',
                                                     'disabled' => $quote->close > 0 ? true : false
                                             ])}}
+                                        @endif
                                         </div>
                                     </div>
                                 </form>
@@ -477,11 +489,13 @@ bkLib.onDomLoaded(function() {
     
                                     <div class="row-fluid">
                                         <div class="form-actions">
+                                        @if($quote->parent_id <= 0)
                                             {{Form::button('Salvar', [
                                                     'type' => 'submit',
                                                     'class'=> 'btn btn-primary',
                                                     'disabled' => $quote->close > 0 ? true : false
                                             ])}}
+                                        @endif
                                         </div>
                                     </div>
                                 </form>
@@ -523,10 +537,12 @@ bkLib.onDomLoaded(function() {
     
                                     <div class="row-fluid">
                                         <div class="form-actions">
+                                        @if($quote->parent_id <= 0)
                                             {{Form::button('Salvar', [
                                                     'type' => 'submit',
                                                     'class'=> 'btn btn-primary',
                                             ])}}
+                                        @endif
                                         </div>
                                     </div>
                                 </form>
@@ -556,15 +572,20 @@ bkLib.onDomLoaded(function() {
                                             <strong>{{ $message }}</strong>
                                         </div>
                                         @endif
+
+                                        @if($quote->parent_id <= 0)
                                         
-                                        <div class="custom-file">
-                                            <input type="file" name="file" class="custom-file-input" id="chooseFile">
-                                            <label class="custom-file-label" for="chooseFile">Selecione um arquivo!</label>
-                                            <input type="hidden" name="quote_id" value="{{$quote->id}}">
-                                        </div>
-                                        <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
-                                            Subir arquivo!
-                                        </button>
+                                            <div class="custom-file">
+                                                <input type="file" name="file" class="custom-file-input" id="chooseFile">
+                                                <label class="custom-file-label" for="chooseFile">Selecione um arquivo!</label>
+                                                <input type="hidden" name="quote_id" value="{{$quote->id}}">
+                                            </div>
+                                            <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
+                                                Subir arquivo!
+                                            </button>
+
+                                        @endif
+                                        
                                     </form>
                                     
                                   <table class="table">

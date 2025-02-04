@@ -208,7 +208,7 @@ class QuoteController extends UtilController
             
 
         $quotes = Quote::whereIn('id', $quoteIds)
-        #->where('parent_id','')
+        #->where('parent_id',false)
         ->orderBy('id', 'desc')
         ->paginate(100);
         

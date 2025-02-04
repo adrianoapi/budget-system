@@ -136,7 +136,8 @@
                                 <tbody>
                                 @foreach ($quotes as $value)
                                     <tr>
-                                        <td>{{$value->Client->name}}</td>
+                                        <td>
+                                        {{$value->Client->name}}</td>
                                         <td class="hidden-1024">{{$value->numero_nf}}</td>
                                         <td>{{$value->serial}}</td>
                                         <td>
@@ -156,6 +157,14 @@
                                         <td class="hidden-1024">{{substr($value->created_at, 0, 10)}}</td>
                                         <td><strong>{{number_format($value->total_report, 2, ".", ",")}}</strong></td>
                                         <td class=''>
+                                            
+                                            @if($value->parent_id > 0)
+                                                <a href="{{route('cotacoes.edit', $value->id)}}" class="btn btn-orange" rel="tooltip" title="" data-original-title="Versionamento">
+                                                    <i class="glyphicon-history"></i> Versão
+                                                </a>
+                                                
+                                            @else
+
                                             {{ Form::open(['route' => ['cotacoes.destroy', $value->id],  'method' => 'POST', "onSubmit" => "return confirm('Deseja excluir?');", 'style' => 'margin: 0;padding:0;']) }}
                                                 @csrf
                                                 @method('delete')
@@ -182,6 +191,9 @@
                                                     <i class="icon-trash"></i>
                                                 </button>
                                                 @endif
+
+                                            @endif    
+                                            
                                                 
                                             {{ Form::close() }}
                                         </td>
